@@ -1,0 +1,7 @@
+PRODUCT(_id_, name, description, picture, price, rate, status, created_at, updated_at, #type_id, #brand_id, #category_id)
+BRAND(_id_, name, created_at, updated_at)
+CATEGORY(_id_, name, subtitle, picture, home_order, created_at, updated_at)
+
+// Je pense que ca serait bien pour une relation many to many 
+TAG(_id_, name)
+PRODUCT_TAG(_#product_id, #tag_id_)
