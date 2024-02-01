@@ -1,11 +1,12 @@
 // A mettre dans mocodo.net  
-https://www.mocodo.net/?mcd=eNpFzLsOgzAMheHdT-EH8FBWNm5qJ6hSGDpVEVhtpJAgx6ivX3pBXc_59ZWmaOs82JmhZB_DHTVSluHZdPVQ9XRosXwnCL_l09LEaRS3qIuBFjfqKkyLuJFJrDIltbomONlEuAlV0TfHzlwJ_zLs4xfckUec-RZlYgEYLo3JkWfrPEn0W2RTem4nALwAEsE7FA==
+https://www.mocodo.net/?mcd=eNpFjrsOgzAMRfd8RT7AQ1nZeKntAlUKQ6cqIhaNFBJkB_X3W0JRF8u6ss89JbrgJxkDZJm8qa4eqh5OrSxV0dZS_JLc6xnBII9kl2iDh8WOcSWEheyIQDpaPwFHHVcGduskrtyRQdpYB1Z-9-HeKLGNXOKsrQMK7kvRzO9ABrQhZBYi1e-tiXbRnN6rom_OnXqA_OuKI9zvD7NXmPEZkkNC5OIDdkdMVg==
 
-BRAND:name
 Belong to,11 PRODUCT,0N BRAND 
-PRODUCT:name,description,picture,price,rate,status
+PRODUCT:name,description,picture,price,rating,status,slug
+IsOrder,0N PRODUCT, 0N USER
+USER: email,role,password,adress
+
+BRAND:name,slug
 Has, 0N CATEGORY, 11 PRODUCT
-CATEGORY:name,picture,home_order
-
-USER: email,role,password
-
+CATEGORY:name,picture,home_order,slug
+:
