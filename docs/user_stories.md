@@ -4,28 +4,29 @@
 
 | En tant que | Je veux | Afin de (si besoin/nécessaire) |
 |--|--|--|
-| visiteur | pouvoir visualiser dès la première page le sujet du site et les catégories de produits ainsi que les nouveautés | - |
+| visiteur | pouvoir visualiser dès la première page le sujet du site, 3 catégories de produits ainsi que les nouveautés | - |
 | visiteur | pouvoir visualiser les produits par catégorie | accéder aux différents produits par catégorie |
 | visiteur | pouvoir visualiser les produits par marque | accéder aux différents produits par marque |
 | visiteur | pouvoir accéder à une description détaillée de chaque produit | - |
-| visiteur | pouvoir accéder à tout les produits produit | - |
-| visiteur | pouvoir accéder à mon panier | accéder aux produits sélectionner |
+| visiteur | pouvoir accéder à tous les produits | - |
 
 ## Panier
 
 | En tant que | Je veux | Afin de (si besoin/nécessaire) |
 |--|--|--|
+| visiteur | pouvoir accéder à mon panier | accéder aux produits sélectionner |
 | visiteur | pouvoir ajouter un produit dans mon panier | - |
-| visiteur | pouvoir visualiser le contenu détaillé de mon panier | - |
-| visiteur | pouvoir modifier les quantités de produit dans mon panier | - |
-| visiteur | pouvoir supprimer un produit de mon panier | - |
 | visiteur | pouvoir visualiser le contenu de mon panier à tout moment sur le site | - |
+| visiteur | pouvoir visualiser le contenu détaillé de mon panier | - |
+| visiteur | pouvoir supprimer un produit de mon panier | - |
+| visiteur | pouvoir vider mon panier | - |
+<!-- | visiteur | pouvoir modifier les quantités de produit dans mon panier | - | -->
 
 ## Commande
 
 | En tant que | Je veux | Afin de (si besoin/nécessaire) |
 |--|--|--|
-| visiteur | pouvoir valider ma commande | commencer la procédure de commande |
+| visiteur | pouvoir valider ma commande | commencer la procédure d'inscription |
 | client | pouvoir renseigner l'adresse de livraison de ma commande | me faire livrer la commande |
 | client | pouvoir renseigner l'adresse de facturation de ma commande | - |
 | client | pouvoir choisir la méthode de livraison | - |
