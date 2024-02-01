@@ -1,15 +1,15 @@
 
-https://www.mocodo.net/?mcd=eNptjz1uwzAMhXeeQgfgCbLZTtBkaQrVGTIZikQkAmxToKQWvX3o5m_J9kjwve-xtc3nehUDzm4i9EKuUGgK1hRuCloaeT6bwvhl9-tD16NpF5OB-_x0B8peYiqRZ0zRlyqESaInFM3CXFyp-R0DT-LmMGiO18WZ5U817PKLaLrG9nD43tiFRpOLIwqPmu9y_mUJACvomn7zsbfHZ6FHiQtPNOgRCb59cevyP-JmV3nnwkLVtCEJh-oLqqyZBHo2F_dDaJZGj3ZXYSVu-Q==
+https://www.mocodo.net/?mcd=eNp1jz1uwzAMRneeQgfgCbLZTtB0SQLVGToZikQ4AmxTIKUWvX3l5qdTtk8E9b7H1jaH7SYGXNxMqFMZ0Qu5TKHJWFK4JWhp4mU0mfFkj9tz16Np158G7u8nIpB6iSlHXjBFn4sQJomeUCoLNbtc9GURXsQtYagwXwcjy0_N8K7_taZrbA_nj51dK2l2cULhqZY41W-WgC4IqRLABrqm370d7efT7mF05ZmGukzy-ua907-6G6LGuwOsBpU4JOFQfMYai5JAz-bqvgjNavcw_QU6uneV
 
 
-BRAND:id,name,createdAt,updatedAt
+BRAND:id,name,slug,createdAt,updatedAt
 Belong to,PRODUCT, BRAND 
-PRODUCT:id,name,description,picture,price,rate,status,createdAt,updatedAt,brand_id,category_id
+PRODUCT:id,name,description,picture,price,rate,status,slug,createdAt,updatedAt,brand_id,category_id
 Is,PRODUCT,  CART
-USER:id,email,role,password
+USER:id,email,role,password,adresse
 
 :
-CATEGORY:id,name,picture,home_order,,createdAt,updatedAt
+CATEGORY:id,name,picture,home_order,slug,createdAt,updatedAt
 Has,  CATEGORY,  PRODUCT
 CART:id_product,id_user
 To have, USER,  CART
