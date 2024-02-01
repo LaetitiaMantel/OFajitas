@@ -19,3 +19,28 @@
 | `/account`             | `front_user_index`       | `GET`        | `UserController`     | `index`  |            |
 | `/account/edit/{id}`   | `front_user_edit`        | `POST`       | `UserController`     | `edit`   |            |
 | `/account/delete/{id}` | `front_user_delete`      | `POST`       | `UserController`     | `delete` |            |
+
+
+
+
+# Routes de l'application
+
+| URL                    | Déscription | Méthode HTTP |
+| ---------------------- | ----------- | ------------ |
+| `/`                    |             | `GET`        |
+| `/search`              |             | `GET`        |
+| `/categories`          |             | `GET`        |
+| `/categories/{id}`     |             | `GET`        |
+| `/brands`              |             | `GET`        |
+| `/brands/{id}`         |             | `GET`        |
+| `/products`            |             | `GET`        |
+| `/products/{id}`       |             | `GET`        |
+| `/cart`                |             | `GET`        |
+| `/cart/add/{id}`       |             | `POST`       |
+| `/cart/delete/{id}`    |             | `POST`       |
+| `/cart/empty`          |             | `GET`        |
+| `/login`               |             | `GET`        |
+| `/logout`              |             | `GET`        |
+| `/account`             |             | `GET`        |
+| `/account/edit/{id}`   |             | `POST`       |
+| `/account/delete/{id}` |             | `POST`       |

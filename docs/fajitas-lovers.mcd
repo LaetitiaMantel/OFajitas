@@ -1,0 +1,11 @@
+// A mettre dans mocodo.net  
+https://www.mocodo.net/?mcd=eNpFzLsOgzAMheHdT-EH8FBWNm5qJ6hSGDpVEVhtpJAgx6ivX3pBXc_59ZWmaOs82JmhZB_DHTVSluHZdPVQ9XRosXwnCL_l09LEaRS3qIuBFjfqKkyLuJFJrDIltbomONlEuAlV0TfHzlwJ_zLs4xfckUec-RZlYgEYLo3JkWfrPEn0W2RTem4nALwAEsE7FA==
+
+BRAND:name
+Belong to,11 PRODUCT,0N BRAND 
+PRODUCT:name,description,picture,price,rate,status
+Has, 0N CATEGORY, 11 PRODUCT
+CATEGORY:name,picture,home_order
+
+USER: email,role,password
+

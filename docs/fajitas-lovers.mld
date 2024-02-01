@@ -1,7 +1,15 @@
-PRODUCT(_id_, name, description, picture, price, rate, status, created_at, updated_at, #type_id, #brand_id, #category_id)
-BRAND(_id_, name, created_at, updated_at)
-CATEGORY(_id_, name, subtitle, picture, home_order, created_at, updated_at)
 
-// Je pense que ca serait bien pour une relation many to many 
-TAG(_id_, name)
-PRODUCT_TAG(_#product_id, #tag_id_)
+https://www.mocodo.net/?mcd=eNptjz1uwzAMhXeeQgfgCbLZTtBkaQrVGTIZikQkAmxToKQWvX3o5m_J9kjwve-xtc3nehUDzm4i9EKuUGgK1hRuCloaeT6bwvhl9-tD16NpF5OB-_x0B8peYiqRZ0zRlyqESaInFM3CXFyp-R0DT-LmMGiO18WZ5U817PKLaLrG9nD43tiFRpOLIwqPmu9y_mUJACvomn7zsbfHZ6FHiQtPNOgRCb59cevyP-JmV3nnwkLVtCEJh-oLqqyZBHo2F_dDaJZGj3ZXYSVu-Q==
+
+
+BRAND:id,name,createdAt,updatedAt
+Belong to,PRODUCT, BRAND 
+PRODUCT:id,name,description,picture,price,rate,status,createdAt,updatedAt,brand_id,category_id
+Is,PRODUCT,  CART
+USER:id,email,role,password
+
+:
+CATEGORY:id,name,picture,home_order,,createdAt,updatedAt
+Has,  CATEGORY,  PRODUCT
+CART:id_product,id_user
+To have, USER,  CART
