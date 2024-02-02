@@ -3081,6 +3081,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #a2d0d6;
   --bs-gradient: none;
   margin-right: 1em;
+  border-radius: 20px;
 }
 
 .btn-outline-light {
@@ -10837,5 +10838,9 @@ textarea.form-control-lg {
 
 .bi-person-circle {
   font-size: 2em;
+}
+
+.form-control {
+  border-radius: 20px;
 }
 
