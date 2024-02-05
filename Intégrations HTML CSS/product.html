@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>O'Fajitas</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Header-->
+    <header class="gradient py-5">
+
+        <div class="container px-4 px-lg-5">
+
+            <div class="text-center text-white">
+
+                <img src="images/fajitas2.png" alt="fajitas" srcset="">
+                <h1 class="lead fw-normal text-white-50 mb-0">Pour les Fans de Fajitas </h1>
+            </div>
+        </div>
+    </header>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="#!"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 ">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Accueil </a></li>
+                    <li class="nav-item"><a class="nav-link" href="product-list.html"> Tout les produits </a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catégories</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">Bijoux</a></li>
+                            <li><a class="dropdown-item" href="#!">Prêt à porter</a></li>
+                            <li><a class="dropdown-item" href="#!">Décoration</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Marques</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">Bijoux</a></li>
+                            <li><a class="dropdown-item" href="#!">Prêt à porter</a></li>
+                            <li><a class="dropdown-item" href="#!">Décoration</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form class="d-flex">
+                    <form class="d-flex" action="list.html">
+                        <input class="form-control form-control-sm me-2" name="search" type="search"
+                            placeholder="Rechercher...">
+                        <button class="btn btn-outline-danger" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                    <div class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle"></i> </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!"> Mes informations </a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="#!"> Mes achats </a></li>
+                            <!-- TODO si connecte ne pas afficher connexion -->
+                            <li><a class="dropdown-item" href="#!">Connexion </a></li>
+                            <li><a class="dropdown-item" href="#!">Deconnexion </a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Section-->
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5">
+            <div class="row mx-0 mb-5">
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="product-image">
+                        <a href="detail.html" class="product-hover-overlay-link">
+                            <img src="images/fajitas.png" alt="product" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="mb-3">
+                        <h3 class="h3 text-uppercase mb-1">Fajitas</h3>
+                        <div class="text-muted">by <em>BOOTstrap</em></div>
+                        <div>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        <div class="text-muted"><span class="h4">40 €</span> TTC</div>
+                    </div>
+                    <div class="product-action-buttons">
+                        <form action="cart.html" method="post">
+                            <input type="hidden" name="product_id" value="1">
+                            <button class="btn btn-dark btn-buy"><i class="fa fa-shopping-cart"></i><span
+                                    class="btn-buy-label ml-2">Ajouter au panier</span></button>
+                        </form>
+                    </div>
+                    <div class="mt-5">
+                        <p>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum, consequuntur vel libero
+                            magni tempore rerum eos ipsum assumenda, velit architecto exercitationem animi dicta quis at
+                            facilis veritatis ut accusamus ipsa sequi recusandae officia similique tenetur? Nemo,
+                            repellat at dolore nobis non reprehenderit iusto, nostrum consectetur unde ab id quo quia
+                            eu.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

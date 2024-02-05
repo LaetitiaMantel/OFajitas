@@ -37,10 +37,24 @@
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 ">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Acceuil </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!"> Tout les produits </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!"> Catégories </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!"> Marques </a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Accueil </a></li>
+                    <li class="nav-item"><a class="nav-link" href="product-list.html"> Tout les produits </a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catégories</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">Bijoux</a></li>
+                            <li><a class="dropdown-item" href="#!">Prêt à porter</a></li>
+                            <li><a class="dropdown-item" href="#!">Décoration</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Marques</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">Bijoux</a></li>
+                            <li><a class="dropdown-item" href="#!">Prêt à porter</a></li>
+                            <li><a class="dropdown-item" href="#!">Décoration</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 
                 <form class="d-flex">
@@ -81,48 +95,8 @@
 
             <div class="row mx-0 mb-5">
 
-                <div class="col-lg-4">
-                    <div class="card border-0 text-center">
-                        <img src="images/bijoux.jpeg" alt="Card image" class="card-img">
-                        <div class="card-img-overlay d-flex align-items-center">
-                            <div class="w-100">
-                                <a href="#" class="text-white text-decoration-none">
-                                    <h3 class="display-4 mb-4">Bijoux</h3>
-                                    <i class="fa-arrow-right fa ml-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card border-0 text-center">
-                        <img src="images/images.jpeg" alt="Card image" class="card-img">
-                        <div class="card-img-overlay d-flex align-items-center">
-                            <div class="w-100">
-                                <a href="#" class="text-white text-decoration-none">
-                                    <h3 class="display-4 mb-4">Déco</h3>
-                                    <i class="fa-arrow-right fa ml-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card border-0 text-center">
-                        <img src="images/t-shirt.jpg" alt="Card image" class="card-img">
-                        <div class="card-img-overlay d-flex align-items-center">
-                            <div class="w-100">
-                                <a href="#" class="text-white text-decoration-none">
-                                    <h3 class="display-4">Prêt à porter</h3>
-                                    <i class="fa-arrow-right fa ml-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-            <h2 class="h2-color">Les nouveautés</h2>
+            <h2 class="h2-color">Tous les produits</h2>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
                 <div class="col mb-5">
@@ -135,12 +109,12 @@
                                 <!-- Product name-->
                                 <h5 class="fw-bolder">Fancy Product</h5>
                                 <!-- Product price-->
-                                $40.00 - $80.00
+                                $40.00 
                             </div>
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product.html">View options</a>
                             </div>
                         </div>
                     </div>
