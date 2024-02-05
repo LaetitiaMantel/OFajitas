@@ -48,7 +48,7 @@
 | phone number       | INT (10)      | NOT NULL              | Numéro  de l'utilisateur                |
 | roles              | VARCHAR (255) | NOT NULL              | role de l'utilisateur                   |
 | password           | VARCHAR(255)  | NOT NULL              | mot de passe de l'utilisateur           |
-| postal code        | INT (5)       | NOT NULL              | code postale  de l'utilisateur          |
+| zip code        | INT (5)       | NOT NULL              | code postale  de l'utilisateur          |
 | adress             | VARCHAR (255) | NOT NULL              | adresse  de l'utilisateur               |
 | address supplement | VARCHAR (255) | NULL                  | complément d'adresse   de l'utilisateur |
 | city               | VARCHAR(45)   | NOT NULL              | nom de la ville de l'utilisateur        |
