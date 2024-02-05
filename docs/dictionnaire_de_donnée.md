@@ -45,6 +45,7 @@
 | ------------------ | ------------- | --------------------- | --------------------------------------- |
 | id                 | INT           | PRIMARY KEY, NOT NULL | identifiant de l'utilisateur            |
 | email              | VARCHAR(128)  | NOT NULL              | email de l'utilisateur                  |
+| phone number       | INT (10)      | NOT NULL              | Numéro  de l'utilisateur                |
 | roles              | VARCHAR (255) | NOT NULL              | role de l'utilisateur                   |
 | password           | VARCHAR(255)  | NOT NULL              | mot de passe de l'utilisateur           |
 | postal code        | INT (5)       | NOT NULL              | code postale  de l'utilisateur          |
@@ -54,16 +55,20 @@
 
 ## Table des commandes
 
-| Champ      | Type   | Spécificités          | Description                  |
-| ---------- | ------ | --------------------- | ---------------------------- |
-| id         | INT    | PRIMARY KEY, NOT NULL | identifiant de la commande   |
-| product_id | ENTITY | NOT NULL              | identifiant du produit       |
-| user_id    | ENTITY | NOT NULL              | identifiant de l'utilisateur |
+| Champ      | Type         | Spécificités          | Description                  |
+| ---------- | ------------ | --------------------- | ---------------------------- |
+| id         | INT          | PRIMARY KEY, NOT NULL | identifiant de la commande   |
+| product_id | ENTITY       | NOT NULL              | identifiant du produit       |
+| name       | VARCHAR(128) | NOT NULL              | Nom des produits commandés   |
+| Price      | int          | NOT NULL              | prix  des produits commandés |
+| user_id    | ENTITY       | NOT NULL              | identifiant de l'utilisateur |
 
 ## Table des paniers
 
-| Champ      | Type   | Spécificités          | Description                  |
-| ---------- | ------ | --------------------- | ---------------------------- |
-| id         | INT    | PRIMARY KEY, NOT NULL | identifiant du panier        |
-| product_id | ENTITY | NOT NULL              | identifiant du produit       |
-| user_id    | ENTITY | NOT NULL              | identifiant de l'utilisateur |
+| Champ      | Type   | Spécificités          | Description                    |
+| ---------- | ------ | --------------------- | ------------------------------ |
+| id         | INT    | PRIMARY KEY, NOT NULL | identifiant du panier          |
+| product_id | ENTITY | NOT NULL              | identifiant du produit         |
+| quantity   | int    | NOT NULL              | Quantité des produits commandé |
+| user_id    | ENTITY | NOT NULL              | identifiant de l'utilisateur   |
+
