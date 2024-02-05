@@ -30,11 +30,11 @@
 | `/`                    |             | `GET`        |
 | `/search`              |             | `GET`        |
 | `/categories`          |             | `GET`        |
-| `/categories/{id}`     |             | `GET`        |
+| `/categories/{slug}`     |             | `GET`        |
 | `/brands`              |             | `GET`        |
-| `/brands/{id}`         |             | `GET`        |
+| `/brands/{slug}`         |             | `GET`        |
 | `/products`            |             | `GET`        |
-| `/products/{id}`       |             | `GET`        |
+| `/products/{slug}`       |             | `GET`        |
 | `/cart`                |             | `GET`        |
 | `/cart/add/{id}`       |             | `POST`       |
 | `/cart/delete/{id}`    |             | `POST`       |
