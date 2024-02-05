@@ -4,12 +4,10 @@
 | ------------------------- | ------------------------ | ------------ | -------------------- | -------- | ---------- |
 | `/`                       | `front_main_home`        | `GET`        | `MainController`     | `home`   |            |
 | `/recherche`              | `front_main_search`      | `GET`        | `MainController`     | `search` |            |
-| `/categories`             | `front_categories_index` | `GET`        | `CategoryController` | `index`  |            |
-| `/categories/{slug}`      | `front_categories_show`  | `GET`        | `CategoryController` | `show`   |            |
-| `/marques`                | `front_brands_index`     | `GET`        | `BrandController`    | `index`  |            |
-| `/marques/{slug}`         | `front_brands_show`      | `GET`        | `BrandController`    | `show`   |            |
+| `/categorie/{slug}`      | `front_categories_show`  | `GET`        | `CategoryController` | `show`   |            |
+| `/marque/{slug}`         | `front_brands_show`      | `GET`        | `BrandController`    | `show`   |            |
 | `/produits`               | `front_products_index`   | `GET`        | `ProductController`  | `index`  |            |
-| `/produits/{slug}`        | `front_products_show`    | `GET`        | `ProductController`  | `show`   |            |
+| `/produit/{slug}`        | `front_products_show`    | `GET`        | `ProductController`  | `show`   |            |
 | `/panier`                 | `front_cart_index`       | `GET`        | `CartController`     | `index`  |            |
 | `/panier/ajouter{slug}`   | `front_cart_add`         | `POST`       | `CartController`     | `add`    |            |
 | `/panier/supprimer{slug}` | `front_cart_delete`      | `POST`       | `CartController`     | `delete` |            |
@@ -31,12 +29,10 @@
 | -------------------------- | ----------- | ------------ |
 | `/`                        |             | `GET`        |
 | `/recherche`               |             | `GET`        |
-| `/categories`              |             | `GET`        |
-| `/categories/{slug}`       |             | `GET`        |
-| `/marques`                 |             | `GET`        |
-| `/marques/{slug}`          |             | `GET`        |
+| `/categorie/{slug}`        |             | `GET`        |
+| `/marque/{slug}`           |             | `GET`        |
 | `/produits`                |             | `GET`        |
-| `/produits/{slug}`         |             | `GET`        |
+| `/produit/{slug}`         |             | `GET`        |
 | `/panier`                  |             | `GET`        |
 | `/panier/ajouter/{slug}`   |             | `POST`       |
 | `/panier/supprimer/{slug}` |             | `POST`       |
