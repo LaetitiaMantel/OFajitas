@@ -17,7 +17,6 @@
 | brand       | ENTITY        | NOT NULL                           | marque du produit              |
 | category    | ENTITY        | NOT NULL                           | catégorie du produit           |
 
-
 ## Table des catégories
 
 | Champ      | Type          | Spécificités                       | Description                         |
@@ -71,11 +70,10 @@
 | Champ      | Type         | Spécificités          | Description                  |
 | ---------- | ------------ | --------------------- | ---------------------------- |
 | id         | INT          | PRIMARY KEY, NOT NULL | identifiant de la commande   |
-| product_id | ENTITY       | NOT NULL              | identifiant du produit       |
+| product | ENTITY       | NOT NULL              | identifiant du produit       |
 | name       | VARCHAR(128) | NOT NULL              | Nom des produits commandés   |
 | Price      | int          | NOT NULL              | prix  des produits commandés |
 | user       | ENTITY       | NOT NULL              | identifiant de l'utilisateur |
-
 
 ## Table des paniers
 
