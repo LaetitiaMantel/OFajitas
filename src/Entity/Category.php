@@ -20,7 +20,7 @@ class Category
     private ?string $picture = null;
 
     #[ORM\Column]
-    private ?int $home_order = null;
+    private ?int $homeOrder = null;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
@@ -62,12 +62,12 @@ class Category
 
     public function getHomeOrder(): ?int
     {
-        return $this->home_order;
+        return $this->homeOrder;
     }
 
-    public function setHomeOrder(int $home_order): static
+    public function setHomeOrder(int $homeOrder): static
     {
-        $this->home_order = $home_order;
+        $this->homeOrder = $homeOrder;
 
         return $this;
     }
