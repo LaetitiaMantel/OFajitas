@@ -1,14 +1,22 @@
-https://www.mocodo.net/?mcd=eNp1jz1uwzAMRneeQgfgCbLZTtB0SQLVGToZikQ4AmxTIKUWvX3l5qdTtk8E9b7H1jaH7SYGXNxMqFMZ0Qu5TKHJWFK4JWhp4mU0mfFkj9tz16Np158G7u8nIpB6iSlHXjBFn4sQJomeUCoLNbtc9GURXsQtYagwXwcjy0_N8K7_taZrbA_nj51dK2l2cULhqZY41W-WgC4IqRLABrqm370d7efT7mF05ZmGukzy-ua907-6G6LGuwOsBpU4JOFQfMYai5JAz-bqvgjNavcw_QU6uneV
+https://www.mocodo.net/?mcd=eNp1UktuwjAQ3fsUPsCcILuQIBqpIsjAoitk7BFYTWzXH1X09J0kJOmirPw04_fxjFtRb0Vh9MUHp7NKQDBHDKACyoS6TKxyNkljI3DeDrfpfG92-xGzBRUzkRNwQQ_oK0ubTHoA98Eo_KO5wc7ZG08O-EG09bk6kepGlPuas_EgObCyR4hdvq1EyF4_JQrGkmsnI34-jrmmTAUzcW4s6mvkZ2lx0BhVMD4ZZ8EblXJAmPIGsoKYZMrxZQ64Bmn1hcQUFW4uPAizN0njqsrTdteKjzUGm0uL-Wx4dz0-x_byxWx45cDEXpoOguuIL2P8Jh5IHTBGBD6BY_a-wx5tAv5jfOU0tdS0i7uzuM_9FQMrtW7sOr-qFENGMQ7nn08xL5Q18WDUJ6y7G5kFK34BP3jGFw==
 
-
+ORDER:id_product,id_user,createdAt
+Contains,  ORDER,  LIGNORDER
+LIGNORDER:id_user, id_order, quantity, price,createdAt
+Belong to, PRODUCT,  BRAND 
 BRAND:id,name,slug,createdAt,updatedAt
-Belong to,PRODUCT, BRAND 
-PRODUCT:id,name,description,picture,price,rate,status,slug,createdAt,updatedAt,brand_id,category_id
-Is,PRODUCT,  CART
-USER:id,email,role,password,adresse
-
 :
+
+toOrder,  USER,  ORDER
+:
+isOrder,  PRODUCT, LIGNORDER
+PRODUCT:id,name,description,picture,price,rate,status,slug,createdAt,updatedAt,brand_id,category_id
+Has, CATEGORY,  PRODUCT
 CATEGORY:id,name,picture,home_order,slug,createdAt,updatedAt
-Has,  CATEGORY,  PRODUCT
-CART:id_product,id_user
-To have, USER,  CART
+
+USER:id,email,role,password,adresse, adressSupplement, zipCode, city, phoneNumber
+AddIn,  USER,  CART
+CART:id,id_product,id_user,quantity
+IsPick,PRODUCT,  CART
+:
+:

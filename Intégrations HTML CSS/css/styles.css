@@ -3116,6 +3116,8 @@ textarea.form-control-lg {
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #212529;
   --bs-gradient: none;
+  border-radius: 20px;
+  
 }
 
 .btn-link {
@@ -10839,6 +10841,13 @@ textarea.form-control-lg {
 .bi-person-circle {
   font-size: 2em;
 }
+<<<<<<< HEAD:Intégrations HTML Css/css/styles.css
+=======
+.h2-color{
+  color:rgb(165 210 206);
+}
+
+>>>>>>> 26c1c138995b6e3a5cd1b38a5e51d3492f5d446a:Intégrations HTML CSS/css/styles.css
 
 .form-control {
   border-radius: 20px;
