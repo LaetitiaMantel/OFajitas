@@ -1,12 +1,48 @@
-// A mettre dans mocodo.net  
-https://www.mocodo.net/?mcd=eNpFjrsOgzAMRfd8RT7AQ1nZeKntAlUKQ6cqIhaNFBJkB_X3W0JRF8u6ss89JbrgJxkDZJm8qa4eqh5OrSxV0dZS_JLc6xnBII9kl2iDh8WOcSWEheyIQDpaPwFHHVcGduskrtyRQdpYB1Z-9-HeKLGNXOKsrQMK7kvRzO9ABrQhZBYi1e-tiXbRnN6rom_OnXqA_OuKI9zvD7NXmPEZkkNC5OIDdkdMVg==
+// MCD avec ID et clès étrangères
+https://www.mocodo.net/?mcd=eNqNUsluwjAQvfsr_AFzKNfcQoIoUpUgA4eekLFHYDWxXS-q6NfXzgJUKlKVg58nesvMuGX1ihVKAlXyaJ2RUQRIMHp0wKVD74GO5y5a22GPOgD9VrYyEoEKFa5Agwm8A-GQB5RlIJXRgSudqIuGttkioQV926yb4UZuqJi9sr9xMqPPyHUYdK1TAh90l9gZfU52kNS2rK0P1R7oS0OXrGxqSoYjd6N5j-C7eL6TIVo5yRSEBNOOZol82E35xmwFUf7-c3b5FX8q3pwkeuGUDcposEqE6BDG7C5Zgg88RP80D5wc1_KYxEQqnI27JkxeeRpfTlCV-9W6Ze9DxMmZzMVbhNn2YnqcBvm0f5I7zkzsuerAmS7xufdfiTctHf-xdXsxGpvYn9CRUsqNHhKO08yoKlkOyoY5_fG85j2Tjd8q8QEP087vZqAX6fsBl5jfFA==
 
-Belong to,11 PRODUCT,0N BRAND 
-PRODUCT:name,description,picture,price,rating,status,slug
-IsOrder,0N PRODUCT, 0N USER
-USER: email,role,password,adress
+ORDER:id_product,id_user,createdAt
+Contains, 1N ORDER, 11 LIGNORDER
+LIGNORDER:id_user, id_order, quantity, price,createdAt
+Belong to,11 PRODUCT, 0N BRAND 
+BRAND:id,name,slug,createdAt,updatedAt
+:
 
+toOrder, 0N USER, 11 ORDER
+:
+isOrder, 0N PRODUCT,11 LIGNORDER
+PRODUCT:id,name,description,picture,price,rate,status,slug,createdAt,updatedAt,brand_id,category_id
+Has,  0N CATEGORY, 11 PRODUCT
+CATEGORY:id,name,picture,home_order,slug,createdAt,updatedAt
+
+USER:id,email,role,password,adresse, adressSupplement, zipCode, city, phoneNumber
+AddIn, 11 USER,  11 CART
+CART:id,id_product,id_user,quantity
+IsPick,0N PRODUCT, 1N CART
+:
+:
+
+
+// MCD final sans clés etrangeres 
+https://www.mocodo.net/?mcd=eNqNkU1uwyAQhfecggPMotmyc-wotVTZEXEWXVXUjBJUGyhgVe3py4-dtrvKCwaY-d7juefNgTMhHXoPtKznxdoJZ9QB6JeytZEIdFThE2gwQUykNjoIpePArqN9IsRqR5_aY5d35F6x90XokEetUyMC2eNk9DWCIE6ceN9c6gHoQ0f3vOoaSvLCtJgR_LRcCSMkmN5JdLnrcl7FihAjyv9cbrg_XtbDgpToR6dsUEaDVWNYHEIx5kSIikGExRfhRxHfl6h1NRyOPX_OsiuNbIcFu6FuZsYXk_1kBkl2Gc5CTeDMFBuF9x-xAUrS-I_I7c1o7Jb5FR2ppGx19lFySFVd8WSHD_esSetPanyDX4mkH5UbWfy-AbrTnZU=
+
+ORDER:adress, adressSupplement, zipCode, city, total
+Contains, 1N ORDER, 11 LIGNORDER
+LIGNORDER:quantity, price,
+Belong to,11 PRODUCT, 0N BRAND 
 BRAND:name,slug
-Has, 0N CATEGORY, 11 PRODUCT
+:
+
+toOrder, 0N USER, 11 ORDER
+:
+isOrder, 0N PRODUCT,11 LIGNORDER
+PRODUCT:name,description,picture,price,rate,status,slug
+Has,  0N CATEGORY, 11 PRODUCT
 CATEGORY:name,picture,home_order,slug
+
+USER:email,role,password,adresse, adressSupplement, zipCode, city, phoneNumber
+AddIn, 11 USER,  11 CART
+CART:quantity
+IsPick,0N PRODUCT, 1N CART
+:
 :

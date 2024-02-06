@@ -26,7 +26,7 @@
 
 | En tant que | Je veux | Afin de (si besoin/nécessaire) |
 |--|--|--|
-| visiteur | pouvoir valider ma commande | commencer la procédure d'inscription |
+| visiteur | pouvoir valider mon panier  | |
 | client | pouvoir renseigner l'adresse de livraison de ma commande | me faire livrer la commande |
 | client | pouvoir renseigner l'adresse de facturation de ma commande | - |
 | client | pouvoir choisir la méthode de livraison | - |
