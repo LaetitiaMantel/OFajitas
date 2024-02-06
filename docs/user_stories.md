@@ -26,7 +26,11 @@
 
 | En tant que | Je veux | Afin de (si besoin/nécessaire) |
 |--|--|--|
+<<<<<<< HEAD
+| visiteur | pouvoir valider ma commande | |
+=======
 | visiteur | pouvoir valider mon panier  | |
+>>>>>>> 26c1c138995b6e3a5cd1b38a5e51d3492f5d446a
 | client | pouvoir renseigner l'adresse de livraison de ma commande | me faire livrer la commande |
 | client | pouvoir renseigner l'adresse de facturation de ma commande | - |
 | client | pouvoir choisir la méthode de livraison | - |
