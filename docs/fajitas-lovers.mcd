@@ -1,9 +1,9 @@
-// MCD avec ID et clès étrangères
-https://www.mocodo.net/?mcd=eNqNUsluwjAQvfsr_AFzKNfcQoIoUpUgA4eekLFHYDWxXS-q6NfXzgJUKlKVg58nesvMuGX1ihVKAlXyaJ2RUQRIMHp0wKVD74GO5y5a22GPOgD9VrYyEoEKFa5Agwm8A-GQB5RlIJXRgSudqIuGttkioQV926yb4UZuqJi9sr9xMqPPyHUYdK1TAh90l9gZfU52kNS2rK0P1R7oS0OXrGxqSoYjd6N5j-C7eL6TIVo5yRSEBNOOZol82E35xmwFUf7-c3b5FX8q3pwkeuGUDcposEqE6BDG7C5Zgg88RP80D5wc1_KYxEQqnI27JkxeeRpfTlCV-9W6Ze9DxMmZzMVbhNn2YnqcBvm0f5I7zkzsuerAmS7xufdfiTctHf-xdXsxGpvYn9CRUsqNHhKO08yoKlkOyoY5_fG85j2Tjd8q8QEP087vZqAX6fsBl5jfFA==
+https://www.mocodo.net/?mcd=eNp1UsluwjAQvfsr_AFzKNfcQkAUqUpQgENPyNgjajWxXS-q6Nd3nAVoJZRDnsd6y8y4aVfrttAKtDo5b1WSMcMU0IP0KCKqMrLKmii0CcAXNW8yhdCCv2039XBiN_RPihO2XpEY_0rCRB2vwJ3XEh_Ul9hZc-HRAmnu2mZ1rA7AX2q-bMt6xdnwy8JG9AihS5c7GZJTk0zBWLTNaEbk435KOSYsmA73y9nlTxNT8eakMEivXdTWgNMyJo8wZvdkCSGKmMLTPHD2wqgTiUkqXKy_EmavgoaYE1TlYb1p2vch4uTM5uItwmz7YXucBvm0f5Y7zkzshe7A2474IoRv4oFQHkNA4CPYJ-c67NHQin60q6yiKzlu58MarFN_Rs9KpbZmSDhOM6OqbHPQ9vDk1cx7Ztuw0_ITHqadX89AL-j7BcYfz_c=
 
-ORDER:id_product,id_user,createdAt
+
+ORDER:id,id_product,id_user,createdAt
 Contains, 1N ORDER, 11 LIGNORDER
-LIGNORDER:id_user, id_order, quantity, price,createdAt
+LIGNORDER:id,id_product, id_order, quantity, price,createdAt
 Belong to,11 PRODUCT, 0N BRAND 
 BRAND:id,name,slug,createdAt,updatedAt
 :
@@ -21,6 +21,7 @@ CART:id,id_product,id_user,quantity
 IsPick,0N PRODUCT, 1N CART
 :
 :
+
 
 
 // MCD final sans clés etrangeres 

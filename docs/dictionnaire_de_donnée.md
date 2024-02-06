@@ -17,6 +17,7 @@
 | brand       | ENTITY        | NOT NULL                           | marque du produit              |
 | category    | ENTITY        | NOT NULL                           | catégorie du produit           |
 
+
 ## Table des catégories
 
 | Champ      | Type          | Spécificités                       | Description                         |
@@ -53,7 +54,19 @@
 | address supplement | VARCHAR (255) | NULL                  | complément d'adresse   de l'utilisateur |
 | city               | VARCHAR(45)   | NOT NULL              | nom de la ville de l'utilisateur        |
 
+## Table sauvegarde commandes
+
+| Champ      | Type         | Spécificités                       | Description                   |
+| ---------- | ------------ | ---------------------------------- | ----------------------------- |
+| id         | INT          | PRIMARY KEY, NOT NULL              | identifiant de la commande    |
+| name       | VARCHAR(128) | NOT NULL                           | Nom des produits commandés    |
+| Price      | int          | NOT NULL                           | prix  des produits commandés  |
+| order_id    | ENTITY       | NOT NULL                           | identifiant de l'utilisateur  |
+| product_id | ENTITY       | NOT NULL                           | identifiant du produit        |
+| createdAt  | DATETIME     | NOT NULL, DEFAULT CURRENT_DATETIME | date de création de la marque |
+
 ## Table des commandes
+
 
 | Champ      | Type         | Spécificités          | Description                  |
 | ---------- | ------------ | --------------------- | ---------------------------- |
@@ -63,6 +76,7 @@
 | Price      | int          | NOT NULL              | prix  des produits commandés |
 | user       | ENTITY       | NOT NULL              | identifiant de l'utilisateur |
 
+
 ## Table des paniers
 
 | Champ      | Type   | Spécificités          | Description                    |
@@ -71,3 +85,4 @@
 | product| ENTITY | NOT NULL              | identifiant du produit         |
 | quantity   | int    | NOT NULL              | Quantité des produits commandé |
 | user       | ENTITY | NOT NULL              | identifiant de l'utilisateur   |
+
