@@ -25,6 +25,27 @@
 
 # Routes de l'application
 
+<<<<<<< HEAD
+| URL                    | Déscription | Méthode HTTP |
+| ---------------------- | ----------- | ------------ |
+| `/`                    |             | `GET`        |
+| `/search`              |             | `GET`        |
+| `/categories`          |             | `GET`        |
+| `/categories/{slug}`     |             | `GET`        |
+| `/brands`              |             | `GET`        |
+| `/brands/{slug}`         |             | `GET`        |
+| `/products`            |             | `GET`        |
+| `/products/{slug}`       |             | `GET`        |
+| `/cart`                |             | `GET`        |
+| `/cart/add/{id}`       |             | `POST`       |
+| `/cart/delete/{id}`    |             | `POST`       |
+| `/cart/empty`          |             | `GET`        |
+| `/login`               |             | `GET`        |
+| `/logout`              |             | `GET`        |
+| `/account`             |             | `GET`        |
+| `/account/edit/{id}`   |             | `POST`       |
+| `/account/delete/{id}` |             | `POST`       |
+=======
 | URL                        | Déscription | Méthode HTTP |
 | -------------------------- | ----------- | ------------ |
 | `/`                        |             | `GET`        |
@@ -44,3 +65,4 @@
 | `/account/edit`            |             | `GET`        |
 | `/account/edit`            |             | `POST`       |
 | `/account/delete`          |             | `POST`       |
+>>>>>>> 26c1c138995b6e3a5cd1b38a5e51d3492f5d446a
