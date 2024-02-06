@@ -41,19 +41,31 @@
 
 ## Table des clients
 
-| Champ        | Type          | Spécificités          | Description                   |
-| ------------ | ------------- | --------------------- | ----------------------------- |
-| id           | INT           | PRIMARY KEY, NOT NULL | identifiant de l'utilisateur  |
-| email        | VARCHAR(128)  | NOT NULL              | email de l'utilisateur        |
-| phone number | INT (10)      | NOT NULL              | Numéro  de l'utilisateur      |
-| roles        | VARCHAR (255) | NOT NULL              | role de l'utilisateur         |
-| password     | VARCHAR(255)  | NOT NULL              | mot de passe de l'utilisateur |
+| Champ              | Type          | Spécificités          | Description                             |
+| ------------------ | ------------- | --------------------- | --------------------------------------- |
+| id                 | INT           | PRIMARY KEY, NOT NULL | identifiant de l'utilisateur            |
+| email              | VARCHAR(128)  | NOT NULL              | email de l'utilisateur                  |
+| phone number       | INT (10)      | NOT NULL              | Numéro  de l'utilisateur                |
+| roles              | VARCHAR (255) | NOT NULL              | role de l'utilisateur                   |
+| password           | VARCHAR(255)  | NOT NULL              | mot de passe de l'utilisateur           |
 | zip code           | INT (5)       | NOT NULL              | code postale  de l'utilisateur          |
 | adress             | VARCHAR (255) | NOT NULL              | adresse  de l'utilisateur               |
 | address supplement | VARCHAR (255) | NULL                  | complément d'adresse   de l'utilisateur |
 | city               | VARCHAR(45)   | NOT NULL              | nom de la ville de l'utilisateur        |
 
+## Table sauvegarde commandes
+
+| Champ      | Type         | Spécificités                       | Description                   |
+| ---------- | ------------ | ---------------------------------- | ----------------------------- |
+| id         | INT          | PRIMARY KEY, NOT NULL              | identifiant de la commande    |
+| name       | VARCHAR(128) | NOT NULL                           | Nom des produits commandés    |
+| Price      | int          | NOT NULL                           | prix  des produits commandés  |
+| order_id    | ENTITY       | NOT NULL                           | identifiant de l'utilisateur  |
+| product_id | ENTITY       | NOT NULL                           | identifiant du produit        |
+| createdAt  | DATETIME     | NOT NULL, DEFAULT CURRENT_DATETIME | date de création de la marque |
+
 ## Table des commandes
+
 
 | Champ      | Type         | Spécificités          | Description                  |
 | ---------- | ------------ | --------------------- | ---------------------------- |
@@ -68,7 +80,7 @@
 | Champ      | Type   | Spécificités          | Description                    |
 | ---------- | ------ | --------------------- | ------------------------------ |
 | id         | INT    | PRIMARY KEY, NOT NULL | identifiant du panier          |
-| product | ENTITY | NOT NULL              | identifiant du produit         |
-| quantity   | int    | NOT NULL              | Quantité des produits commandés |
+| product| ENTITY | NOT NULL              | identifiant du produit         |
+| quantity   | int    | NOT NULL              | Quantité des produits commandé |
 | user       | ENTITY | NOT NULL              | identifiant de l'utilisateur   |
 
