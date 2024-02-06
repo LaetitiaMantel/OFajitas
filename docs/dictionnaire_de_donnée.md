@@ -44,7 +44,7 @@
 | createdAt | DATETIME      | NOT NULL, DEFAULT CURRENT_DATETIME | date de création de la marque    |
 | updatedAt | DATETIME      | NOT NULL, DEFAULT CURRENT_DATETIME | date de mise a jour de la marque |
 
-## Table des utilisateurs
+## Table des clients
 
 | Champ              | Type          | Spécificités          | Description                             |
 | ------------------ | ------------- | --------------------- | --------------------------------------- |
