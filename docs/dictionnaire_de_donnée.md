@@ -14,13 +14,8 @@
 | slug        | VARCHAR(255)  | NOT NULL                           | slug du produit                |
 | createdAt   | DATETIME      | NOT NULL, DEFAULT CURRENT_DATETIME | date de création du produit    |
 | updatedAt   | DATETIME      | NOT NULL, DEFAULT CURRENT_DATETIME | date de mise a jour du produit |
-<<<<<<< HEAD
 | brand_id    | ENTITY        | NOT NULL                           | marque du produit              |
 | category_id | ENTITY        | NOT NULL                           | catégorie du produit           |
-=======
-| brand       | ENTITY        | NOT NULL                           | marque du produit              |
-| category    | ENTITY        | NOT NULL                           | catégorie du produit           |
->>>>>>> 26c1c138995b6e3a5cd1b38a5e51d3492f5d446a
 
 ## Table des catégories
 
@@ -53,28 +48,30 @@
 | phone number       | INT (10)      | NOT NULL              | Numéro  de l'utilisateur                |
 | roles              | VARCHAR (255) | NOT NULL              | role de l'utilisateur                   |
 | password           | VARCHAR(255)  | NOT NULL              | mot de passe de l'utilisateur           |
-<<<<<<< HEAD
 | postal code        | INT (5)       | NOT NULL              | code postale  de l'utilisateur          |
-=======
-| zip code           | INT (5)       | NOT NULL              | code postale  de l'utilisateur          |
->>>>>>> 26c1c138995b6e3a5cd1b38a5e51d3492f5d446a
 | adress             | VARCHAR (255) | NOT NULL              | adresse  de l'utilisateur               |
 | address supplement | VARCHAR (255) | NULL                  | complément d'adresse   de l'utilisateur |
 | city               | VARCHAR(45)   | NOT NULL              | nom de la ville de l'utilisateur        |
 
+## Table sauvegarde commandes
+
+| Champ      | Type         | Spécificités                       | Description                   |
+| ---------- | ------------ | ---------------------------------- | ----------------------------- |
+| id         | INT          | PRIMARY KEY, NOT NULL              | identifiant de la commande    |
+| name       | VARCHAR(128) | NOT NULL                           | Nom des produits commandés    |
+| Price      | int          | NOT NULL                           | prix  des produits commandés  |
+| order_id    | ENTITY       | NOT NULL                           | identifiant de l'utilisateur  |
+| product_id | ENTITY       | NOT NULL                           | identifiant du produit        |
+| createdAt  | DATETIME     | NOT NULL, DEFAULT CURRENT_DATETIME | date de création de la marque |
+
 ## Table des commandes
 
-| Champ      | Type         | Spécificités          | Description                  |
-| ---------- | ------------ | --------------------- | ---------------------------- |
-| id         | INT          | PRIMARY KEY, NOT NULL | identifiant de la commande   |
-| product_id | ENTITY       | NOT NULL              | identifiant du produit       |
-| name       | VARCHAR(128) | NOT NULL              | Nom des produits commandés   |
-| Price      | int          | NOT NULL              | prix  des produits commandés |
-<<<<<<< HEAD
-| user_id    | ENTITY       | NOT NULL              | identifiant de l'utilisateur |
-=======
-| user       | ENTITY       | NOT NULL              | identifiant de l'utilisateur |
->>>>>>> 26c1c138995b6e3a5cd1b38a5e51d3492f5d446a
+| Champ      | Type     | Spécificités                       | Description                   |
+| ---------- | -------- | ---------------------------------- | ----------------------------- |
+| id         | INT      | PRIMARY KEY, NOT NULL              | identifiant de la commande    |
+| product_id | ENTITY   | NOT NULL                           | identifiant du produit        |
+| user_id    | ENTITY   | NOT NULL                           | identifiant de l'utilisateur  |
+| createdAt  | DATETIME | NOT NULL, DEFAULT CURRENT_DATETIME | date de création de la marque |
 
 ## Table des paniers
 
@@ -82,10 +79,6 @@
 | ---------- | ------ | --------------------- | ------------------------------ |
 | id         | INT    | PRIMARY KEY, NOT NULL | identifiant du panier          |
 | product_id | ENTITY | NOT NULL              | identifiant du produit         |
-| quantity   | int    | NOT NULL              | Quantité des produits commandé |
-<<<<<<< HEAD
 | user_id    | ENTITY | NOT NULL              | identifiant de l'utilisateur   |
+| quantity   | int    | NOT NULL              | Quantité des produits commandé |
 
-=======
-| user       | ENTITY | NOT NULL              | identifiant de l'utilisateur   |
->>>>>>> 26c1c138995b6e3a5cd1b38a5e51d3492f5d446a
