@@ -58,22 +58,25 @@
 | Champ      | Type         | Spécificités                       | Description                   |
 | ---------- | ------------ | ---------------------------------- | ----------------------------- |
 | id         | INT          | PRIMARY KEY, NOT NULL              | identifiant de la commande    |
-| name       | VARCHAR(128) | NOT NULL                           | Nom des produits commandés    |
 | Price      | int          | NOT NULL                           | prix  des produits commandés  |
+| Quantity  | int     | NOT NULL, DEFAULT CURRENT_DATETIME | Quantité commandé  |
 | order_id    | ENTITY       | NOT NULL                           | identifiant de l'utilisateur  |
 | product_id | ENTITY       | NOT NULL                           | identifiant du produit        |
 | createdAt  | DATETIME     | NOT NULL, DEFAULT CURRENT_DATETIME | date de création de la marque |
 
 ## Table des commandes
 
-
 | Champ      | Type         | Spécificités          | Description                  |
 | ---------- | ------------ | --------------------- | ---------------------------- |
 | id         | INT          | PRIMARY KEY, NOT NULL | identifiant de la commande   |
-| product | ENTITY       | NOT NULL              | identifiant du produit       |
 | name       | VARCHAR(128) | NOT NULL              | Nom des produits commandés   |
 | Price      | int          | NOT NULL              | prix  des produits commandés |
+| Delivery zip code           | INT (5)       | NOT NULL     | code postale  de livraison   |
+| Delivery adress             | VARCHAR (255) | NOT NULL     | adresse  de livraison        |
+| Delivery address supplement | VARCHAR (255) | NULL         | complément d'adresse de livraison |
+| Delivery city               | VARCHAR(45)   | NOT NULL     | nom de la ville de livraison|
 | user       | ENTITY       | NOT NULL              | identifiant de l'utilisateur |
+| product | ENTITY       | NOT NULL              | identifiant du produit       |
 
 ## Table des paniers
 
@@ -83,4 +86,3 @@
 | product| ENTITY | NOT NULL              | identifiant du produit         |
 | quantity   | int    | NOT NULL              | Quantité des produits commandé |
 | user       | ENTITY | NOT NULL              | identifiant de l'utilisateur   |
-
