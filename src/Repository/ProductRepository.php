@@ -20,6 +20,19 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
+    
+    // Pour trouver les produits selon les marques : 
+
+    public function findByBrand($slug)
+{
+    return $this->createQueryBuilder('p')
+        ->join('p.brand', 'b')
+        ->andWhere('b.slug = :slug')
+        ->setParameter('slug', $slug)
+        ->getQuery()
+        ->getResult();
+}
+
 
 //    /**
 //     * @return Product[] Returns an array of Product objects
