@@ -21,6 +21,7 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
     
+
     // Pour trouver les produits selon les marques : 
 
     public function findByBrand($slug)
