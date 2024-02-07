@@ -19,6 +19,9 @@ class AppFixtures extends Fixture
     // tableau des marques
     private $brands = [];
 
+    // tableau du home order
+    private $homeOrder = [1, 2, 3, 4, 5];
+
     public function load(ObjectManager $manager): void
     {
        
@@ -40,9 +43,12 @@ class AppFixtures extends Fixture
         //création de 5 catégories
         for ($i = 0; $i<6; $i++){
             $category = new Category;
-            $category->setName($faker->productBrand());
+            $category->setName($faker->productCategory());
             $category->setSlug($faker->word());
-            $category->setHomeOrder(random_int(0,3));
+            // tableau du home order
+            $homeOrder = [1, 2, 3, 4, 5];
+            shuffle($homeOrder);
+            $category->setHomeOrder($homeOrder[1]);
             $category->setPicture($faker->imageUrl(360, 360, 'category'));
             $category->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
             $category->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
