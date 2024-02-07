@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
   class BrandController extends AbstractController
 {
-    #[Route('/brand/{slug}', name: 'brand_products')]
+    #[Route('/brand/{slug}', name: 'front_brand_show')]
     public function brandProducts(string $slug, ProductRepository $productRepository, BrandRepository $brandRepository): Response
     {
         // récupère les produits par Marques 
