@@ -8,10 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/produit', name: 'front_product_')]
 class ProductController extends AbstractController
 {
     // route pour afficher tous les produits
-    #[Route('/product', name: 'front_product_index')]
+    #[Route('/', name: 'index')]
     public function index(ProductRepository $productRepository, BrandRepository $brandRepository): Response
     {
         $products = $productRepository->findAll();
@@ -22,7 +23,7 @@ class ProductController extends AbstractController
     }
 
     // route pour afficher les details d'un produits
-    #[Route('/product/{slug}', name: 'front_product_show')]
+    #[Route('/{slug}', name: 'show')]
     public function show(string $slug, ProductRepository $productRepository): Response
     {
         $product = $productRepository->findOneBy(['slug' => $slug]);
