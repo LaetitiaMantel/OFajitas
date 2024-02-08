@@ -34,6 +34,18 @@ class ProductRepository extends ServiceEntityRepository
         ->getResult();
 }
 
+  // Pour trouver les produits selon les categories : 
+
+  public function findByCategory($slug)
+  {
+      return $this->createQueryBuilder('p')
+          ->join('p.category', 'b')
+          ->andWhere('b.slug = :slug')
+          ->setParameter('slug', $slug)
+          ->getQuery()
+          ->getResult();
+  }
+
 
 //    /**
 //     * @return Product[] Returns an array of Product objects
