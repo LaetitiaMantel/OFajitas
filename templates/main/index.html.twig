@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!
+{% block title %}O'fajitas!
 {% endblock %}
 
 {% block body %}
@@ -71,13 +71,13 @@
                                     {#  affiche le prix /100 #}
 									{% set price = product.getPrice()/100 %}
                                     {#  affiche le prix réel #}
-									{{ price }}
+									{{ price }} Euro
 								</div>
 							</div>
 							<!-- Product actions-->
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
-									<a class="btn btn-outline-dark mt-auto" href="product.html">View options</a>
+									<a class="btn btn-outline-dark mt-auto" href="product.html">Voir produit</a>
 								</div>
 							</div>
 						</div>

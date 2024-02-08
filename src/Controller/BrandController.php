@@ -9,19 +9,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-  class BrandController extends AbstractController
+class BrandController extends AbstractController
 {
-    #[Route('/brand/{slug}', name: 'brand_products')]
+    #[Route('/brand/{slug}', name: 'front_brand_show')]
     public function brandProducts(string $slug, ProductRepository $productRepository, BrandRepository $brandRepository): Response
     {
+        // Récupère la marque correspondant au slug
+        $selectedBrand = $brandRepository->findOneBy(['slug' => $slug]);
+
+        // Récupère les produits par marque
         $products = $productRepository->findByBrand($slug);
 
         return $this->render('brand/index.html.twig', [
             'controller_name' => 'BrandController',
-            'brand' => $slug,
+            'selectedBrand' => $selectedBrand,
             'products' => $products,
         ]);
     }
 }
+
 
 
