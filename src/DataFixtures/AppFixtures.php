@@ -68,7 +68,8 @@ class AppFixtures extends Fixture
             $product->setPrice($faker->numberBetween(1000, 10000));
             $product->setRating($faker->randomFloat(1, 0, 5));
             $product->setStatus($faker->boolean());
-            $product->setSlug($this->slugger->slug($category->getName())->lower());
+            $product->setSlug($this->slugger->slug($product->getName())->lower());
+
             $product->setBrand($faker->randomElement($this->brands));
             $product->setCategory($faker->randomElement($this->categories));
             $product->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
