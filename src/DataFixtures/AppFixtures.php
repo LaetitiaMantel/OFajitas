@@ -9,10 +9,13 @@ use App\Entity\Product;
 use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
+
+    public function __construct(private SluggerInterface $slugger) {
+    }
     // tableau des catégories 
     private $categories = [];
 
@@ -30,10 +33,10 @@ class AppFixtures extends Fixture
         $faker->addProvider(new OfajitasProvider);
 
         // création de 6 marques
-        for ($i = 0; $i<7; $i++){
+        for ($i = 0; $i<6; $i++){
             $brand = new Brand;
-            $brand->setName($faker->productBrand());
-            $brand->setSlug($faker->word());
+            $brand->setName($faker->unique()->productBrand());
+            $brand->setSlug($this->slugger->slug($brand->getName())->lower());
             $brand->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
             $brand->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
             $manager->persist($brand);
@@ -41,10 +44,10 @@ class AppFixtures extends Fixture
         }
 
         //création de 5 catégories
-        for ($i = 0; $i<6; $i++){
+        for ($i = 0; $i<5; $i++){
             $category = new Category;
-            $category->setName($faker->productCategory());
-            $category->setSlug($faker->word());
+            $category->setName($faker->unique()->productCategory());
+            $category->setSlug($this->slugger->slug($category->getName())->lower());
             // tableau du home order
             $homeOrder = [1, 2, 3, 4, 5];
             shuffle($homeOrder);
