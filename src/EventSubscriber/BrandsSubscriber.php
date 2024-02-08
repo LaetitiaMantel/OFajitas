@@ -15,7 +15,10 @@ class BrandsSubscriber implements EventSubscriberInterface
     {
         $this->brandRepository = $brandRepository;
     }
-
+    // La méthode `onKernelController` est appelée à chaque fois qu'un contrôleur est sur le point d'être appelé
+    // on récupérons toutes les catégories à partir du repository des marques (`findAll()`) 
+    // et nous les ajoutons aux attributs de la requête (`_brands`). 
+    // Cela les rend disponibles dans les templates Twig associés à cette requête.
     public function onKernelController(ControllerEvent $event)
     {
         $brands = $this->brandRepository->findAll();

@@ -1,31 +1,31 @@
 # Routes de l'application
 
-| URL                       | Nom                     | Méthode HTTP | Contrôleur           | Méthode  | Titre HTML |
-| ------------------------- | ----------------------- | ------------ | -------------------- | -------- | ---------- |
-| `/`                       | `front_main_home`       | `GET`        | `MainController`     | `home`   |            |
-| `/recherche`              | `front_main_search`     | `GET`        | `MainController`     | `search` |            |
+| URL                       | Nom                    | Méthode HTTP | Contrôleur           | Méthode  | Titre HTML |
+| ------------------------- | ---------------------- | ------------ | -------------------- | -------- | ---------- |
+| `/`                       | `front_main_home`      | `GET`        | `MainController`     | `home`   |            |
+| `/recherche`              | `front_main_search`    | `GET`        | `MainController`     | `search` |            |
 | `/categorie/{slug}`       | `front_category_show` | `GET`        | `CategoryController` | `show`   |            |
-| `/marque/{slug}`          | `front_brand_show`     | `GET`        | `BrandController`    | `show`   |            |
-| `/produits`               | `front_products_index`  | `GET`        | `ProductController`  | `index`  |            |
-| `/produit/{slug}`         | `front_product_show`   | `GET`        | `ProductController`  | `show`   |            |
-| `/panier`                 | `front_cart_index`      | `GET`        | `CartController`     | `index`  |            |
-| `/panier/ajouter{slug}`   | `front_cart_add`        | `POST`       | `CartController`     | `add`    |            |
-| `/panier/supprimer{slug}` | `front_cart_delete`     | `POST`       | `CartController`     | `delete` |            |
-| `panier/vider`            | `front_cart_empty`      | `GET`        | `CartController`     | `empty`  |            |
-| `/login`                  | `app_login`             | `GET`        | `SecurityController` | `login`  |            |
-| `/logout`                 | `app_logout`            | `GET`        | `SecurityController` | `logout` |            |
-| `/account`                | `front_user_index`      | `GET`        | `UserController`     | `index`  |            |
-| `/account`                | `front_user_index`      | `POST`       | `UserController`     | `index`  |            |
-| `/account/edit`           | `front_user_edit`       | `GET`        | `UserController`     | `edit`   |            |
-| `/account/edit`           | `front_user_edit`       | `POST`       | `UserController`     | `edit`   |            |
-| `/account/delete`         | `front_user_delete`     | `POST`       | `UserController`     | `delete` |            |
+| `/marque/{slug}`          | `front_brands_show`    | `GET`        | `BrandController`    | `show`   |            |
+| `/produits`               | `front_products_index` | `GET`        | `ProductController`  | `index`  |            |
+| `/produit/{slug}`         | `front_products_show`  | `GET`        | `ProductController`  | `show`   |            |
+| `/panier`                 | `front_cart_index`     | `GET`        | `CartController`     | `index`  |            |
+| `/panier/ajouter{slug}`   | `front_cart_add`       | `POST`       | `CartController`     | `add`    |            |
+| `/panier/supprimer{slug}` | `front_cart_delete`    | `POST`       | `CartController`     | `delete` |            |
+| `panier/vider`            | `front_cart_empty`     | `GET`        | `CartController`     | `empty`  |            |
+| `/login`                  | `app_login`            | `GET`        | `SecurityController` | `login`  |            |
+| `/logout`                 | `app_logout`           | `GET`        | `SecurityController` | `logout` |            |
+| `/account`                | `front_user_index`     | `GET`        | `UserController`     | `index`  |            |
+| `/account`                | `front_user_index`     | `POST`       | `UserController`     | `index`  |            |
+| `/account/edit`           | `front_user_edit`      | `GET`        | `UserController`     | `edit`   |            |
+| `/account/edit`           | `front_user_edit`      | `POST`       | `UserController`     | `edit`   |            |
+| `/account/delete`         | `front_user_delete`    | `POST`       | `UserController`     | `delete` |            |
+
 
 
 
 
 # Routes de l'application
 
-<<<<<<< HEAD
 | URL                    | Déscription | Méthode HTTP |
 | ---------------------- | ----------- | ------------ |
 | `/`                    |             | `GET`        |
@@ -45,7 +45,7 @@
 | `/account`             |             | `GET`        |
 | `/account/edit/{id}`   |             | `POST`       |
 | `/account/delete/{id}` |             | `POST`       |
-=======
+
 | URL                        | Déscription | Méthode HTTP |
 | -------------------------- | ----------- | ------------ |
 | `/`                        |             | `GET`        |
@@ -65,4 +65,4 @@
 | `/account/edit`            |             | `GET`        |
 | `/account/edit`            |             | `POST`       |
 | `/account/delete`          |             | `POST`       |
->>>>>>> 26c1c138995b6e3a5cd1b38a5e51d3492f5d446a
+
