@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-#[Route('/', name: 'front_main_')]
+
 class MainController extends AbstractController
 {   
 
-    #[Route('/', name: 'home')]
+    #[Route('/', name: 'front_main_home')]
     public function index(ProductRepository $productRepository,CategoryRepository $categoryRepository): Response
     {
         // récupère les 12 derniers derniers produits de la bdd
@@ -27,8 +27,8 @@ class MainController extends AbstractController
     }
 
         // route pour la barre de recherche
-        #[Route('/search', name: 'search')]
-        public function research(Request $request, ProductRepository $productRepository)
+        #[Route('/search', name: 'front_main_search')]
+        public function research(Request $request, ProductRepository $productRepository) 
         {
             $search = $request->query->get('search');
             if ($search){
@@ -36,7 +36,6 @@ class MainController extends AbstractController
             }
             return $this->render('search.html.twig', [
                 'products' => $products,
-                'search' => $search,
             ]);
         }
 }
