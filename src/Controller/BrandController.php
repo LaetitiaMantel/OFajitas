@@ -15,14 +15,14 @@ class BrandController extends AbstractController
     public function brandProducts(string $slug, ProductRepository $productRepository, BrandRepository $brandRepository): Response
     {
         // Récupère la marque correspondant au slug
-        $selectedBrand = $brandRepository->findOneBy(['slug' => $slug]);
+        $brand = $brandRepository->findOneBy(['slug' => $slug]);
 
         // Récupère les produits par marque
         $products = $productRepository->findByBrand($slug);
 
         return $this->render('brand/index.html.twig', [
             'controller_name' => 'BrandController',
-            'selectedBrand' => $selectedBrand,
+            'brand' => $brand,
             'products' => $products,
         ]);
     }
