@@ -14,12 +14,15 @@ class CategoryController extends AbstractController
     #[Route('/categorie/{slug}', name: 'front_categories_show')]
     public function ProductsCategory(string $slug, CategoryRepository $categoryRepository, ProductRepository $productRepository): Response
     {
+        // Récupère la marque correspondant au slug
+        $category = $categoryRepository->findOneBy(['slug' => $slug]);
+
         $products = $productRepository->findByCategory($slug);
 
         return $this->render('category/index.html.twig', [
             'controller_name' => 'CategoryController',
             'products' => $products,
-            'categorie' => $slug,
+            'category' => $category,
     ]);
     }
 }
