@@ -15,13 +15,17 @@ use Symfony\Component\Routing\Annotation\Route;
     public function brandProducts(string $slug, ProductRepository $productRepository, BrandRepository $brandRepository): Response
     {
         // récupère les produits par Marques 
+        $brands  = $brandRepository->findAll();
         $products = $productRepository->findByBrand($slug);
+        
 
         
         return $this->render('brand/index.html.twig', [
             'controller_name' => 'BrandController',
             'brand' => $slug,
+            'brands' => $brands, 
             'products' => $products,
+
         ]);
     }
 }
