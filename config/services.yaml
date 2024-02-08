@@ -26,3 +26,7 @@ services:
     App\EventSubscriber\CategoriesSubscriber:
         tags:
             - { name: kernel.event_subscriber }
+            
+    App\EventSubscriber\BrandsSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
