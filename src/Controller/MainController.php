@@ -18,6 +18,7 @@ class MainController extends AbstractController
     {
         // récupère les 12 derniers derniers produits de la bdd
         $newProducts = $productRepository->findBy([], ['createdAt' => 'DESC'], 8);
+        // récupère 3 catégories par ordre croissant choisit par le back office
         $categoriesByOrder = $categoryRepository->findBy([],['homeOrder' =>'ASC'], 3);
       
         return $this->render('main/index.html.twig', [

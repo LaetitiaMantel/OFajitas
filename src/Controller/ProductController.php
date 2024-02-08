@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/produit', name: 'front_product_')]
 class ProductController extends AbstractController
 {
     // route pour afficher tous les produits
@@ -24,10 +25,10 @@ class ProductController extends AbstractController
     }
 
 
-
-
     // route pour afficher les details d'un produit
     #[Route('/product/{slug}', name: 'front_product_show')]
+
+
     public function show(string $slug, ProductRepository $productRepository): Response
     {
         $product = $productRepository->findOneBy(['slug' => $slug]);

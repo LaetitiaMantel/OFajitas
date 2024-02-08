@@ -8,10 +8,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
+#[Route('/categorie', name: 'front_category_')]
 class CategoryController extends AbstractController
 {
-    #[Route('/categorie/{slug}', name: 'front_categories_show')]
+
+    #[Route('/{slug}', name: 'show')]
+
     public function ProductsCategory(string $slug, CategoryRepository $categoryRepository, ProductRepository $productRepository): Response
     {
         // Récupère les categories correspondants au slug
@@ -21,7 +23,6 @@ class CategoryController extends AbstractController
         $products = $productRepository->findByCategory($slug);
 
         return $this->render('category/index.html.twig', [
-            'controller_name' => 'CategoryController',
             'products' => $products,
             'category' => $category,
     ]);

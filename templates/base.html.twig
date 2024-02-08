@@ -66,7 +66,7 @@
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								{% for category in app.request.attributes.get('_categories', []) %}
 									<li>
-										<a class="dropdown-item" href="">{{category.name}}</a>
+										<a class="dropdown-item" href="{{ path('front_category_show', {slug: category.slug}) }}">{{category.name}}</a>
 									</li>
 								{% endfor %}
 							</ul>
