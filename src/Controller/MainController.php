@@ -7,6 +7,7 @@ use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/', name: 'front_main_')]
 class MainController extends AbstractController
@@ -24,4 +25,17 @@ class MainController extends AbstractController
             'categoriesByOrder'   => $categoriesByOrder
         ]);
     }
+
+        // route pour la barre de recherche
+        #[Route('/search', name: 'search')]
+        public function research(Request $request, ProductRepository $productRepository) : Response 
+        {
+            $search = $request->query->get('search');
+            if ($search){
+            $products = $productRepository->findByResearch($search);
+            }
+            return $this->render('search.html.twig', [
+                'products' => $products,
+            ]);
+        }
 }

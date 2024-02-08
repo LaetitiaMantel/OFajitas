@@ -8,10 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
+#[Route('/marque', name: 'front_brand_')]
 class BrandController extends AbstractController
 {
-    #[Route('/brand/{slug}', name: 'front_brand_show')]
+    #[Route('/{slug}', name: 'show')]
     public function brandProducts(string $slug, ProductRepository $productRepository, BrandRepository $brandRepository): Response
     {
         // Récupère la marque correspondant au slug
@@ -21,7 +21,6 @@ class BrandController extends AbstractController
         $products = $productRepository->findByBrand($slug);
 
         return $this->render('brand/index.html.twig', [
-            'controller_name' => 'BrandController',
             'brand' => $brand,
             'products' => $products,
         ]);
