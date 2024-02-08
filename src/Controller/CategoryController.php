@@ -10,11 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategoryController extends AbstractController
 {
-    #[Route('/category/{slug}', name: 'front_categories_show')]
+    #[Route('/categorie/{slug}', name: 'front_categories_show')]
     public function ProductsCategory(string $slug, CategoryRepository $categoryRepository, ProductRepository $productRepository): Response
     {
         $products = $productRepository->findByCategory($slug);
-
+dd($slug);
         return $this->render('categories/index.html.twig', [
             'controller_name' => 'CategoryController',
             'products' => $products,
