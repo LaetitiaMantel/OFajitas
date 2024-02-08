@@ -25,6 +25,7 @@
 		{% endblock %}
 
 
+
 		{% block javascripts %}
 			{% block importmap %}
 				{{ importmap('app') }}
@@ -48,6 +49,7 @@
 		</header>
 		<!-- Navigation-->
 
+<<<<<<< HEAD
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container px-4 px-lg-5">
 				<a class="navbar-brand" href="#!"></a>
@@ -88,55 +90,72 @@
 							</ul>
 						</li>
 					</ul>
+=======
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="#!"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 ">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('front_main_home') }}">Accueil </a></li>
+                    <li class="nav-item"><a class="nav-link" href="product-list.html"> Tous les produits </a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catégories</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							{% for category in app.request.attributes.get('_categories', []) %}
+									<li><a class="dropdown-item" href="">{{category.name}}</a></li> 
+							{% endfor %} 
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Marques</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for brand in app.request.attributes.get('_brands', []) %}
 
-					<form class="d-flex">
-						<form class="d-flex" action="list.html">
-							<input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Rechercher...">
-							<button class="btn btn-outline-danger" type="submit">
-								<i class="bi bi-search"></i>
-							</button>
-						</form>
-						<div class="nav-item dropdown">
+									<li><a class="dropdown-item" href="{{ path('front_brand_show',  {slug: brand.slug}) }}">{{brand.slug}}</a></li> 
+>>>>>>> 7ecdc4cdf79264197a15cd960a6386160e2c4023
+
+							{% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                
+                <form class="d-flex">
+                    <form class="d-flex" action="list.html">
+                        <input class="form-control form-control-sm me-2" name="search" type="search"
+                            placeholder="Rechercher...">
+                        <button class="btn btn-outline-danger" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                    <div class="nav-item dropdown">
 
 
-							<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="bi bi-person-circle"></i>
-							</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li>
-									<a class="dropdown-item" href="#!">
-										Mes informations
-									</a>
-								</li>
-								<li>
-									<hr class="dropdown-divider"/>
-								</li>
-								<li>
-									<a class="dropdown-item" href="#!">
-										Mes achats
-									</a>
-								</li>
-								<!-- TODO si connecte ne pas afficher connexion -->
-								<li>
-									<a class="dropdown-item" href="#!">Connexion
-									</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="#!">Deconnexion
-									</a>
-								</li>
-							</ul>
-						</div>
-						<button class="btn btn-outline-dark" type="submit">
-							<i class="bi-cart-fill me-1"></i>
-							Cart
-							<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-						</button>
-					</form>
-				</div>
-			</div>
-		</nav>
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle"></i> </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!"> Mes informations </a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="#!"> Mes achats </a></li>
+                            <!-- TODO si connecte ne pas afficher connexion -->
+                            <li><a class="dropdown-item" href="#!">Connexion </a></li>
+                            <li><a class="dropdown-item" href="#!">Deconnexion </a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
 	</body>
 
 </html></div></nav>{% block body %}{% endblock %}<!-- Footer--><footer class="py-5 gradient"><div class="container">
-<p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div></footer><!-- Bootstrap core JS--><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script><!-- Core theme JS--><script src="js/scripts.js"></script></body></html>=======</html>
+<p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div></footer><!-- Bootstrap core JS--><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script><!-- Core theme JS--><script src="js/scripts.js"></script></body></html>
+=======
+</html>
