@@ -12,17 +12,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MainController extends AbstractController
 {   
 
-
     #[Route('/', name: 'home')]
-    public function index(ProductRepository $ProductRepository,CategoryRepository $categoryRepository): Response
+    public function index(ProductRepository $ProductRepository): Response
     {
         // récupère les 12 derniers derniers produits de la bdd
         $newProducts = $ProductRepository->findBy([], ['createdAt' => 'DESC'], 12);
 
-        //$categories = $categoryRepository->findAll();
+      
         return $this->render('main/index.html.twig', [
             'newProducts'   => $newProducts,
-            //'categories'   => $categories,
+            
         ]);
     }
 }
