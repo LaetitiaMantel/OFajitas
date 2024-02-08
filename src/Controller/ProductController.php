@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
     // route pour afficher tous les produits
-    #[Route('/product', name: 'front_product_index')]
+    #[Route('/product', name: 'index')]
 
     public function index(ProductRepository $productRepository,): Response
     {
@@ -26,7 +26,7 @@ class ProductController extends AbstractController
 
 
     // route pour afficher les details d'un produit
-    #[Route('/product/{slug}', name: 'front_product_show')]
+    #[Route('/product/{slug}', name: 'show')]
 
 
     public function show(string $slug, ProductRepository $productRepository): Response

@@ -9,16 +9,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-
+#[Route('/', name: 'front_main_')]
 class MainController extends AbstractController
 {   
 
-    #[Route('/', name: 'front_main_home')]
+    #[Route('/', name: 'home')]
     public function index(ProductRepository $productRepository,CategoryRepository $categoryRepository): Response
     {
         // récupère les 12 derniers derniers produits de la bdd
         $newProducts = $productRepository->findBy([], ['createdAt' => 'DESC'], 8);
-        // récupère 3 catégories par ordre croissant choisit par le back office
         $categoriesByOrder = $categoryRepository->findBy([],['homeOrder' =>'ASC'], 3);
       
         return $this->render('main/index.html.twig', [
@@ -28,8 +27,8 @@ class MainController extends AbstractController
     }
 
         // route pour la barre de recherche
-        #[Route('/search', name: 'front_main_search')]
-        public function research(Request $request, ProductRepository $productRepository) 
+        #[Route('/search', name: 'search')]
+        public function research(Request $request, ProductRepository $productRepository) : Response 
         {
             $search = $request->query->get('search');
             if ($search){
