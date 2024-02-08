@@ -23,7 +23,6 @@
                     <div class="mb-3">
                         <h3 class="h3 text-uppercase mb-1">{{ product.name }}</h3>
 
-                        {% dump(product) %}                         
                     <div class="text-muted">by <em>{{ product.brand.name }}</em></div>
                         <div>
                             <i class="fa fa-star"></i>
@@ -37,7 +36,7 @@
                         <div class="text-muted"><span class="h4">
                             {% set price = product.getPrice()/100 %}
 									{# Affiche le prix réel #}
-							{{ price }}</span> TTC</div>
+							{{ price }} € </span>TTC</div>
                     </div>
                     <div class="product-action-buttons">
                         <form action="cart.html" method="post">
