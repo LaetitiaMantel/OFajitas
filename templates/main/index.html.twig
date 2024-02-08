@@ -10,46 +10,22 @@
 		<div class="container px-4 px-lg-5">
 
 			<div class="row mx-0 mb-5">
+				{% for category in categoriesByOrder %}
 
-				<div class="col-lg-4">
-					<div class="card border-0 text-center">
-						<img src="{{ asset('images/bijoux.jpeg') }}" alt="Card image" class="card-img">
-						<div class="card-img-overlay d-flex align-items-center">
-							<div class="w-100">
-								<a href="#" class="text-white text-decoration-none">
-									<h3 class="display-4 mb-4 ">Bijoux</h3>
-									<i class="fa-arrow-right fa ml-2"></i>
-								</a>
+					<div class="col-lg-4">
+						<div class="card border-0 text-center">
+							<img src="{{ asset('images/bijoux.jpeg') }}" alt="Card image" class="card-img">
+							<div class="card-img-overlay d-flex align-items-center">
+								<div class="w-100">
+									<a href="#" class="text-white text-decoration-none">
+										<h3 class="display-4 mb-4 ">{{ category.name}}</h3>
+										<i class="fa-arrow-right fa ml-2"></i>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="card border-0 text-center">
-						<img src="{{ asset('images/images.jpeg') }}" alt="Card image" class="card-img">
-						<div class="card-img-overlay d-flex align-items-center">
-							<div class="w-100">
-								<a href="#" class="text-white text-decoration-none">
-									<h3 class="display-4 mb-4">Déco</h3>
-									<i class="fa-arrow-right fa ml-2"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="card border-0 text-center">
-						<img src="{{ asset('images/t-shirt.jpg') }}" alt="Card image" class="card-img">
-						<div class="card-img-overlay d-flex align-items-center">
-							<div class="w-100">
-								<a href="#" class="text-white text-decoration-none">
-									<h3 class="display-4">Prêt à porter</h3>
-									<i class="fa-arrow-right fa ml-2"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
+				{% endfor %}
 
 			</div>
 			<h2 class="h2-color">Les nouveautés</h2>
@@ -68,10 +44,11 @@
 									<!-- Product name-->
 									<h5 class="fw-bolder">{{ product.name}}</h5>
 									<!-- Product price-->
-                                    {#  affiche le prix /100 #}
+									{#  affiche le prix /100 #}
 									{% set price = product.getPrice()/100 %}
-                                    {#  affiche le prix réel #}
-									{{ price }} Euro
+									{#  affiche le prix réel #}
+									{{ price }}
+									Euro
 								</div>
 							</div>
 							<!-- Product actions-->

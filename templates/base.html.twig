@@ -79,7 +79,7 @@
 								{% for brand in app.request.attributes.get('_brands', []) %}
 
 									<li>
-										<a class="dropdown-item" href="{{ path('front_brand_show', {slug: brand.slug}) }}">{{brand.slug}}</a>
+										<a class="dropdown-item" href="{{ path('front_brand_show', {slug: brand.slug}) }}">{{brand.name}}</a>
 									</li>
 
 								{% endfor %}
