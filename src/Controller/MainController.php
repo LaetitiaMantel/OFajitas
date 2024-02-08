@@ -13,15 +13,15 @@ class MainController extends AbstractController
 {   
 
     #[Route('/', name: 'home')]
-    public function index(ProductRepository $ProductRepository): Response
+    public function index(ProductRepository $productRepository,CategoryRepository $categoryRepository): Response
     {
         // récupère les 12 derniers derniers produits de la bdd
-        $newProducts = $ProductRepository->findBy([], ['createdAt' => 'DESC'], 12);
-
+        $newProducts = $productRepository->findBy([], ['createdAt' => 'DESC'], 8);
+        $categoriesByOrder = $categoryRepository->findBy([],['homeOrder' =>'ASC'], 3);
       
         return $this->render('main/index.html.twig', [
             'newProducts'   => $newProducts,
-            
+            'categoriesByOrder'   => $categoriesByOrder
         ]);
     }
 }
