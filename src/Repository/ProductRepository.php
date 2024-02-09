@@ -49,10 +49,13 @@ class ProductRepository extends ServiceEntityRepository
   // Pour trouver par recherche
   public function findByResearch($search)
   {
+            // on crée la requête sur l'objet Product ('c') 
        $qb = $this->createQueryBuilder('p')
+            // on cherche les produit ou le parametre de recherche est present
             ->where('p.name LIKE :param')
+            // on fait une requete préparée (:param) pour éviter les injections SQL
             ->setParameter('param', '%' . $search . '%');
-            
+            // on execute et on renvoie le tableau de résultats
        return $qb->getQuery()->getResult();
             
   }
