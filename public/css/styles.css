@@ -10845,6 +10845,9 @@ textarea.form-control-lg {
   color:rgb(165 210 206);
 }
 
+.bg-color-backoffice{
+  background-color:grey;
+}
 
 .form-control {
   border-radius: 20px;
