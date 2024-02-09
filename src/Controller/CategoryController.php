@@ -22,7 +22,7 @@ class CategoryController extends AbstractController
         // Récupère les produits correspondant au slug
         $products = $productRepository->findByCategory($slug);
 
-        return $this->render('category/index.html.twig', [
+        return $this->render('product/productList.html.twig', [
             'products' => $products,
             'category' => $category,
     ]);

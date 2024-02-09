@@ -25,7 +25,7 @@ class ProductController extends AbstractController
             20 /*limit per page*/
         );
 
-        return $this->render('product/index.html.twig', [
+        return $this->render('product/productList.html.twig', [
             'products' => $products,
         ]);
     }
