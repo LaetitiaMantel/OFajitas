@@ -1,18 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Votre panier
-{% endblock %}
+{% block title %}Votre panier{% endblock %}
 
 {% block body %}
-	<section class="py-5">
-		<div class="container px-4 px-lg-5">
-			<div class="row mx-0 mb-5">
-				<div class="col-12">
-					<h2>Votre panier</h2>
-					<p>Merci de visiter notre site !</p>
-				</div>
-			</div>
-		</div>
-	</section>
-{% endblock %}
+    <section class="py-5">
+        <div class="container px-4 px-lg-5  text-center">
+            <div class="row mx-0 mb-5">
+                <div class="col-12">
+                    <h2>Votre panier</h2>
+                    {% if cart is empty %}
+                        <p>Votre panier est vide.</p>
+                    {% else %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                   
+                                    <th>Prix unitaire</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                  {% for productId, product in cart %}
+                                    <tr>
+                                        <td>{{ product.name }}</td>
+                                    
+                                        <td>{{ product.price / 100 }} €</td>
 
+                                      
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <p>Total du panier :  €</p>
+{# a ajouter quand on aura la route de commande :  #}
+                        {# <a href="{{ path('validation_commande') }}" class="btn btn-primary">Valider la commande</a> #}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

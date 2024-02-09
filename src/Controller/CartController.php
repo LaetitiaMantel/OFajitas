@@ -51,7 +51,7 @@ class CartController extends AbstractController
     #[Route('/supprimer/{id<\d+>}', name: 'delete', methods: ['POST'])]
     public function remove(CartManager $cartManager, Product $product = null, Request $request): Response
     {
-        // Vérification du film à supprimer des favoris
+        // Vérification du produit à supprimer du panier 
         if ($product === null) {
             throw $this->createNotFoundException("Le film demandé n'existe pas");
         }
