@@ -1,4 +1,30 @@
+{% extends 'base.html.twig' %}
 
+
+{% block title %}O'fajitas! 
+
+{% endblock %}
+
+{% block body %}
+	<!-- Section-->
+	<section class="py-5">
+		<div class="container px-4 px-lg-5">
+			
+			{% if (app.current_route == 'front_product_index') %}
+					<h2 class="h2-color">Tous les produits</h2>
+                    
+                {% elseif (app.current_route == 'front_main_search') %}
+                    <h2 class="h2-color">Résultats de la recherche</h2>
+
+				{% elseif (app.current_route == 'front_category_show') %}
+                    <h2 class="h2-color">{{category.name }}</h2>
+
+				{% else %}
+					
+                    <h2 class="h2-color">{{brand.name }}</h2>			
+					
+            
+                {% endif %}
 
 
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -35,4 +61,4 @@
 			</div>
 		</div>
 	</section>
-
+{% endblock %}
