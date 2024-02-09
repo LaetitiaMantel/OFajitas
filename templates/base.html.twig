@@ -85,6 +85,7 @@
 						</li>
 					</ul>
 
+
 					<form class="d-flex">
 						<form class="d-flex" action="list.html">
 							<input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Rechercher...">
@@ -139,10 +140,14 @@
 							<i class="bi-cart-fill me-1"></i>
 							Cart
 							<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-						</button>
-					</form>
-				</div>
-			</div>
+
+					<form class="d-flex" action="{{ path('front_main_search') }}">
+						<input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Rechercher...">
+						<button class="btn btn-outline-danger" type="submit">
+							<i class="bi bi-search"></i>
+
+			
+
 		</nav>
 
 
@@ -160,6 +165,4 @@
 		<!-- Core theme JS-->
 
 
-	</body>
 
-</html>

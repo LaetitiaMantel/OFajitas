@@ -17,7 +17,8 @@
 							<img src="{{ asset('images/bijoux.jpeg') }}" alt="Card image" class="card-img">
 							<div class="card-img-overlay d-flex align-items-center">
 								<div class="w-100">
-									<a href="#" class="text-white text-decoration-none">
+									<a href="{{ path('front_category_show', {slug: category.slug}) }}" class="text-white text-decoration-none">
+									 
 										<h3 class="display-4 mb-4 ">{{ category.name}}</h3>
 										<i class="fa-arrow-right fa ml-2"></i>
 									</a>
@@ -36,7 +37,7 @@
 							class="card h-100">
 							<!-- Product image-->
 							<img
-							class="card-img-top" src="images/Image d’iOS.jpg" alt="..."/>
+							class="card-img-top" src="{{ product.picture}}" alt="..."/>
 							<!-- Product details-->
 							<div class="card-body p-4">
 								<div

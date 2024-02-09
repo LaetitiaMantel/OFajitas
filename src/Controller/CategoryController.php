@@ -11,7 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/categorie', name: 'front_category_')]
 class CategoryController extends AbstractController
 {
+
     #[Route('/{slug}', name: 'show')]
+
     public function ProductsCategory(string $slug, CategoryRepository $categoryRepository, ProductRepository $productRepository): Response
     {
         // Récupère les categories correspondants au slug
