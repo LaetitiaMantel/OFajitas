@@ -30,10 +30,14 @@ class MainController extends AbstractController
         #[Route('/search', name: 'search')]
         public function research(Request $request, ProductRepository $productRepository) : Response 
         {
+            // on recupère les eventuels parametres rentrés dans la page d'acceuil
             $search = $request->query->get('search');
+            // si il existe un parametre de recherche
             if ($search){
+            // alors on recupère les produits associés à la fonction "findByResearch"
             $products = $productRepository->findByResearch($search);
             }
+            // on envoie le resultat au twig associé
             return $this->render('search.html.twig', [
                 'products' => $products,
             ]);
