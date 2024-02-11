@@ -44,7 +44,7 @@
 		</header>
 		<!-- Navigation-->
 
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		{# <nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container px-4 px-lg-5">
 				<a class="navbar-brand" href="#!"></a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,10 +146,13 @@
 					</button>
 				</div>
 			</div>
-		</nav>
-
-		{# Sous navigation pour le back #}
-		{% block sub_nav %}{% endblock %}
+		</nav> #}
+		{% if is_granted ("ROLE_MANAGER") %}
+		{{ include('_navbar_back.html.twig') }}
+		{% else %}
+		{{ include('_navbar.html.twig') }}
+		{% endif %}
+		
 
 		{% block body %}{% endblock %}
 
