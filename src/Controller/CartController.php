@@ -16,55 +16,62 @@ class CartController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(CartManager $cartManager): Response
     {
+
         $cart = $cartManager->getCart();
+       // $cartItemCount = $cartManager->getCartCount();
 
         return $this->render('cart/index.html.twig', [
             'cart' => $cart,
+            //'cartItemCount' => $cartItemCount,
         ]);
     }
-    #[Route('/ajouter/{id<\d+>}', name: 'add', methods: ['POST'])]
-    public function add(CartManager $cartManager, Product $product = null, Request $request): Response
+    #[Route('/ajouter/{id<\d+>}', name: 'add', methods: ['GET', 'POST'])]
+    public function addToCart(CartManager $cartManager, Product $product = null): Response
     {
-        // Vérification du film à mettre en favoris
+        // Vérification du produit à mettre dans le panier 
         if ($product === null) {
-            throw $this->createNotFoundException("Le film demandé n'existe pas");
+            throw $this->createNotFoundException("Le produit demandé n'existe pas");
         }
+
         // on délègue toute la partie métier au service Cart Manager
         if ($cartManager->add($product)) {
-            // on prépare un message flash
-            // REFER : https://symfony.com/doc/current/session.html#flash-messages
-
-
+            // Le produit n'était pas dans le panier, ajout avec succès
             $this->addFlash(
                 'success',
-                '<strong>' . $product->getName() . '</strong> a été ajouté à votre liste de favoris.'
+                '<strong>' . $product->getName() . '</strong> a été ajouté à votre panier.'
             );
         } else {
+            // Le produit était déjà dans le panier, augmentez la quantité
             $this->addFlash(
-                'warning',
-                '<strong>' . $product->getName() . '</strong> fait déjà partie de votre liste de favoris.'
+                'info',
+                'La quantité de <strong>' . $product->getName() . '</strong> dans votre panier a été augmentée.'
             );
         }
-        return $this->redirectToRoute('front_cart_index', []);
+        //TODO: enlever la redirection vers le panier 
+        return $this->redirectToRoute('front_cart_index');
     }
+
+
 
     #[Route('/supprimer/{id<\d+>}', name: 'delete', methods: ['POST'])]
     public function remove(CartManager $cartManager, Product $product = null, Request $request): Response
     {
         // Vérification du produit à supprimer du panier 
         if ($product === null) {
-            throw $this->createNotFoundException("Le film demandé n'existe pas");
+            throw $this->createNotFoundException("l'article  n'existe pas");
         }
 
         // on délègue toute la partie métier au service Cart Manager
         if ($cartManager->remove($product)) {
             $this->addFlash(
                 'success',
-                '<strong>' . $product->getName() . '</strong> a été supprimé de votre liste de favoris.'
+                '<strong>' . $product->getName() . '</strong> a été supprimé de votre panier .'
             );
         }
 
-        return $this->render('cart/index.html.twig', []);
+        
+            return $this->redirectToRoute('front_cart_index');
+
     }
 
     #[Route('/vider', name: 'empty', methods: ['GET'])]
@@ -73,16 +80,44 @@ class CartController extends AbstractController
         if ($cartManager->empty()) {
             $this->addFlash(
                 'success',
-                ' Votre liste de favoris a été vidée.'
+                ' Votre panier à été vidé '
             );
         } else {
             $this->addFlash(
                 'danger',
-                'La liste des favoris ne peut pas être vidée.'
+                'Le panier ne peux pas être vidé '
             );
         }
         return $this->render('cart/index.html.twig', [
             'controller_name' => 'CartController',
         ]);
     }
+
+    #[Route('/{id<\d+>}', name: 'adjust_quantity', methods: ['POST'])]
+    public function adjustQuantity(CartManager $cartManager, Product $product = null, Request $request): Response
+    {
+        // Vérification que le produit existe 
+        if ($product === null) {
+            throw $this->createNotFoundException("Le produit demandé n'existe pas");
+        }
+
+       //Récupération de la nouvelle quantité 
+        $newQuantity = (int) $request->request->get('new_quantity', 1);
+
+        // on délègue toute la partie métier au service Cart Manager
+        if ($cartManager->setQuantity($product, $newQuantity)) {
+            $this->addFlash(
+                'success',
+                'La quantité de <strong>' . $product->getName() . '</strong> à été mis à jour .'
+            );
+        } else {
+            $this->addFlash(
+                'danger',
+                'La quantité de <strong>' . $product->getName() . '</strong> dans votre panier ne peut pas être mis à jour.'
+            );
+        }
+
+        return $this->redirectToRoute('front_cart_index');
+    }
+
 }

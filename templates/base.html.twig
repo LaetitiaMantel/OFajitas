@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="fr"></html>
-<html>
+<html lang="fr">
+
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -138,12 +138,13 @@
 							{% endif %}
 						</ul>
 					</div>
+<a href="{{ path('front_cart_index') }}" class="btn btn-outline-dark">
+	<i class="bi bi-cart-fill me-1"></i>
+	<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+ {# utiliser la fonction une fois qu'elle sera au bon endroit pour avoir le compte du panier 
+<span class="badge bg-dark text-white ms-1 rounded-pill">{{ cartItemCount }}</span> #}
 
-					<a href="{{ path('front_cart_index') }}" class="btn btn-outline-dark">
-						<i class="bi-cart-fill me-1"></i>
-
-						<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-
+</a>
 
 					</nav>
 
@@ -161,6 +162,6 @@
 			<!-- Bootstrap core JS-->
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 			<!-- Core theme JS-->
-		</body>
+		
 	</body>
 </html>
