@@ -2,13 +2,14 @@
 
 namespace App\DataFixtures;
 
-use App\DataFixtures\Provider\OfajitasProvider;
 use Faker\Factory;
+use App\Entity\User;
 use App\Entity\Brand;
 use App\Entity\Product;
 use App\Entity\Category;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\DataFixtures\Provider\OfajitasProvider;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
@@ -27,7 +28,34 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-       
+       // admin
+        $user = new User();
+        $user->setEmail('admin@admin.com');
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setPassword('$2y$13$nLf0MAlwK3oQBNVeZJaXduk2O5CzhldPfG/9lDNCNgD5pHTaiIyOS');
+        $user->setFirstname('Laet');
+        $user->setLastname('Fajitas');
+        $manager->persist($user);
+
+        // manager
+        $user = new User();
+        $user->setEmail('manager@manager.com');
+        $user->setRoles(['ROLE_MANAGER']);
+        $user->setPassword('$2y$13$xw9rC.dF9jJmAXnPzTsny.PMghC.NEFlroHkXM92zCQox9SPqokMy');
+        $user->setFirstname('Anna');
+        $user->setLastname('Fajitas');
+        $manager->persist($user);
+
+        // user
+        $user = new User();
+        $user->setEmail('user@user.com');
+        $user->setRoles(['ROLE_USER']);
+        $user->setPassword('$2y$13$/hHmOqI0nPYqOczmSlqGiOEHMh8GPs5H8F5aUUGiDtDHu9JMdudey');
+        $user->setFirstname('Franck');
+        $user->setLastname('Fajitas');
+        $manager->persist($user);
+
+        $manager->flush();
 
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new OfajitasProvider);
