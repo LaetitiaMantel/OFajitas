@@ -19,7 +19,6 @@
         </thead>
         <tbody>
         {% for user in users %}
-            {% if 'ROLE_ADMIN' not in app.user.roles %}
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
@@ -31,7 +30,6 @@
                     <a href="{{ path('app_back_user_edit', {'id': user.id}) }}">edit</a>
                 </td>
             </tr>
-	        {% endif %}
             {% else %}
 
             <tr>
