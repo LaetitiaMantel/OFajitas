@@ -31,7 +31,7 @@ class ProductController extends AbstractController
 
 
     // route pour afficher les details d'un produit
-    #[Route('/product/{slug}', name: 'show')]
+    #[Route('/{slug}', name: 'show')]
 
 
     public function show(string $slug, ProductRepository $productRepository): Response
