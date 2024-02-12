@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="container">
 		<h2 class="h2-color">Liste des produits</h2>
-		<a class="btn btn-success" href="{{ path('app_back_user_new') }}">Ajouter un nouveau produit</a>
+		<a class="btn btn-success" href="{{ path('back_user_new') }}">Ajouter un nouveau produit</a>
 		<table class="table">
 			<thead>
 				<tr>
@@ -27,9 +27,9 @@
 						<td>{{ user.firstname }}</td>
 						<td>{{ user.lastname }}</td>
 						<td>
-							<a class="btn btn-sm btn-info mb-2" href="{{ path('app_back_user_show', {'id': user.id}) }}">Détails</a>
-							<a class="btn btn-sm btn-warning mb-2" href="{{ path('app_back_user_edit', {'id': user.id}) }}">Modifier</a>
-							<a class="btn btn-sm btn-danger mb-2" href="{{ path('app_back_brand_delete', {'id': user.id}) }}">Supprimer</a>
+							<a class="btn btn-sm btn-info mb-2" href="{{ path('back_user_show', {'id': user.id}) }}">Détails</a>
+							<a class="btn btn-sm btn-warning mb-2" href="{{ path('back_user_edit', {'id': user.id}) }}">Modifier</a>
+							<a class="btn btn-sm btn-danger mb-2" href="{{ path('back_brand_delete', {'id': user.id}) }}">Supprimer</a>
 						</td>
 					</tr>
 				{% else %}

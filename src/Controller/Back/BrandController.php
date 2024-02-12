@@ -3,7 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\Brand;
-use App\Form\Brand1Type;
+use App\Form\BrandType;
 use App\Repository\BrandRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/back/brand')]
 class BrandController extends AbstractController
 {
-    #[Route('/', name: 'app_back_brand_index', methods: ['GET'])]
+    #[Route('/', name: 'back_brand_index', methods: ['GET'])]
     public function index(BrandRepository $brandRepository): Response
     {
         return $this->render('back/brand/index.html.twig', [
@@ -22,18 +22,18 @@ class BrandController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_back_brand_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'back_brand_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $brand = new Brand();
-        $form = $this->createForm(Brand1Type::class, $brand);
+        $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($brand);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_back_brand_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('back_brand_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('back/brand/new.html.twig', [
@@ -42,7 +42,7 @@ class BrandController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_back_brand_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'back_brand_show', methods: ['GET'])]
     public function show(Brand $brand): Response
     {
         return $this->render('back/brand/show.html.twig', [
@@ -50,16 +50,16 @@ class BrandController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_back_brand_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'back_brand_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Brand $brand, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Brand1Type::class, $brand);
+        $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_back_brand_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('back_brand_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('back/brand/edit.html.twig', [
@@ -68,7 +68,7 @@ class BrandController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_back_brand_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'back_brand_delete', methods: ['POST'])]
     public function delete(Request $request, Brand $brand, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$brand->getId(), $request->request->get('_token'))) {
@@ -76,6 +76,6 @@ class BrandController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_back_brand_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('back_brand_index', [], Response::HTTP_SEE_OTHER);
     }
 }
