@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Controller;
+namespace App\Controller\Front;
 
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +24,7 @@ class ProductController extends AbstractController
             20 /*limit per page*/
         );
 
-        return $this->render('product/productList.html.twig', [
+        return $this->render('front/product/productList.html.twig', [
             'products' => $products,
         ]);
     }
@@ -39,7 +38,7 @@ class ProductController extends AbstractController
     {
         $product = $productRepository->findOneBy(['slug' => $slug]);
 
-        return $this->render('product/show.html.twig', [
+        return $this->render('front/product/show.html.twig', [
             'product' => $product,
         ]);
     }
