@@ -19,6 +19,7 @@
         </thead>
         <tbody>
         {% for user in users %}
+            {% if is_granted ("ROLE_ADMIN") %}            
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
@@ -30,7 +31,9 @@
                     <a href="{{ path('app_back_user_edit', {'id': user.id}) }}">edit</a>
                 </td>
             </tr>
-        {% else %}
+            {% endif %}
+            {% else %}
+
             <tr>
                 <td colspan="7">no records found</td>
             </tr>
