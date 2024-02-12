@@ -13,6 +13,12 @@
 					</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" href="{{ path ('front_favorite_index')}}">
+						<i class="bi bi-bookmarks"></i>
+						Mes Favoris
+					</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href="{{ path('front_product_index') }}">
 						Tous les produits
 					</a>
@@ -41,11 +47,7 @@
 						{% endfor %}
 					</ul>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path ('front_favorite_index')}}">
-						Mes Favoris
-					</a>
-				</li>
+
 			</ul>
 
 
@@ -108,3 +110,14 @@
 		</div>
 	</div>
 </nav>
+{# read and display all flash messages #}
+{% for label, messages in app.flashes %}
+	{% for message in messages %}
+		<div class="flash-{{ label }}">
+			<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+				{{ message|striptags('<strong>')|raw }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		</div>
+	{% endfor %}
+{% endfor %}

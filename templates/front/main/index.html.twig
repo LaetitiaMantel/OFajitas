@@ -35,8 +35,15 @@
 						<div
 							class="card h-100">
 							<!-- Product image-->
-							<img
-							class="card-img-top" src="{{ product.picture}}" alt="..."/>
+							<div class="image-container position-relative">
+								<img class="card-img-top" src="{{ product.picture }}" alt="...">
+
+								<a href="{{ path('front_favorite_add', {id: product.id}) }}">
+									<i class="bi bi-bookmarks position-absolute top-0 start-0 m-3 icon">
+								</i>
+								</a>
+							</div>
+
 							<!-- Product details-->
 							<div class="card-body p-4">
 								<div
@@ -54,13 +61,12 @@
 							<!-- Product actions-->
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
-									<a class="btn btn-outline-dark mt-auto" href="{{ path('front_cart_add', {id: product.id}) }}">Ajouter au panier
+
+									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
+
+									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_favorite_add', {id: product.id}) }}">Ajouter au Favoris
 									</a>
 
-									<a class="btn btn-outline-dark mt-auto" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
-
-									<a class="btn btn-outline-dark mt-auto" href="{{ path('front_favorite_add', {id: product.id}) }}">Ajouter au Favoris
-									</a>
 								</div>
 							</div>
 						</div>

@@ -1,61 +1,71 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}O'fajitas! 
+{% block title %}O'fajitas!
 
 {% endblock %}
 
 {% block body %}
-    <!-- Section-->
+	<!-- Section-->
 
-    <section class="py-5">
-        <div class="container px-4 px-lg-5">
-            <div class="row mx-0 mb-5">
+	<section class="py-5">
+		<div class="container px-4 px-lg-5">
+			<div class="row mx-0 mb-5">
 
-                <div class="col-lg-6 col-sm-12">
-                    <div class="product-image">
-                        <a href="detail.html" class="product-hover-overlay-link">
-                            <img src="{{ product.picture }}" alt="product" class="img-fluid">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-sm-12">
-                    <div class="mb-3">
-                        <h3 class="h3 text-uppercase mb-1">{{ product.name }}</h3>
+				<div class="col-lg-6 col-sm-12">
+					<div class="product-image">
+						<a href="detail.html" class="product-hover-overlay-link">
+							<img src="{{ product.picture }}" alt="product" class="img-fluid">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-6 col-sm-12">
+					<div class="mb-3">
+						<h3 class="h3 text-uppercase mb-1">{{ product.name }}</h3>
 
-                    <div class="text-muted">by <em>{{ product.brand.name }}</em></div>
-                        <div>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                    <div class="my-2">
-                        <div class="text-muted"><span class="h4">
-                            {% set price = product.getPrice()/100 %}
-									{# Affiche le prix réel #}
-							{{ price }} € </span>TTC</div>
-                    </div>
-<div class="product-action-buttons">
-	<form action="{{ path('front_cart_add', {'id': product.id}) }}" method="POST">
-		<button class="btn btn-dark btn-buy">
-			<i class="fa fa-shopping-cart"></i>
-			<span class="btn-buy-label ml-2">Ajouter au panier</span>
-		</button>
-	</form>
+						<div class="text-muted">by
+							<em>{{ product.brand.name }}</em>
+						</div>
+						<div>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-o"></i>
+						</div>
+					</div>
+					<div class="my-2">
+						<div class="text-muted">
+							<span class="h4">
+								{% set price = product.getPrice()/100 %}
+								{# Affiche le prix réel #}
+								{{ price }}
+								€
+							</span>TTC</div>
+					</div>
+					<div class="product-action-buttons">
+						<form action="{{ path('front_favorite_add', {'id': product.id}) }}" method="POST">
+							<button class="btn btn-dark btn-buy mb-2">
+								<span class="btn-buy-label ml-2">Ajouter au favoris</span>
+							</button>
+						</form>
+                        <form action="{{ path('front_cart_add', {'id': product.id}) }}" method="POST">
+							<button class="btn btn-dark btn-buy mb-2">
+								<span class="btn-buy-label ml-2">Ajouter au panier</span>
+							</button>
+						</form>
+						
 
-</div>
+					</div>
 
-                    <div class="mt-5">
-                        <p>
-                            {{ product.description }}
-                        </p>
-                    </div>
-                </div>
+					<div class="mt-5">
+						<p>
+							{{ product.description }}
+						</p>
+					</div>
+				</div>
 
-            </div>
-        </div>
-    </section>
+			</div>
+		</div>
+	</section>
 {% endblock %}
