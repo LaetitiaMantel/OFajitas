@@ -33,6 +33,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 128)]
     private ?string $lastname = null;
 
+    #[ORM\OneToOne(mappedBy: 'userId', cascade: ['persist', 'remove'])]
+    private ?Cart $cartId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +126,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getCartId(): ?Cart
+    {
+        return $this->cartId;
+    }
+
+    public function setCartId(?Cart $cartId): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($cartId === null && $this->cartId !== null) {
+            $this->cartId->setUserId(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($cartId !== null && $cartId->getUserId() !== $this) {
+            $cartId->setUserId($this);
+        }
+
+        $this->cartId = $cartId;
 
         return $this;
     }
