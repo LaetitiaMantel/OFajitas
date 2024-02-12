@@ -4,10 +4,15 @@ namespace App\Controller\Front ;
 
 use App\Entity\Product;
 use App\Service\CartManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+
+
 
 #[Route('/panier', name: 'front_cart_')]
 
@@ -25,33 +30,30 @@ class CartController extends AbstractController
             //'cartItemCount' => $cartItemCount,
         ]);
     }
-    #[Route('/ajouter/{id<\d+>}', name: 'add', methods: ['GET', 'POST'])]
-    public function addToCart(CartManager $cartManager, Product $product = null): Response
+    #[Route('/ajouter/{id<\d+>}', name: 'add', methods: ['POST'])]
+    public function addToCart(CartManager $cartManager, EntityManagerInterface $entityManager, $id): Response
     {
+      
         // Vérification du produit à mettre dans le panier 
+        $product = $entityManager->getRepository(Product::class)->find($id);
+
         if ($product === null) {
             throw $this->createNotFoundException("Le produit demandé n'existe pas");
+            dump($id);
         }
 
         // on délègue toute la partie métier au service Cart Manager
         if ($cartManager->add($product)) {
             // Le produit n'était pas dans le panier, ajout avec succès
-            $this->addFlash(
-                'success',
-                '<strong>' . $product->getName() . '</strong> a été ajouté à votre panier.'
-            );
+            $message = $product->getName() . ' a été ajouté à votre panier.';
         } else {
             // Le produit était déjà dans le panier, augmentez la quantité
-            $this->addFlash(
-                'info',
-                'La quantité de <strong>' . $product->getName() . '</strong> dans votre panier a été augmentée.'
-            );
+            $message = 'La quantité de ' . $product->getName() . ' dans votre panier a été augmentée.';
         }
-        //TODO: enlever la redirection vers le panier 
-        return $this->redirectToRoute('front_cart_index');
+
+        // Retourner une réponse avec le message flash
+        return new Response($message);
     }
-
-
 
     #[Route('/supprimer/{id<\d+>}', name: 'delete', methods: ['POST'])]
     public function remove(CartManager $cartManager, Product $product = null, Request $request): Response
@@ -69,7 +71,6 @@ class CartController extends AbstractController
             );
         }
 
-        
             return $this->redirectToRoute('front_cart_index');
 
     }
