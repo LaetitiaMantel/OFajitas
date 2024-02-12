@@ -36,7 +36,7 @@
 
 				<div class="text-center text-white">
 
-					<img src="{{ asset('images/fajitas2.png')}}" alt="fajitas" srcset="">
+					<img class="img-fluid" src="{{ asset('images/fajitas2.png')}}" alt="fajitas" srcset="">
 					<h1 class="lead fw-normal text-white-50 mb-0">Pour les Fans de Fajitas
 					</h1>
 				</div>
@@ -130,6 +130,9 @@
 										</a>
 									</li>
 								{% endif %}
+								<li>
+									<hr class="dropdown-divider"/>
+								</li>
 								<li>
 									<a class="dropdown-item" href="{{ path ('app_logout')}}">Deconnexion
 									</a>

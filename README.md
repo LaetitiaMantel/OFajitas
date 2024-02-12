@@ -21,8 +21,9 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
   composer install
 
   ```
+3. Créez votre .env.local 
 
-3. Créez et migrez la base de données : 
+4. Créez et migrez la base de données
    
  ```bash
 
@@ -30,10 +31,11 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
    php bin/console doctrine:migrations:migrate
 
   ```
-4. Chargez les fixtures :
-
+5. Chargez les fixtures
+   
  ```bash
 
-   bin/console doctrine:fixtures:load
+   php bin/console doctrine:fixtures:load
 
   ```
+
