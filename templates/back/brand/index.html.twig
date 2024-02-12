@@ -28,8 +28,9 @@
 						<td>{{ brand.createdAt ? brand.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 						<td>{{ brand.updatedAt ? brand.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
 						<td>
-							<a class="btn btn-sm btn-info " href="{{ path('app_back_brand_show', {'id': brand.id}) }}">Détail</a>
-							<a class="btn btn-sm btn-danger" href="{{ path('app_back_brand_edit', {'id': brand.id}) }}">Modifier</a>
+							<a class="btn btn-sm btn-info mb-2" href="{{ path('app_back_brand_show', {'id': brand.id}) }}">Détails</a>
+							<a class="btn btn-sm btn-warning mb-2" href="{{ path('app_back_brand_edit', {'id': brand.id}) }}">Modifier</a>
+							<a class="btn btn-sm btn-danger mb-2" href="{{ path('app_back_brand_delete', {'id': brand.id}) }}">Supprimer</a>
 						</td>
 					</tr>
 				{% else %}

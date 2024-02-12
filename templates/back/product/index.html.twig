@@ -38,8 +38,9 @@
 						<td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 						<td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
 						<td>
-							<a class="btn btn-sm btn-info mb-2" href="{{ path('app_back_product_show', {'id': product.id}) }}">Détail</a>
-							<a class="btn btn-sm btn-danger" href="{{ path('app_back_product_edit', {'id': product.id}) }}">Supprimer</a>
+							<a class="btn btn-sm btn-info mb-2" href="{{ path('app_back_product_show', {'id': product.id}) }}">Détails</a>
+							<a class="btn btn-sm btn-warning mb-2" href="{{ path('app_back_product_edit', {'id': product.id}) }}">Modifier</a>
+							<a class="btn btn-sm btn-danger mb-2" href="{{ path('app_back_product_delete', {'id': product.id}) }}">Supprimer</a>
 						</td>
 					</tr>
 				{% else %}
