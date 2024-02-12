@@ -98,23 +98,21 @@ public function remove(Product $product): bool
         return true;
     }
 
-    // Fonction qui fonctionne uniquement sur la page panier mais qui sert à avoir le compte du panier  sur le bouton panier  : 
-
-    // public function getCartCount(): int
-    // {
+    public function getCartCount(): int
+    {
         
-    //     $session = $this->requestStack->getCurrentRequest()->getSession();
-    //     $cart = $session->get('cart', []);
+        $session = $this->requestStack->getCurrentRequest()->getSession();
+        $cart = $session->get('cart', []);
 
 
-    //     $cartCount = 0;
+        $cartCount = 0;
 
-    //     foreach ($cart as $cartItem) {
-    //         $cartCount += $cartItem['quantity'];
-    //     }
+        foreach ($cart as $cartItem) {
+            $cartCount += $cartItem['quantity'];
+        }
 
-    //     return $cartCount;
-    // }
+        return $cartCount;
+    }
 
   
 }
