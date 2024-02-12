@@ -19,20 +19,10 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-    
-    
-    # on configure le service avec son FQCN
-    App\Service\CartManager:
-        arguments:
-            $emptyEnabled: '%env(bool:EMPTY_ENABLED)%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\EventSubscriber\CategoriesSubscriber:
-        tags:
-            - { name: kernel.event_subscriber }
-            
-    App\EventSubscriber\BrandsSubscriber:
-        tags:
-            - { name: kernel.event_subscriber }
+    App\Service\CartManager:
+        arguments:
+            $emptyEnabled: '%env(bool:EMPTY_ENABLED)%'

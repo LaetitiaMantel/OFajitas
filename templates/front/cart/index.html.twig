@@ -43,7 +43,7 @@
 										<td>
 											<form action="{{ path('front_cart_adjust_quantity', {'id': cartItem.product.id}) }}" method="POST" class="d-flex">
 												<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control" min="0" style="width: 60px;">
-<button type="submit" class="btn btn-outline-danger btn-sm">confirmer</button>
+												<button type="submit" class="btn btn-outline-danger btn-sm">confirmer</button>
 
 											</form>
 										</td>
@@ -81,11 +81,11 @@
 
 							<!-- Bouton pour valider la commande -->
 							<form action="#" method="POST" class="d-inline">
-<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
+								<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
 
 							</form>
 
-							
+
 						</div>
 					</div>
 				</div>

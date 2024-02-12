@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller ; 
+namespace App\Controller\Front ; 
 
 use App\Entity\Product;
 use App\Service\CartManager;
@@ -20,7 +20,7 @@ class CartController extends AbstractController
         $cart = $cartManager->getCart();
        // $cartItemCount = $cartManager->getCartCount();
 
-        return $this->render('cart/index.html.twig', [
+        return $this->render('front/cart/index.html.twig', [
             'cart' => $cart,
             //'cartItemCount' => $cartItemCount,
         ]);
@@ -88,7 +88,7 @@ class CartController extends AbstractController
                 'Le panier ne peux pas être vidé '
             );
         }
-        return $this->render('cart/index.html.twig', [
+        return $this->render('front/cart/index.html.twig', [
             'controller_name' => 'CartController',
         ]);
     }
