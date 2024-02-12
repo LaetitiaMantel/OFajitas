@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Controller;
+namespace App\Controller\front;
 
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
@@ -20,7 +19,7 @@ class MainController extends AbstractController
         $newProducts = $productRepository->findBy([], ['createdAt' => 'DESC'], 8);
         $categoriesByOrder = $categoryRepository->findBy([],['homeOrder' =>'ASC'], 3);
       
-        return $this->render('main/index.html.twig', [
+        return $this->render('front/main/index.html.twig', [
             'newProducts'   => $newProducts,
             'categoriesByOrder'   => $categoriesByOrder
         ]);
@@ -38,7 +37,7 @@ class MainController extends AbstractController
             $products = $productRepository->findByResearch($search);
             }
             // on envoie le resultat au twig associé
-            return $this->render('product/productList.html.twig', [
+            return $this->render('front/product/productList.html.twig', [
                 'products' => $products,
             ]);
         }

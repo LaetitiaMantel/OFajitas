@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Controller;
+namespace App\Controller\front;
 
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
@@ -20,7 +19,7 @@ class BrandController extends AbstractController
         // Récupère les produits par marque
         $products = $productRepository->findByBrand($slug);
 
-        return $this->render('product/productList.html.twig', [
+        return $this->render('front/product/productList.html.twig', [
             'brand' => $brand,
             'products' => $products,
         ]);
