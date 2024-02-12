@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\front;
+namespace App\Controller\Front;
 
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;

@@ -44,7 +44,7 @@
 		</header>
 		<!-- Navigation-->
 
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		{# <nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container px-4 px-lg-5">
 				<a class="navbar-brand" href="#!"></a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,11 +124,13 @@
 									<hr class="dropdown-divider"/>
 								</li>
 								{% if 'ROLE_ADMIN' not in app.user.roles and 'ROLE_MANAGER' not in app.user.roles %}
-								<li>
-									<a class="dropdown-item" href="#!">
-										Mes achats
-									</a>
-								</li>
+
+									<li>
+										<a class="dropdown-item" href="#!">
+											Mes achats
+										</a>
+									</li>
+
 								{% endif %}
 								<li>
 									<hr class="dropdown-divider"/>
@@ -146,24 +148,29 @@
 						<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
 
 
-					</nav>
-
-					{# Sous navigation pour le back #}
-					{% block sub_nav %}{% endblock %}
-
-					{% block body %}{% endblock %}
-
-
-					<footer class="py-5 gradient">
-						<div class="container">
-							<p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
-						</div>
-					</footer>
+					</button>
 				</div>
 			</div>
-			<!-- Bootstrap core JS-->
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-			<!-- Core theme JS-->
-		</body>
+		</nav> #}
+		{% if is_granted ("ROLE_MANAGER") %}
+		{{ include('_navbar_back.html.twig') }}
+		{% else %}
+		{{ include('_navbar.html.twig') }}
+		{% endif %}
+		
+
+
+		{% block body %}{% endblock %}
+
+
+		<footer class="py-5 gradient">
+			<div class="container">
+				<p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+			</div>
+		</footer>
+
+		<!-- Bootstrap core JS-->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- Core theme JS-->
 	</body>
 </html>
