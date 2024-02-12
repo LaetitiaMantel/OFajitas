@@ -1,29 +1,16 @@
 <?php
-namespace App\Controller\front;
 
-use App\Repository\CategoryRepository;
+namespace App\Controller\Back;
+
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
-#[Route('/', name: 'front_main_')]
+#[Route('/back', name: 'back_main_')]
 class MainController extends AbstractController
 {   
-
-    #[Route('/', name: 'home')]
-    public function index(ProductRepository $productRepository,CategoryRepository $categoryRepository): Response
-    {
-        // récupère les 12 derniers derniers produits de la bdd
-        $newProducts = $productRepository->findBy([], ['createdAt' => 'DESC'], 8);
-        $categoriesByOrder = $categoryRepository->findBy([],['homeOrder' =>'ASC'], 3);
-      
-        return $this->render('front/main/index.html.twig', [
-            'newProducts'   => $newProducts,
-            'categoriesByOrder'   => $categoriesByOrder
-        ]);
-    }
 
         // route pour la barre de recherche
         #[Route('/search', name: 'search')]
@@ -37,7 +24,7 @@ class MainController extends AbstractController
             $products = $productRepository->findByResearch($search);
             }
             // on envoie le resultat au twig associé
-            return $this->render('front/product/productList.html.twig', [
+            return $this->render('back/product/index.html.twig', [
                 'products' => $products,
             ]);
         }
