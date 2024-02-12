@@ -33,5 +33,3 @@ class Cart
         return $this;
     }
 }
-
-

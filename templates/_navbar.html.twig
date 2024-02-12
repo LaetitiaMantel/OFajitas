@@ -95,13 +95,12 @@
 					{% endif %}
 				</ul>
 			</div>
-			<button class="btn btn-outline-dark" type="submit">
-				<i class="bi-cart-fill me-1"></i>
-
+			<a href="{{ path('front_cart_index') }}" class="btn btn-outline-dark">
+				<i class="bi bi-cart-fill me-1"></i>
 				<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-
-
-			</button>
+				{# utiliser la fonction une fois qu'elle sera au bon endroit pour avoir le compte du panier  #}
+				{# <span class="badge bg-dark text-white ms-1 rounded-pill">{{ cartItemCount }}</span> #}
+			</a>
 		</div>
 	</div>
 </nav>
