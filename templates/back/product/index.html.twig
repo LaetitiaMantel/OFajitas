@@ -1,0 +1,53 @@
+
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Liste des Produits
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h2 class="h2-color">Liste des produits</h2>
+		<a class="btn btn-success" href="{{ path('app_back_product_new') }}">Ajouter un nouveau produit</a>
+		<table class="table">
+			<thead>
+				<tr>
+					
+					<th>nom</th>
+					<th>Description</th>
+					<th>image</th>
+					<th>Prix</th>
+					<th>Note</th>
+					<th>Statut</th>
+					<th>CreatedAt</th>
+					<th>UpdatedAt</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for product in products %}
+					<tr>
+						
+						<td>{{ product.name }}</td>
+						<td>{{ product.description }}</td>
+						<td>{{ product.picture }}</td>
+                        {% set price = product.getPrice()/100 %}
+						<td>{{ price }}</td>
+						<td>{{ product.rating }}</td>
+						<td>{{ product.status ? 'Yes' : 'No' }}</td>
+						<td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>
+							<a class="btn btn-sm btn-info mb-2" href="{{ path('app_back_product_show', {'id': product.id}) }}">Détail</a>
+							<a class="btn btn-sm btn-danger" href="{{ path('app_back_product_edit', {'id': product.id}) }}">Supprimer</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="11">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+<!-- Navigation-->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container px-4 px-lg-5">
+		<a class="navbar-brand" href="#!"></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 ">
+				<h3>BackOffice
+                    {% if is_granted ("ROLE_ADMIN") %}
+						Administrateur
+					{% elseif is_granted ("ROLE_MANAGER") %}
+						Manager
+					{% endif %}
+				</h3>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_back_product_index') }}">Produits</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_back_brand_index') }}">Marques</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_back_category_index') }}">Catégories</a>
+				</li>
+
+			</ul>
+
+
+			<form class="d-flex" action="{{ path ('front_main_search')}}">
+				<input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Rechercher...">
+				<button class="btn btn-outline-danger" type="submit">
+					<i class="bi bi-search"></i>
+				</button>
+			</form>
+			<div class="nav-item dropdown">
+
+
+				<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="bi bi-person-circle"></i>
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+					<li>
+						<a class="dropdown-item" href="#!">
+							Mes informations
+						</a>
+					</li>
+					<li>
+						<a class="dropdown-item" href="{{ path ('app_logout')}}">Deconnexion
+						</a>
+					</li>
+
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</nav>

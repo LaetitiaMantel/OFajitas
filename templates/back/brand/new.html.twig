@@ -1,0 +1,14 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container">
+
+		<h2 class="h2-color">Ajouter une marque</h2>
+
+		{{ include('back/brand/_form.html.twig') }}
+
+		<a class="btn btn-success mb-4" href="{{ path('app_back_brand_index') }}">Retour à la liste</a>
+	</div>
+
+{% endblock %}
