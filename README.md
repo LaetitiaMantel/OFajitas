@@ -31,4 +31,11 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
    php bin/console doctrine:migrations:migrate
 
   ```
+5. Chargez les fixtures
+   
+ ```bash
+
+   php bin/console doctrine:fixtures:load
+
+  ```
 
