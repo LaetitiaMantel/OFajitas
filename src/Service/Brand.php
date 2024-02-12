@@ -12,7 +12,7 @@ class Brand
         $this->brandRepository = $brandRepository;
     }
 
-    public function BrandFindAll()
+    public function brandsFindAll()
     {
         $brands = $this->brandRepository->findAll();
         //dd($brands);

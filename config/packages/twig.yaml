@@ -3,6 +3,7 @@ twig:
     form_themes: ['bootstrap_5_layout.html.twig']
     globals:
         globalBrand: '@App\Service\Brand'
+        globalCategory: '@App\Service\Category'
 
 when@test:
     twig:

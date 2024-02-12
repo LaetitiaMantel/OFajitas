@@ -20,7 +20,9 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catégories</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						{% for category in app.request.attributes.get('_categories', []) %}
+
+						{% set categories = globalCategory.categoriesFindAll() %}
+						{% for category in categories %}
 							<li>
 								<a class="dropdown-item" href="{{ path('front_category_show', {slug: category.slug}) }}">{{category.name}}</a>
 							</li>
@@ -31,7 +33,7 @@
 					<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Marques</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-						{% set brands = globalBrand.BrandFindAll() %}
+						{% set brands = globalBrand.brandsFindAll() %}
 						{% for brand in brands %}
 							<li>
 								<a class="dropdown-item" href="{{ path('front_brand_show', {slug: brand.slug}) }}">{{brand.name}}</a>
