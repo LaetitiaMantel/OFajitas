@@ -4,6 +4,7 @@ twig:
     globals:
         globalBrand: '@App\Service\Brand'
         globalCategory: '@App\Service\Category'
+        globalCartCount: '@App\Service\CartManager'
 
 when@test:
     twig:
