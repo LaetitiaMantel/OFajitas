@@ -1,0 +1,18 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la marque
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h2 class="h2-color">Modifier la marque</h2>
+
+    {{ include('back/brand/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+    <a class="btn btn-success mb-2" href="{{ path('app_back_brand_index') }}">Retour à la liste</a>
+
+    {{ include('back/brand/_delete_form.html.twig') }}
+    </div>
+
+{% endblock %}
