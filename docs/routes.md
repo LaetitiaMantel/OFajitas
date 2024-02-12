@@ -19,7 +19,8 @@
 | `/account/edit`           | `front_user_edit`      | `GET`        | `UserController`     | `edit`   |            |
 | `/account/edit`           | `front_user_edit`      | `POST`       | `UserController`     | `edit`   |            |
 | `/account/delete`         | `front_user_delete`    | `POST`       | `UserController`     | `delete` |            |
-| `favoris`                 | `front_favorite_index` | `GET`        | `FavoriteController` | `index`  | Mes favoris|           |
+| `favoris`                 | `front_favorite_index` | `GET`        | `FavoriteController` | `index`  | Mes favoris|    
+       |
 
 
 
