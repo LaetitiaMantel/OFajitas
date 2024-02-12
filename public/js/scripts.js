@@ -7,40 +7,40 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", function (event) {
       event.preventDefault();
 
-      // Récupérer l'ID du produit à partir des attributs de données (data-*)
+      // Récupérer l'ID du produit 
       const productId = button.getAttribute("data-product-id");
-      console.log(productId); // Ajout de cette ligne pour afficher la valeur dans la console JavaScript
 
-      // Appeler la fonction addToCartEvent avec l'ID du produit
-      addToCartEvent(productId);
+      // Appeler la fonction addToCartEvent avec l'ID du produit 
+
+      addToCartEvent(button, productId);
     });
   });
 });
 
-function addToCartEvent(productId) {
+function addToCartEvent(button, productId) {
   const flashMessagesContainer = document.getElementById(
-    "flashMessagesContainer"
+    "flashMessagesContainer-" + productId
   );
 
-  // Récupérer la route de la même manière que dans votre script d'origine
-  const addToCartButton = document.querySelector(".addToCartButton");
-  const route = addToCartButton.getAttribute("data-route");
 
+  const route = button.getAttribute("data-route");
+
+  // Envoyer l'ID du produit comme valeur de "someData"
   fetch(route.replace("{id}", productId), {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: "someData=" + encodeURIComponent("someValue"),
+    body: "someData=" + encodeURIComponent(productId),
   })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Erreur lors de la requête AJAX");
       }
-      return response.text();
+      return response.json(); 
     })
     .then((data) => {
-      flashMessagesContainer.innerHTML = data;
+      flashMessagesContainer.innerHTML = data.message;
 
       setTimeout(function () {
         flashMessagesContainer.innerHTML = "";
@@ -50,3 +50,6 @@ function addToCartEvent(productId) {
       console.error("Erreur lors de la requête AJAX :", error);
     });
 }
+
+
+

@@ -15,11 +15,12 @@ class CartManager
 
     public function add(Product $product): bool
     {
+      
         // on récupère la session
         $session = $this->requestStack->getCurrentRequest()->getSession();
         // on récupère le panier de la session
         $cart = $session->get('cart', []);
-
+        $productId = $product->getId();
         // on rajoute le produit demandé
         // l'utilisation de array_key_exists garantit l'unicité du panier
         if (!array_key_exists($product->getId(), $cart)) {
