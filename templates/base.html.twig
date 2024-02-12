@@ -124,11 +124,13 @@
 									<hr class="dropdown-divider"/>
 								</li>
 								{% if 'ROLE_ADMIN' not in app.user.roles and 'ROLE_MANAGER' not in app.user.roles %}
+
 									<li>
 										<a class="dropdown-item" href="#!">
 											Mes achats
 										</a>
 									</li>
+
 								{% endif %}
 								<li>
 									<hr class="dropdown-divider"/>
@@ -156,6 +158,7 @@
 		{{ include('_navbar.html.twig') }}
 		{% endif %}
 		
+
 
 		{% block body %}{% endblock %}
 
