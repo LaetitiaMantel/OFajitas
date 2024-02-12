@@ -28,6 +28,15 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+         // super admin
+        $user = new User();
+        $user->setEmail('supadmin@supadmin.com');
+        $user->setRoles(['ROLE_SUPERADMIN']);
+        $user->setPassword('');
+        $user->setFirstname('Jonathan');
+        $user->setLastname('Fajitas');
+        $manager->persist($user);
+
        // admin
         $user = new User();
         $user->setEmail('admin@admin.com');
