@@ -4,7 +4,7 @@
 ## Prérequis
 
 Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
-- PHP : 8.3.*
+- PHP : 8.*
 - Composer
 - Symfony CLI
  
