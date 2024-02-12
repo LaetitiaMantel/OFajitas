@@ -38,13 +38,16 @@
 									{# Affiche le prix réel #}
 							{{ price }} € </span>TTC</div>
                     </div>
-                    <div class="product-action-buttons">
-                        <form action="cart.html" method="post">
-                            <input type="hidden" name="product_id" value="1">
-                            <button class="btn btn-dark btn-buy"><i class="fa fa-shopping-cart"></i><span
-                                    class="btn-buy-label ml-2">Ajouter au panier</span></button>
-                        </form>
-                    </div>
+<div class="product-action-buttons">
+	<form action="{{ path('front_cart_add', {'id': product.id}) }}" method="POST">
+		<button class="btn btn-dark btn-buy">
+			<i class="fa fa-shopping-cart"></i>
+			<span class="btn-buy-label ml-2">Ajouter au panier</span>
+		</button>
+	</form>
+
+</div>
+
                     <div class="mt-5">
                         <p>
                             {{ product.description }}
