@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}O'fajitas! 
+{% block title %}O'fajitas!
 
 {% endblock %}
 
@@ -9,22 +9,22 @@
 	<!-- Section-->
 	<section class="py-5">
 		<div class="container px-4 px-lg-5">
-			
+
 			{% if (app.current_route == 'front_product_index') %}
-					<h2 class="h2-color">Tous les produits</h2>
-                    
-                {% elseif (app.current_route == 'front_main_search') %}
-                    <h2 class="h2-color">Résultats de la recherche</h2>
+				<h2 class="h2-color">Tous les produits</h2>
 
-				{% elseif (app.current_route == 'front_category_show') %}
-                    <h2 class="h2-color">{{category.name }}</h2>
+			{% elseif (app.current_route == 'front_main_search') %}
+				<h2 class="h2-color">Résultats de la recherche</h2>
 
-				{% else %}
-					
-                    <h2 class="h2-color">{{brand.name }}</h2>			
-					
-            
-                {% endif %}
+			{% elseif (app.current_route == 'front_category_show') %}
+				<h2 class="h2-color">{{category.name }}</h2>
+
+			{% else %}
+
+				<h2 class="h2-color">{{brand.name }}</h2>
+
+
+			{% endif %}
 
 
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -46,7 +46,8 @@
 									{# Affiche le prix / 100 #}
 									{% set price = product.getPrice()/100 %}
 									{# Affiche le prix réel #}
-									{{ price }} €
+									{{ price }}
+									€
 								</div>
 							</div>
 							<!-- Product actions-->
@@ -59,10 +60,12 @@
 					</div>
 				{% endfor %}
 			</div>
-		<div class="navigation">
-			{{ knp_pagination_render(products, 'pagination/bootstrap_v5_pagination.html.twig') }}
-		</div>
-	
+			{% if (app.current_route == 'front_product_index') %}
+				<div class="pagination justify-content-center">
+					{{ knp_pagination_render(products, 'pagination/bootstrap_v5_pagination.html.twig') }}
+				</div>
+			{% endif %}
 
-	</section>
-{% endblock %}
+
+		</section>
+	{% endblock %}
