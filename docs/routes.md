@@ -20,6 +20,10 @@
 | `/account/edit`           | `front_user_edit`      | `POST`       | `UserController`     | `edit`   |            |
 | `/account/delete`         | `front_user_delete`    | `POST`       | `UserController`     | `delete` |            |
 
+
+
+
+
 # Routes de l'application
 
 | URL                    | Déscription | Méthode HTTP |
@@ -61,3 +65,4 @@
 | `/account/edit`            |             | `GET`        |
 | `/account/edit`            |             | `POST`       |
 | `/account/delete`          |             | `POST`       |
+
