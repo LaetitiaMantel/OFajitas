@@ -1,0 +1,45 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Marques
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h2 class="h2-color">Les Marques</h2>
+
+		<a class="btn btn-success" href="{{ path('app_back_brand_new') }}">Ajouter une marque</a>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>CreatedAt</th>
+					<th>UpdatedAt</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for brand in brands %}
+					<tr>
+						<td>{{ brand.id }}</td>
+						<td>{{ brand.name }}</td>
+						<td>{{ brand.createdAt ? brand.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ brand.updatedAt ? brand.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>
+							<a class="btn btn-sm btn-info " href="{{ path('app_back_brand_show', {'id': brand.id}) }}">Détail</a>
+							<a class="btn btn-sm btn-danger" href="{{ path('app_back_brand_edit', {'id': brand.id}) }}">Modifier</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="6">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+
+{% endblock %}

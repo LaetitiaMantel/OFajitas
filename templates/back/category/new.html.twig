@@ -1,0 +1,14 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container">
+
+		<h2 class="h2-color">Ajouter une catégorie</h2>
+
+		{{ include('back/category/_form.html.twig') }}
+
+		<a class="btn btn-success mb-4" href="{{ path('app_back_category_index') }}">Retour à la liste</a>
+	</div>
+
+{% endblock %}
