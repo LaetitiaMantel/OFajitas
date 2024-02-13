@@ -67,9 +67,7 @@
 </td>
 
 									</tr>
-
-{{ total }}
-
+									{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
 								{% endfor %}
 
 								<!-- Dernière ligne du tableau pour afficher le total global -->
@@ -90,18 +88,10 @@
 							<form id="emptyCartForm" action="{{ path('front_cart_empty') }}" method="GET" class="d-inline" data-route="{{ path('front_cart_empty') }}">
 								<button type="submit" class="btn btn-outline-danger btn-sm">Vider le panier</button>
 							</form>
-
-
-
-
 							<!-- Bouton pour valider la commande -->
 							<form action="#" method="POST" class="d-inline">
 								<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
-
 							</form>
-
-
-
 						</div>
 					</div>
 				</div>

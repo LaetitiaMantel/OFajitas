@@ -3,11 +3,12 @@
 namespace App\Service;
 
 use App\Entity\Product;
+use Symfony\Component\Console\Helper\Dumper;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class CartManager
 {
-         public function __construct(
+public function __construct(
         private RequestStack $requestStack,
         private bool $emptyEnabled
     ) {
@@ -57,7 +58,7 @@ public function remove(Product $product): bool
         }
     }
 
-      public function empty(): bool
+public function empty(): bool
     {
         if (!$this->emptyEnabled) {
             return false;
@@ -71,7 +72,7 @@ public function remove(Product $product): bool
 
     public function getCart(): array
 {
-    
+
     $session = $this->requestStack->getCurrentRequest()->getSession();
     return $session->get('cart', []);
 }
@@ -102,7 +103,6 @@ public function remove(Product $product): bool
 
     public function getCartCount(): int
     {
-        
         $session = $this->requestStack->getCurrentRequest()->getSession();
         $cart = $session->get('cart', []);
 
@@ -112,31 +112,9 @@ public function remove(Product $product): bool
         foreach ($cart as $cartItem) {
             $cartCount += $cartItem['quantity'];
         }
-
+        
         return $cartCount;
     }
 
-     
-public function getTotal(): float
-{
-    $session = $this->requestStack->getCurrentRequest()->getSession();
-    $cart = $session->get('cart', []);
-    $quantity = $session->get('cart[quantity]')
 
-    $total = 0.0;
-
-    foreach ($cart as $cartItem) {
-        $product = $cartItem['product'];
-        $quantity = $cartItem['quantity'];
-        $total += $product->getPrice() * $quantity;
-    }
-
-    var_dump($total);  
-
-    return $total;
-}
-
- 
-
-  
 }

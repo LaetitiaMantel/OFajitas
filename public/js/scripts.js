@@ -1,10 +1,5 @@
 console.log("ok");
 
-
-
-
-
-
 //  AJOUTER AU PANIER AJAX : 
 
 
@@ -14,25 +9,20 @@ document.addEventListener("DOMContentLoaded", function () {
   addToCartButtons.forEach(function (button) {
     button.addEventListener("click", function (event) {
       event.preventDefault();
-
-      // Récupérer l'ID du produit à partir des attributs de données (data-*)
+      // Récupérer l'ID du produit 
       const productId = button.getAttribute("data-product-id");
-
-      // Appeler la fonction addToCartEvent avec l'ID du produit
-      addToCartEvent(productId);
+      // Appeler la fonction addToCartEvent avec l'ID du produit 
+      addToCartEvent(button, productId);
     });
   });
 });
 
-function addToCartEvent(productId) {
+function addToCartEvent(button, productId) {
   const flashMessagesContainer = document.getElementById(
-    "flashMessagesContainer"
+    "flashMessagesContainer-" + productId
   );
-
-  // Récupérer la route de la même manière que dans votre script d'origine
-  const addToCartButton = document.querySelector(".addToCartButton");
-  const route = addToCartButton.getAttribute("data-route");
-
+  const route = button.getAttribute("data-route");
+  // Envoyer l'ID du produit comme valeur de "someData"
   fetch(route.replace("{id}", productId), {
     method: "POST",
     headers: {
@@ -48,10 +38,10 @@ function addToCartEvent(productId) {
     })
     .then((data) => {
       flashMessagesContainer.innerHTML = data.message;
-
       setTimeout(function () {
         flashMessagesContainer.innerHTML = "";
       }, 3000);
+      getCartCount();
     })
     .catch((error) => {
       console.error("Erreur lors de la requête AJAX :", error);
@@ -68,10 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
   deleteFromCartButtons.forEach(function (button) {
     button.addEventListener("click", function (event) {
       event.preventDefault();
-
       // Récupérer l'ID du produit 
       const productId = button.getAttribute("data-product-id");
-
       // Appeler la fonction deleteFromCartEvent avec l'ID du produit 
       deleteFromCartEvent(button, productId);
     });
@@ -98,7 +86,6 @@ function deleteFromCartEvent(button, productId) {
     })
     .then((data) => {
       flashMessagesContainer.innerHTML = data.message;
-
       // Supprimer visuellement le produit du panier
       const productRow = button.closest("tr");
       if (productRow) {
@@ -106,19 +93,17 @@ function deleteFromCartEvent(button, productId) {
         setTimeout(function () {
           productRow.remove();
         }, 500);
+         getCartCount();
       }
-
       setTimeout(function () {
         flashMessagesContainer.innerHTML = "";
       }, 3000);
+      
     })
     .catch((error) => {
       console.error("Erreur lors de la requête AJAX :", error);
     });
 }
-
-
-
 
 // Vider le panier : 
 
@@ -137,39 +122,58 @@ function emptyCartEvent(route) {
     })
     .then((data) => {
         flashMessagesContainer.innerHTML = data.message;
-
         // Supprimer visuellement tous les produits du panier
         const productRows = document.querySelectorAll(".product-row");
         productRows.forEach(function (row) {
             row.remove();
         });
-
         setTimeout(function () {
             flashMessagesContainer.innerHTML = "";
         }, 3000);
+         getCartCount();
     })
     .catch((error) => {
         console.error("Erreur lors de la requête AJAX :", error);
     });
 }
 
-// Ajuster la quantité : 
 
-  public function getTotal(): float
-  {
-      $session = $this->requestStack->getCurrentRequest()->getSession();
-      $cart = $session->get('cart', []);
+// Compte du panier : 
 
-      $total = 0.0;
+function getCartCount() {
+  const cartCountContainer = document.getElementById("cart-count");
 
-      foreach ($cart as $cartItem) {
-          $product = $cartItem['product'];
-          $quantity = $cartItem['quantity'];
-          $total += $product->getPrice() * $quantity; 
+  // Effectuer la requête AJAX pour obtenir le nombre d'articles côté serveur
+  fetch("panier/count", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erreur lors de la requête AJAX");
       }
+      return response.json();
+    })
+    .then((data) => {
+      const cartCount = data.cartCount !== undefined ? data.cartCount : 0;
 
-      return $total;
-  }
+      // Mettre à jour le nombre d'articles dans le stockage local
+      localStorage.setItem("cartCount", cartCount);
 
+      // Mettre à jour l'interface utilisateur avec le nouveau nombre d'articles
+      cartCountContainer.innerText = cartCount > 0 ? cartCount : "0";
+    })
+    .catch((error) => {
+      console.error(
+        "Erreur lors de la requête AJAX pour obtenir le nombre d'articles dans le panier :",
+        error
+      );
+    });
+}
 
-
+// Appeler la fonction au chargement de la page
+window.onload = function () {
+  getCartCount();
+};
