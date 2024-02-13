@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
@@ -16,12 +17,15 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 128)]
+    #[Assert\NotBlank()]
     private ?string $name = null;
 
     #[ORM\Column(length: 2083)]
+    #[Assert\NotBlank()]
     private ?string $picture = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
     private ?int $homeOrder = null;
 
     #[ORM\Column(length: 255)]
