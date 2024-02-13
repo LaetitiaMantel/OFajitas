@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
+{# TODO: TOUT MODIFIER EN FORMULAIRE AVANT DE FAIRE LA COMMANDE #}
+{# TODO: Quand tout les produits sont supprimés , afficher la page panier vide #}
 
-{% block title %}
-	Votre panier
+	{% block title %}
+Votre panier
 {% endblock %}
-{% block body %}
-	<section class="py-5">
-		<div class="container px-4 px-lg-5">
+	{% block body %}
+		<section class="py-5"> <div class="container px-4 px-lg-5">
 			<h2 class="text-center mb-4">Votre panier</h2>
 
 			{% if cart is defined and cart|length > 0 %}
@@ -50,35 +51,32 @@
 											€</td>
 										<td style="white-space: nowrap;">{{ cartItem.quantity * (cartItem.product.getPrice()/100) }}
 											€</td>
+										<td></td>
 										<td>
-
-									
-<td>
-	<div class="product-action-buttons">
-		<a class="btn btn-dark btn-buy deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
-			X
-		</a>
-		<div id="flashMessagesContainer-{{ cartItem.product.id }}"></div>
-	</div>
-</td>
+											<div class="product-action-buttons">
+												<a class="btn btn-dark btn-buy deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
+													X
+												</a>
+												<div id="flashMessagesContainer-{{ cartItem.product.id }}"></div>
+											</div>
+										</td>
 
 
 									</tr>
 									{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
 								{% endfor %}
 
-<tr>
-	<td colspan="3" class="text-end">
-		<strong>Total global :</strong>
-	</td>
-<td colspan="2" style="white-space: nowrap;">
-	<span id="cart-total-container">{{ total }}
-		€</span>
-</td>
+								<tr>
+									<td colspan="3" class="text-end">
+										<strong>Total global :</strong>
+									</td>
+									<td colspan="2" style="white-space: nowrap;">
+										<span id="cart-total-container">{{ total }}
+											€</span>
+									</td>
 
 
-
-</tr>
+								</tr>
 
 
 							</tbody>
@@ -95,14 +93,14 @@
 							<form action="#" method="POST" class="d-inline">
 								<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
 							</form>
+						</div>
 					</div>
-				</div>
-				<!-- Quand le panier est vide   -->
-			{% else %}
-				<p class="text-center">Votre panier est vide.</p>
-			{% endif %}
- 
+					<!-- Quand le panier est vide   -->
+				{% else %}
+					<p class="text-center">Votre panier est vide.</p>
+				{% endif %}
 
-		</div>
-	</section>
-{% endblock %}
+
+			</div>
+		</section>
+	{% endblock %}
