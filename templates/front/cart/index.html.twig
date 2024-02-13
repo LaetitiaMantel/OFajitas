@@ -4,6 +4,9 @@
 	Votre panier
 {% endblock %}
 
+
+
+
 {% block body %}
 	<section class="py-5">
 		<div class="container px-4 px-lg-5">
@@ -52,12 +55,21 @@
 										<td style="white-space: nowrap;">{{ cartItem.quantity * (cartItem.product.getPrice()/100) }}
 											€</td>
 										<td>
-											<form action="{{ path('front_cart_delete', {'id': cartItem.product.id}) }}" method="POST" class="d-inline">
-												<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer</button>
-											</form>
-										</td>
+
+									
+<td>
+	<div class="product-action-buttons">
+		<a class="btn btn-dark btn-buy deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
+			X
+		</a>
+		<div id="flashMessagesContainer-{{ cartItem.product.id }}"></div>
+	</div>
+</td>
+
 									</tr>
-									{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
+
+{{ total }}
+
 								{% endfor %}
 
 								<!-- Dernière ligne du tableau pour afficher le total global -->
@@ -75,15 +87,19 @@
 						<div
 							class="d-flex justify-content-end">
 							<!-- Bouton pour vider le panier -->
-							<form action="{{ path('front_cart_empty') }}" method="GET" class="d-inline">
+							<form id="emptyCartForm" action="{{ path('front_cart_empty') }}" method="GET" class="d-inline" data-route="{{ path('front_cart_empty') }}">
 								<button type="submit" class="btn btn-outline-danger btn-sm">Vider le panier</button>
 							</form>
+
+
+
 
 							<!-- Bouton pour valider la commande -->
 							<form action="#" method="POST" class="d-inline">
 								<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
 
 							</form>
+
 
 
 						</div>
@@ -93,7 +109,8 @@
 			{% else %}
 				<p class="text-center">Votre panier est vide.</p>
 			{% endif %}
+ 
+
 		</div>
 	</section>
 {% endblock %}
-

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Front ; 
+namespace App\Controller\Front;
 
 use App\Entity\Product;
 use App\Service\CartManager;
@@ -11,9 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
-
-
 #[Route('/panier', name: 'front_cart_')]
 
 class CartController extends AbstractController
@@ -23,41 +20,35 @@ class CartController extends AbstractController
     {
 
         $cart = $cartManager->getCart();
-       // $cartItemCount = $cartManager->getCartCount();
+        $total =$cartManager->getTotal();
 
         return $this->render('front/cart/index.html.twig', [
             'cart' => $cart,
-            //'cartItemCount' => $cartItemCount,
+            'total' => $total
+           
         ]);
     }
-    #[Route('/ajouter/{id<\d+>}', name: 'add', methods: ['POST'])]
+   #[Route('/ajouter/{id<\d+>}', name: 'add', methods: ['POST'])]
     public function addToCart(CartManager $cartManager, EntityManagerInterface $entityManager, $id): Response
     {
-      
         // Vérification du produit à mettre dans le panier 
         $product = $entityManager->getRepository(Product::class)->find($id);
 
         if ($product === null) {
             throw $this->createNotFoundException("Le produit demandé n'existe pas");
-            dump($id);
         }
 
-        // on délègue toute la partie métier au service Cart Manager
-        if ($cartManager->add($product)) {
-            // Le produit n'était pas dans le panier, ajout avec succès
-            $message = $product->getName() . ' a été ajouté à votre panier.';
-        } else {
-            // Le produit était déjà dans le panier, augmentez la quantité
-            $message = 'La quantité de ' . $product->getName() . ' dans votre panier a été augmentée.';
-        }
+        // Ajout du produit au panier
+        $cartManager->add($product);
 
         // Retourner une réponse avec le message flash
-        return new Response($message);
+        return new JsonResponse(['message' => 'Produit ajouté au panier.']);
     }
 
-    #[Route('/supprimer/{id<\d+>}', name: 'delete', methods: ['POST'])]
-    public function remove(CartManager $cartManager, Product $product = null, Request $request): Response
+    #[Route('/supprimer/{id<\d+>}', name: 'remove', methods: ['POST'])]
+    public function remove(CartManager $cartManager, EntityManagerInterface $entityManager, $id): Response
     {
+         $product = $entityManager->getRepository(Product::class)->find($id);
         // Vérification du produit à supprimer du panier 
         if ($product === null) {
             throw $this->createNotFoundException("l'article  n'existe pas");
@@ -71,8 +62,7 @@ class CartController extends AbstractController
             );
         }
 
-            return $this->redirectToRoute('front_cart_index');
-
+        return new JsonResponse(['message' => 'Produit supprimé du panier.']);
     }
 
     #[Route('/vider', name: 'empty', methods: ['GET'])]
@@ -102,7 +92,7 @@ class CartController extends AbstractController
             throw $this->createNotFoundException("Le produit demandé n'existe pas");
         }
 
-       //Récupération de la nouvelle quantité 
+        //Récupération de la nouvelle quantité 
         $newQuantity = (int) $request->request->get('new_quantity', 1);
 
         // on délègue toute la partie métier au service Cart Manager
@@ -120,5 +110,4 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('front_cart_index');
     }
-
 }

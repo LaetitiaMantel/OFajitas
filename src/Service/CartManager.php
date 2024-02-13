@@ -15,11 +15,12 @@ class CartManager
 
     public function add(Product $product): bool
     {
+      
         // on récupère la session
         $session = $this->requestStack->getCurrentRequest()->getSession();
         // on récupère le panier de la session
         $cart = $session->get('cart', []);
-
+        
         // on rajoute le produit demandé
         // l'utilisation de array_key_exists garantit l'unicité du panier
         if (!array_key_exists($product->getId(), $cart)) {
@@ -113,6 +114,28 @@ public function remove(Product $product): bool
 
         return $cartCount;
     }
+
+     
+public function getTotal(): float
+{
+    $session = $this->requestStack->getCurrentRequest()->getSession();
+    $cart = $session->get('cart', []);
+    $quantity = $session->get('cart[quantity]')
+
+    $total = 0.0;
+
+    foreach ($cart as $cartItem) {
+        $product = $cartItem['product'];
+        $quantity = $cartItem['quantity'];
+        $total += $product->getPrice() * $quantity;
+    }
+
+    var_dump($total);  
+
+    return $total;
+}
+
+ 
 
   
 }
