@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Votre panier
+{% endblock %}
+
+{% block body %}
+	<section class="py-5">
+		<div class="container px-4 px-lg-5">
+			<h2 class="text-center mb-4">Vos favoris</h2>
+
+			{% if favoris is defined and favoris|length > 0 %}
+				<div class="row">
+					<div class="col-md-12 table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Produit</th>
+									<th>Prix</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for productItem in favoris %}
+									<tr>
+										<td>
+											{% if productItem.product is defined %}
+												<div class="d-flex align-items-center">
+													<a href="{{ path('front_product_show', {'slug': productItem.product.slug}) }}">
+														<img src="{{ productItem.product.picture }}" class="img-fluid" alt="{{ productItem.product.name }}" style="max-height: 80px; max-width: 80px; margin-right: 10px;">
+													</a>
+													<div>
+														<strong>{{ productItem.product.name }}</strong>
+														<p>{{ productItem.product.description }}</p>
+													</div>
+												</div>
+											{% endif %}
+										</td>
+										<td>{{ productItem.product.getPrice()/100 }}€</td>
+										<td>
+
+											<a class="btn btn-outline-danger btn-sm mb-2" href="{{ path('front_cart_add', {'id': productItem.product.id}) }}">Ajouter au panier</a>
+
+
+											<form action="{{ path('front_favorite_delete', {'id': productItem.product.id}) }}" method="POST" class="d-inline">
+												<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer</button>
+											</form>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div
+						class="d-flex justify-content-end">
+						<!-- Bouton pour vider le panier -->
+						<form action="{{ path('front_favorite_empty') }}" method="GET" class="d-inline">
+							<button type="submit" class="btn btn-outline-danger btn-sm">Vider les favoris</button>
+						</form>
+					</div>
+				</div>
+			{% else %}
+				<p class="text-center">Vos favoris sont vides.</p>
+			{% endif %}
+		</div>
+	</section>
+{% endblock %}

@@ -64,7 +64,7 @@ class SecurityAuthenticator extends AbstractLoginFormAuthenticator
             // Rediriger l'utilisateur connecté vers une certaine page
             return new RedirectResponse($this->urlGenerator->generate('front_main_home'));
         }
-        elseif($userRoles[0] == 'ROLE_ADMIN' || 'ROLE_MANAGER') {
+        elseif($userRoles[0] == 'ROLE_SUPERADMIN' || 'ROLE_ADMIN' || 'ROLE_MANAGER') {
             // Rediriger l'administrateur vers une autre page
             return new RedirectResponse($this->urlGenerator->generate('app_back_product_index'));
         }

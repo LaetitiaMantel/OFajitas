@@ -23,4 +23,9 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    # on configure le service avec son FQCN
+    App\Service\CartManager:
+        arguments:
+            $emptyEnabled: '%env(bool:EMPTY_ENABLED)%'
+
  

@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProductController extends AbstractController
 {
     // route pour afficher tous les produits
-    #[Route('/product', name: 'index')]
+    #[Route('/', name: 'index')]
 
     public function index(ProductRepository $productRepository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -31,7 +31,7 @@ class ProductController extends AbstractController
 
 
     // route pour afficher les details d'un produit
-    #[Route('/product/{slug}', name: 'show')]
+    #[Route('/{slug}', name: 'show')]
 
 
     public function show(string $slug, ProductRepository $productRepository): Response
