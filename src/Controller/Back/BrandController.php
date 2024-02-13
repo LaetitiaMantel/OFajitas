@@ -36,6 +36,10 @@ class BrandController extends AbstractController
             $brand->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->persist($brand);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $brand->getName() . '</strong> a été ajouté à votre base.'
+            );
 
             return $this->redirectToRoute('back_brand_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -64,6 +68,10 @@ class BrandController extends AbstractController
             $brand->setSlug($slugger->slug($brand->getName()));
             $brand->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $brand->getName() . '</strong> a été modifié dans votre base.'
+            );
 
             return $this->redirectToRoute('back_brand_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -80,6 +88,10 @@ class BrandController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$brand->getId(), $request->request->get('_token'))) {
             $entityManager->remove($brand);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $brand->getName() . '</strong> a été supprimer de votre base.'
+            );
         }
 
         return $this->redirectToRoute('back_brand_index', [], Response::HTTP_SEE_OTHER);

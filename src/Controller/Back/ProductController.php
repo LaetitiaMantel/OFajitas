@@ -37,6 +37,10 @@ class ProductController extends AbstractController
 
             $entityManager->persist($product);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $product->getName() . '</strong> a été ajouté à votre base.'
+            );
 
             return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -65,6 +69,10 @@ class ProductController extends AbstractController
             $product->setSlug($slugger->slug($product->getName()));
             $product->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $product->getName() . '</strong> a été modifié dans votre base.'
+            );
 
             return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -81,6 +89,10 @@ class ProductController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $entityManager->remove($product);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $product->getName() . '</strong> a été supprimer de votre base.'
+            );
         }
 
         return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);

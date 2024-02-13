@@ -32,6 +32,10 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $user->getFirstname() . '</strong> a été ajouté à votre base.'
+            );
 
             return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,6 +62,10 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $user->getFirstname() . '</strong> a été modifié dans votre base.'
+            );
 
             return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -74,8 +82,12 @@ class UserController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $user->getFirstname() . '</strong> a été supprimer de votre base.'
+            );
         }
 
-        return $this->redirectToRoute('back/user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -54,6 +54,16 @@
 			{{ include('_navbar.html.twig') }}
 		{% endif %}
 
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="flash-{{ label }}">
+					<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+						{{ message|striptags('<strong>')|raw }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				</div>
+			{% endfor %}
+		{% endfor %}
 
 		{% block body %}{% endblock %}
 

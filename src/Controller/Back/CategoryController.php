@@ -36,7 +36,10 @@ class CategoryController extends AbstractController
             $category->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->persist($category);
             $entityManager->flush();
-
+            $this->addFlash(
+                'success',
+                '<strong>' . $category->getName() . '</strong> a été ajouté à votre base.'
+            );
             return $this->redirectToRoute('back_category_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -64,6 +67,10 @@ class CategoryController extends AbstractController
             $category->setSlug($slugger->slug($category->getName()));
             $category->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $category->getName() . '</strong> a été modifié dans votre base.'
+            );
 
             return $this->redirectToRoute('back_category_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -80,7 +87,12 @@ class CategoryController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
             $entityManager->remove($category);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $category->getName() . '</strong> a été supprimer de votre base.'
+            );
         }
+
 
         return $this->redirectToRoute('back_category_index', [], Response::HTTP_SEE_OTHER);
     }
