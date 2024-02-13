@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}O'fajitas! 
+{% block title %}O'fajitas!
 
 {% endblock %}
 
@@ -12,6 +12,7 @@
 
 			{% if (app.current_route == 'front_product_index') %}
 				<h2 class="h2-color">Tous les produits</h2>
+
 
 			{% elseif (app.current_route == 'front_main_search') %}
 				<h2 class="h2-color">Résultats de la recherche</h2>
@@ -33,8 +34,10 @@
 						<div
 							class="card h-100">
 							<!-- Product image-->
-							<img
-							src="{{ product.picture }}" alt="Card image" class="card-img">
+							<div class="image-container position-relative">
+								<img class="card-img-top" src="{{ product.picture }}" alt="...">
+								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
+							</div>
 
 							<!-- Product details-->
 							<div class="card-body p-4">
@@ -48,13 +51,20 @@
 									{# Affiche le prix réel #}
 									{{ price }}
 									€
+
 								</div>
 							</div>
 							<!-- Product actions-->
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
-									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_cart_add', {id: product.id}) }}">Ajouter au panier</a>
-									<a class="btn btn-outline-dark mt-auto " href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
+
+
+									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
+
+									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_cart_add', {id: product.id}) }}">Ajouter au Panier
+									</a>
+									
+
 								</div>
 							</div>
 						</div>

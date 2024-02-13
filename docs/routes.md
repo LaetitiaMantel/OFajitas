@@ -19,6 +19,8 @@
 | `/account/edit`           | `front_user_edit`      | `GET`        | `UserController`     | `edit`   |            |
 | `/account/edit`           | `front_user_edit`      | `POST`       | `UserController`     | `edit`   |            |
 | `/account/delete`         | `front_user_delete`    | `POST`       | `UserController`     | `delete` |            |
+| `favoris`                 | `front_favorite_index` | `GET`        | `FavoriteController` | `index`  | Mes favoris|    
+       |
 
 
 
@@ -45,6 +47,7 @@
 | `/account`             |             | `GET`        |
 | `/account/edit/{id}`   |             | `POST`       |
 | `/account/delete/{id}` |             | `POST`       |
+| `/favorite`             |             | `GET`        |
 
 | URL                        | Déscription | Méthode HTTP |
 | -------------------------- | ----------- | ------------ |
@@ -65,4 +68,5 @@
 | `/account/edit`            |             | `GET`        |
 | `/account/edit`            |             | `POST`       |
 | `/account/delete`          |             | `POST`       |
+| `/favorite`                |             | `GET`        | 
 
