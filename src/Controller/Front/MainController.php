@@ -35,6 +35,7 @@ class MainController extends AbstractController
             if ($search){
             // alors on recupère les produits associés à la fonction "findByResearch"
             $products = $productRepository->findByResearch($search);
+            
             }
             // on envoie le resultat au twig associé
             return $this->render('front/product/productList.html.twig', [
