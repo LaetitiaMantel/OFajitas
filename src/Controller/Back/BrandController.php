@@ -3,7 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\Brand;
-use App\Form\Brand1Type;
+use App\Form\BrandType;
 use App\Repository\BrandRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ class BrandController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $brand = new Brand();
-        $form = $this->createForm(Brand1Type::class, $brand);
+        $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ class BrandController extends AbstractController
     #[Route('/{id}/edit', name: 'app_back_brand_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Brand $brand, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Brand1Type::class, $brand);
+        $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

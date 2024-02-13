@@ -51,17 +51,20 @@
 									{# Affiche le prix réel #}
 									{{ price }}
 									€
+
 								</div>
 							</div>
 							<!-- Product actions-->
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
 
+
 									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
 
 									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_cart_add', {id: product.id}) }}">Ajouter au Panier
 									</a>
 									
+
 								</div>
 							</div>
 						</div>
