@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Brand;
 use App\Entity\Product;
 use App\Entity\Category;
+use Doctrine\DBAL\Types\BooleanType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -54,7 +55,16 @@ class ProductType extends AbstractType
                 'label' => "Note du produit",
             ])
             
-            ->add('status')
+            ->add('status', ChoiceType::class, [
+                'expanded' => false,
+                'multiple' => false,
+                'choices'  => [
+                    'Oui'         => true,
+                    'Non'          => false,
+                ],
+                'label'         => 'Produit disponible',
+                'empty_data'    => '',
+            ])
 
             ->add('brand', EntityType::class, [
                 'class' => Brand::class,

@@ -17,12 +17,6 @@ class BrandType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => "Nom de la marque",
             ])
-            ->add('createdAt', DateType::class, [
-                'label'     => "Quand avez vous ajouter cette marque",
-                'widget'    => 'single_text',
-                'input'     => 'datetime_immutable',
-                'empty_data' => (new \DateTimeImmutable())->format('d/m/Y'),
-            ])
         ;
     }
 

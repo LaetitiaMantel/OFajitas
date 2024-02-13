@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/back/brand')]
 class BrandController extends AbstractController
@@ -23,13 +24,16 @@ class BrandController extends AbstractController
     }
 
     #[Route('/new', name: 'back_brand_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $brand = new Brand();
         $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $brand->setSlug($slugger->slug($brand->getName()));
+            $brand->setCreatedAt(new \DateTimeImmutable());
+            $brand->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->persist($brand);
             $entityManager->flush();
 
@@ -51,12 +55,14 @@ class BrandController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'back_brand_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Brand $brand, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Brand $brand, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $brand->setSlug($slugger->slug($brand->getName()));
+            $brand->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->flush();
 
             return $this->redirectToRoute('back_brand_index', [], Response::HTTP_SEE_OTHER);
