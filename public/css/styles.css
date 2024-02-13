@@ -10874,3 +10874,32 @@ textarea.form-control-lg {
   margin-right: 1em;
   border-radius: 20px;
 }
+
+/* Classe pour le conteneur d'image position relative */
+.image-container {
+  position: relative;
+}
+
+/* Classe pour positionner l'icône absolument sur l'image */
+.position-absolute {
+  position: absolute;
+}
+
+/* Classe pour placer l'icône en haut à gauche de l'image avec une marge */
+.top-0 {
+  top: 0;
+}
+.start-0 {
+  left: 0;
+}
+.m-3 {
+  margin: 1rem; /* Ajustez la marge selon vos besoins */
+}
+.icon{
+  color:white;
+  font-size: 2em;
+}
+.icon-plus{
+  color:red;
+}
+
