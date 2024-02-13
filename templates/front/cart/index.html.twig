@@ -3,10 +3,6 @@
 {% block title %}
 	Votre panier
 {% endblock %}
-
-
-
-
 {% block body %}
 	<section class="py-5">
 		<div class="container px-4 px-lg-5">
@@ -66,18 +62,25 @@
 	</div>
 </td>
 
+
 									</tr>
 									{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
 								{% endfor %}
 
-								<!-- Dernière ligne du tableau pour afficher le total global -->
-								<tr>
-									<td colspan="3" class="text-end">
-										<strong>Total global :</strong>
-									</td>
-									<td colspan="2" style="white-space: nowrap;">{{ total }}
-										€</td>
-								</tr>
+<tr>
+	<td colspan="3" class="text-end">
+		<strong>Total global :</strong>
+	</td>
+<td colspan="2" style="white-space: nowrap;">
+	<span id="cart-total-container">{{ total }}
+		€</span>
+</td>
+
+
+
+</tr>
+
+
 							</tbody>
 						</table>
 					</div>
@@ -92,7 +95,6 @@
 							<form action="#" method="POST" class="d-inline">
 								<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
 							</form>
-						</div>
 					</div>
 				</div>
 				<!-- Quand le panier est vide   -->

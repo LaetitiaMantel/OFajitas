@@ -29,7 +29,13 @@
 {% block javascripts %}
 
 	<script src="{{ asset('script.js') }}"></script>
+<script>
+	var cartTotalUrl = "{{ path('front_cart_get_cart_total') }}";
+</script>
+
+
 {% endblock %}
+
 
 	</head>
 	<body>

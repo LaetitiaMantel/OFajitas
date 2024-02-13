@@ -94,6 +94,24 @@ class CartManager
         return $cartCount;
     }
 
+    public function getCartTotal(): float
+{
+    $cart = $this->getCart();
+    $total = 0;
+
+    foreach ($cart as $cartItem) {
+        $product = $cartItem['product'];
+        $quantity = $cartItem['quantity'];
+        // utilisation d'un opérateur d'assignation abrégé 
+        $total += $product->getPrice() * $quantity; 
+    }
+
+    //  On divise pour avoir le prix en euro 
+    $totalInEuros = $total / 100;
+
+    return $totalInEuros;
+    }
+
     private function getSession()
     {
         return $this->requestStack->getCurrentRequest()->getSession();

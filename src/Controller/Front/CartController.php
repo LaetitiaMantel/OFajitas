@@ -86,4 +86,11 @@ class CartController extends AbstractController
     {
         return new JsonResponse(['cartCount' => $cartManager->getCartCount()]);
     }
+
+     #[Route('/total', name: 'get_cart_total', methods: ['POST'])]
+    public function getCartTotal(CartManager $cartManager): JsonResponse
+    {
+        return new JsonResponse(['cartTotal' => $cartManager->getCartTotal()]);
+    }
+
 }
