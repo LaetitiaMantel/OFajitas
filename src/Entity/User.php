@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -16,6 +17,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Email()]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -25,12 +27,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank()]
+    // TODO : A réactiver avant la mise en production
+    // #[Assert\Length(
+    //     min: 8,
+    //     minMessage: "Le mot de passe doit contenir au moins 8 caractères.",
+    // )]
+    // #[Assert\Regex(
+    //     pattern: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/",
+    //     message: "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre."
+    // )]
     private ?string $password = null;
 
     #[ORM\Column(length: 128)]
+    #[Assert\NotBlank()]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 128)]
+    #[Assert\NotBlank()]
     private ?string $lastname = null;
 
     public function getId(): ?int
