@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller\Front;
+namespace App\Controller\Front;
 
 use App\Entity\Product;
 use App\Service\CartManager;
@@ -40,8 +41,11 @@ class CartController extends AbstractController
 
         // Ajout du produit au panier
         $cartManager->add($product);
+        // Ajout du produit au panier
+        $cartManager->add($product);
 
         // Retourner une réponse avec le message flash
+        return new JsonResponse(['message' => 'Produit ajouté au panier.']);
         return new JsonResponse(['message' => 'Produit ajouté au panier.']);
     }
 

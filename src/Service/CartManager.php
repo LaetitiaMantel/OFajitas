@@ -16,6 +16,7 @@ class CartManager
     public function add(Product $product): bool
     {
       
+      
         // on récupère la session
         $session = $this->requestStack->getCurrentRequest()->getSession();
         // on récupère le panier de la session

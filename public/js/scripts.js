@@ -15,25 +15,24 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", function (event) {
       event.preventDefault();
 
-      // Récupérer l'ID du produit 
+      // Récupérer l'ID du produit à partir des attributs de données (data-*)
       const productId = button.getAttribute("data-product-id");
 
-      // Appeler la fonction addToCartEvent avec l'ID du produit 
-
-      addToCartEvent(button, productId);
+      // Appeler la fonction addToCartEvent avec l'ID du produit
+      addToCartEvent(productId);
     });
   });
 });
 
-function addToCartEvent(button, productId) {
+function addToCartEvent(productId) {
   const flashMessagesContainer = document.getElementById(
-    "flashMessagesContainer-" + productId
+    "flashMessagesContainer"
   );
 
+  // Récupérer la route de la même manière que dans votre script d'origine
+  const addToCartButton = document.querySelector(".addToCartButton");
+  const route = addToCartButton.getAttribute("data-route");
 
-  const route = button.getAttribute("data-route");
-
-  // Envoyer l'ID du produit comme valeur de "someData"
   fetch(route.replace("{id}", productId), {
     method: "POST",
     headers: {
