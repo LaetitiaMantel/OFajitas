@@ -1,153 +1,9 @@
-console.log("ok");
-
-//  AJOUTER AU PANIER AJAX : 
-
-
-document.addEventListener("DOMContentLoaded", function () {
-  const addToCartButtons = document.querySelectorAll(".addToCartButton");
-
-  addToCartButtons.forEach(function (button) {
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-      // Récupérer l'ID du produit 
-      const productId = button.getAttribute("data-product-id");
-      // Appeler la fonction addToCartEvent avec l'ID du produit 
-      addToCartEvent(button, productId);
-    });
-  });
-});
-
-function addToCartEvent(button, productId) {
-  const flashMessagesContainer = document.getElementById(
-    "flashMessagesContainer-" + productId
-  );
-  const route = button.getAttribute("data-route");
-  // Envoyer l'ID du produit comme valeur de "someData"
-  fetch(route.replace("{id}", productId), {
-    method: "POST",
+// Fonction pour effectuer une requête AJAX générique
+function sendAjaxRequest(route, method, successCallback, errorCallback) {
+  fetch(route, {
+    method: method,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: "someData=" + encodeURIComponent(productId),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erreur lors de la requête AJAX");
-      }
-      return response.json(); 
-    })
-    .then((data) => {
-      flashMessagesContainer.innerHTML = data.message;
-      setTimeout(function () {
-        flashMessagesContainer.innerHTML = "";
-      }, 3000);
-      getCartCount();
-    })
-    .catch((error) => {
-      console.error("Erreur lors de la requête AJAX :", error);
-    });
-}
-
-
-
-// RETIRER DU PANIER 
-
-document.addEventListener("DOMContentLoaded", function () {
-  const deleteFromCartButtons = document.querySelectorAll(".deleteFromCartButton");
-
-  deleteFromCartButtons.forEach(function (button) {
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-      // Récupérer l'ID du produit 
-      const productId = button.getAttribute("data-product-id");
-      // Appeler la fonction deleteFromCartEvent avec l'ID du produit 
-      deleteFromCartEvent(button, productId);
-    });
-  });
-});
-
-function deleteFromCartEvent(button, productId) {
-  const flashMessagesContainer = document.getElementById("flashMessagesContainer-" + productId);
-  const route = button.getAttribute("data-route");
-
-  // Envoyer l'ID du produit comme valeur de "someData"
-  fetch(route.replace("{id<\\d+>}", productId), {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: "someData=" + encodeURIComponent(productId),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erreur lors de la requête AJAX");
-      }
-      return response.json(); 
-    })
-    .then((data) => {
-      flashMessagesContainer.innerHTML = data.message;
-      // Supprimer visuellement le produit du panier
-      const productRow = button.closest("tr");
-      if (productRow) {
-        productRow.style.opacity = 0;
-        setTimeout(function () {
-          productRow.remove();
-        }, 500);
-         getCartCount();
-      }
-      setTimeout(function () {
-        flashMessagesContainer.innerHTML = "";
-      }, 3000);
-      
-    })
-    .catch((error) => {
-      console.error("Erreur lors de la requête AJAX :", error);
-    });
-}
-
-// Vider le panier : 
-
-function emptyCartEvent(route) {
-    const flashMessagesContainer = document.getElementById("flashMessagesContainer");
-
-    // Appeler la fonction emptyCart sur le serveur via AJAX avec la route récupérée
-    fetch(route, {
-        method: "GET",
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error("Erreur lors de la requête AJAX");
-        }
-        return response.json();
-    })
-    .then((data) => {
-        flashMessagesContainer.innerHTML = data.message;
-        // Supprimer visuellement tous les produits du panier
-        const productRows = document.querySelectorAll(".product-row");
-        productRows.forEach(function (row) {
-            row.remove();
-        });
-        setTimeout(function () {
-            flashMessagesContainer.innerHTML = "";
-        }, 3000);
-         getCartCount();
-    })
-    .catch((error) => {
-        console.error("Erreur lors de la requête AJAX :", error);
-    });
-}
-
-
-// Compte du panier : 
-
-function getCartCount() {
-  const cartCountContainer = document.getElementById("cart-count");
-
-  // Effectuer la requête AJAX pour obtenir le nombre d'articles côté serveur
-  fetch("panier/count", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
     },
   })
     .then((response) => {
@@ -156,23 +12,113 @@ function getCartCount() {
       }
       return response.json();
     })
-    .then((data) => {
-      const cartCount = data.cartCount !== undefined ? data.cartCount : 0;
-
-      // Mettre à jour le nombre d'articles dans le stockage local
-      localStorage.setItem("cartCount", cartCount);
-
-      // Mettre à jour l'interface utilisateur avec le nouveau nombre d'articles
-      cartCountContainer.innerText = cartCount > 0 ? cartCount : "0";
-    })
-    .catch((error) => {
-      console.error(
-        "Erreur lors de la requête AJAX pour obtenir le nombre d'articles dans le panier :",
-        error
-      );
-    });
+    .then(successCallback)
+    .catch(errorCallback);
 }
 
+// Fonction pour gérer les événements d'ajout au panier et mise à jour du compteur
+function handleAddToCartEvent(button, productId) {
+  const flashMessagesContainer = document.getElementById("flashMessagesContainer-" + productId);
+  const route = button.getAttribute("data-route");
+
+  sendAjaxRequest(
+    route.replace("{id}", productId),
+    "POST",
+    (data) => {
+      flashMessagesContainer.innerHTML = data.message;
+      setTimeout(() => (flashMessagesContainer.innerHTML = ""), 3000);
+      getCartCount();
+    },
+    (error) => console.error("Erreur lors de la requête AJAX :", error)
+  );
+}
+
+// Fonction pour gérer les événements de suppression du panier et mise à jour du compteur
+function handleDeleteFromCartEvent(button, productId) {
+  const flashMessagesContainer = document.getElementById("flashMessagesContainer-" + productId);
+  const route = button.getAttribute("data-route");
+
+  sendAjaxRequest(
+    route.replace("{id<\\d+>}", productId),
+    "POST",
+    (data) => {
+      flashMessagesContainer.innerHTML = data.message;
+
+      const productRow = button.closest("tr");
+      if (productRow) {
+        productRow.style.opacity = 0;
+        setTimeout(() => productRow.remove(), 500);
+        getCartCount();
+      }
+
+      setTimeout(() => (flashMessagesContainer.innerHTML = ""), 3000);
+    },
+    (error) => console.error("Erreur lors de la requête AJAX :", error)
+  );
+}
+
+// Fonction pour vider le panier et mise à jour du compteur
+function emptyCartEvent(route) {
+  const flashMessagesContainer = document.getElementById("flashMessagesContainer");
+
+  sendAjaxRequest(
+    route,
+    "GET",
+    (data) => {
+      flashMessagesContainer.innerHTML = data.message;
+
+      document.querySelectorAll(".product-row").forEach((row) => row.remove());
+
+      setTimeout(() => (flashMessagesContainer.innerHTML = ""), 3000);
+      getCartCount();
+    },
+    (error) => console.error("Erreur lors de la requête AJAX :", error)
+  );
+}
+
+// Fonction pour obtenir le nombre d'articles dans le panier
+function getCartCount() {
+  const cartCountContainer = document.getElementById("cart-count");
+
+  sendAjaxRequest(
+    cartCountUrl,
+    "POST",
+    (data) => {
+      const cartCount = data.cartCount !== undefined ? data.cartCount : 0;
+      localStorage.setItem("cartCount", cartCount);
+      cartCountContainer.innerText = cartCount > 0 ? cartCount : "0";
+    },
+    (error) =>
+      console.error("Erreur lors de la requête AJAX pour obtenir le nombre d'articles dans le panier :", error)
+  );
+}
+
+// Événement au chargement de la page
+document.addEventListener("DOMContentLoaded", () => {
+  // Gestion des événements d'ajout au panier
+  document.querySelectorAll(".addToCartButton").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      handleAddToCartEvent(button, button.getAttribute("data-product-id"));
+    });
+  });
+
+  // Gestion des événements de suppression du panier
+  document.querySelectorAll(".deleteFromCartButton").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      handleDeleteFromCartEvent(button, button.getAttribute("data-product-id"));
+    });
+  });
+
+  // Gestion de l'événement de vidage du panier
+  const emptyCartButton = document.getElementById("emptyCartButton");
+  if (emptyCartButton) {
+    emptyCartButton.addEventListener("click", () =>
+      emptyCartEvent(emptyCartButton.getAttribute("data-route"))
+    );
+  }
+});
 // Appeler la fonction au chargement de la page
 window.onload = function () {
   getCartCount();

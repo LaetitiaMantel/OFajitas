@@ -1,9 +1,11 @@
 <!-- Navigation-->
-{% block javascripts %}
- 
-	<script src="{{ asset('script.js') }}"></script>
-{% endblock %}
+    {% block javascript %}
+    <script>
+        var cartCountUrl = "{{ path('front_cart_get_cart_count') }}";
 
+		 
+    </script>
+    {% endblock %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container px-4 px-lg-5">
@@ -101,8 +103,8 @@
 				</ul>
 			</div>
 <a href="{{ path('front_cart_index') }}" class="btn btn-outline-dark">
-	<i class="bi bi-cart-fill me-1"></i>
-	<span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill"></span>
+  <i class="bi bi-cart-fill me-1"></i>
+  <span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill" data-cart-count-url="{{ path('front_cart_get_cart_count') }}"></span>
 </a>
 
 
