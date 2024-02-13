@@ -12,8 +12,8 @@
 | `/panier/ajouter{slug}`   | `front_cart_add`       | `POST`       | `CartController`     | `add`    |            |
 | `/panier/supprimer{slug}` | `front_cart_delete`    | `POST`       | `CartController`     | `delete` |            |
 | `panier/vider`            | `front_cart_empty`     | `GET`        | `CartController`     | `empty`  |            |
-| `/login`                  | `app_login`            | `GET`        | `SecurityController` | `login`  |            |
-| `/logout`                 | `app_logout`           | `GET`        | `SecurityController` | `logout` |            |
+| `/login`                  | `login`            | `GET`        | `SecurityController` | `login`  |            |
+| `/logout`                 | `logout`           | `GET`        | `SecurityController` | `logout` |            |
 | `/account`                | `front_user_index`     | `GET`        | `UserController`     | `index`  |            |
 | `/account`                | `front_user_index`     | `POST`       | `UserController`     | `index`  |            |
 | `/account/edit`           | `front_user_edit`      | `GET`        | `UserController`     | `edit`   |            |

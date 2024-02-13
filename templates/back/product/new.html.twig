@@ -1,5 +1,6 @@
-
 {% extends 'base.html.twig' %}
+
+{% block title %}Nouveau produit{% endblock %}
 
 {% block body %}
 	<div class="container">
@@ -7,7 +8,7 @@
 
 		{{ include('back/product/_form.html.twig') }}
 
-		<a class="btn btn-success mb-4" href="{{ path('app_back_product_index') }}">Retour à la liste</a>
+		<a class="btn btn-success mb-4" href="{{ path('back_product_index') }}">Retour à la liste</a>
 	</div>
 
 {% endblock %}

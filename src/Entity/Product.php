@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -15,18 +16,27 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 128)]
+    #[Assert\NotBlank()]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank()]
     private ?string $description = null;
 
     #[ORM\Column(length: 2083)]
+    #[Assert\NotBlank()]
+    #[Assert\Url()]
     private ?string $picture = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
     private ?int $price = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 2, scale: 1)]
+    #[Assert\Range(
+        min: 1,
+        max: 5,
+    )]
     private ?string $rating = null;
 
     #[ORM\Column]
@@ -48,6 +58,7 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
 
     public function getId(): ?int
     {
