@@ -32,17 +32,13 @@
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 				{% for product in newProducts %}
 					<div class="col mb-5">
-						<div
-							class="card h-100">
+						<div class="card h-100">
 							<!-- Product image-->
 							<div class="image-container position-relative">
 								<img class="card-img-top" src="{{ product.picture }}" alt="...">
-
-								<a href="{{ path('front_favorite_add', {id: product.id}) }}">
-									<i class="bi bi-bookmarks position-absolute top-0 start-0 m-3 icon">
-								</i>
-								</a>
+								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 							</div>
+							
 
 							<!-- Product details-->
 							<div class="card-body p-4">

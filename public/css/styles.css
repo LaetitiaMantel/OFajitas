@@ -10896,6 +10896,10 @@ textarea.form-control-lg {
   margin: 1rem; /* Ajustez la marge selon vos besoins */
 }
 .icon{
-  color:black;
+  color:white;
   font-size: 2em;
 }
+.icon-plus{
+  color:red;
+}
+

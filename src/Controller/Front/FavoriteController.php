@@ -66,12 +66,16 @@ class FavoriteController extends AbstractController
             if ($favoriteManager->remove($product)) {
                 $this->addFlash(
                     'success',
-                    '<strong>' . $product->getName() . '</strong> a été supprimé de votre panier .'
+                    '<strong>' . $product->getName() . '</strong> a été supprimé de vos favoris .'
                 );
             }
     
             
-                return $this->redirectToRoute('front_favorite_index');
+            // Récupérer l'URL de la page précédente (avant l'ajout du produit aux favoris)
+            $previousUrl = $request->headers->get('referer');
+
+            // Rediriger vers l'URL de la page précédente
+            return $this->redirect($previousUrl);
     
         }
 
