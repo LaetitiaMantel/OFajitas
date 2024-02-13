@@ -124,6 +124,8 @@ function getCartTotal() {
       console.log("AJAX success:", data);
       const cartTotal = data.cartTotal !== undefined ? data.cartTotal : 0;
       localStorage.setItem("cart-total", cartTotal);
+
+      
       cartTotalContainer.innerText = cartTotal + " €";
     },
     (error) => {
