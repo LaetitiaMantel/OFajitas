@@ -20,24 +20,8 @@
 			<link
 			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
 			<!-- Core theme CSS (includes Bootstrap)-->
-
-
 			<link href="{{ asset('css/styles.css') }}" rel="stylesheet"/>
-			<script src="{{ asset('js/scripts.js') }}"></script>
-			 
 		{% endblock %}
-
-{% block javascripts %}
-
-
-<script>
-	var cartTotalUrl = "{{ path('front_cart_get_cart_total') }}";
-</script>
-
-
-{% endblock %}
-
-
 	</head>
 	<body>
 		<!-- Header-->
@@ -89,11 +73,16 @@
 		<!-- Bootstrap core JS-->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 		<!-- Core theme JS-->
+		<script src="{{ asset('js/scripts.js') }}"></script>
 		<script src="{{ asset('js/favoris.js') }}"></script>
-		<script>
-			const addToFavoriteUrl = "{{ path('front_favorite_add', {id: 1}) }}";
-			const deleteFavoriteUrl = "{{ path('front_favorite_delete_js', {id: 1}) }}";
-		</script>
+		{% block javascripts %}
+			<script>
+				var cartTotalUrl = "{{ path('front_cart_get_cart_total') }}";
+				const addToFavoriteUrl = "{{ path('front_favorite_add', {id: 1}) }}";
+				const deleteFavoriteUrl = "{{ path('front_favorite_delete_js', {id: 1}) }}";
+			</script>
+		{% endblock %}
+
 
 	</body>
 </html>
