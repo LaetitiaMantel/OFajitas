@@ -64,13 +64,24 @@
 			{{ include('_navbar.html.twig') }}
 		{% endif %}
 
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="flash-{{ label }}">
+					<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+						{{ message|striptags('<strong>')|raw }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				</div>
+			{% endfor %}
+		{% endfor %}
 
 		{% block body %}{% endblock %}
 
 
 		<footer class="py-5 gradient">
-			<div class="container">
-				<p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+			<div class="container text-center">
+				<p class="m-0 text-center text-white">Copyright &copy; O'Fajitas 2024</p>
+				<img class="w-10 p-3" src="{{ asset('images/powered-by-fajitas.png')}}" alt="fajitas" srcset="">
 			</div>
 		</footer>
 
