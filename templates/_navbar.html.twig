@@ -13,6 +13,12 @@
 					</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" href="{{ path ('front_favorite_index')}}">
+						<i class="bi bi-heart-fill icon-plus"></i>
+						Mes Favoris
+					</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href="{{ path('front_product_index') }}">
 						Tous les produits
 					</a>
@@ -41,6 +47,7 @@
 						{% endfor %}
 					</ul>
 				</li>
+
 			</ul>
 
 
@@ -59,13 +66,13 @@
 				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 					{% if not app.user %}
 						<li>
-							<a class="dropdown-item" href="{{ path ('app_login')}}">Connexion
+							<a class="dropdown-item" href="{{ path ('login')}}">Connexion
 							</a>
 						</li>
 					{% else %}
 						{% if is_granted("ROLE_MANAGER") %}
 							<li>
-								<a class="dropdown-item" href="{{ path('app_back_product_index') }}">
+								<a class="dropdown-item" href="{{ path('back_product_index') }}">
 									Back Office
 								</a>
 							</li>
@@ -89,7 +96,7 @@
 							</li>
 						{% endif %}
 						<li>
-							<a class="dropdown-item" href="{{ path ('app_logout')}}">Deconnexion
+							<a class="dropdown-item" href="{{ path ('logout')}}">Deconnexion
 							</a>
 						</li>
 					{% endif %}
@@ -103,3 +110,14 @@
 		</div>
 	</div>
 </nav>
+{# read and display all flash messages #}
+{% for label, messages in app.flashes %}
+	{% for message in messages %}
+		<div class="flash-{{ label }}">
+			<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+				{{ message|striptags('<strong>')|raw }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		</div>
+	{% endfor %}
+{% endfor %}

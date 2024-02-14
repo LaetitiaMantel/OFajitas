@@ -73,7 +73,7 @@
   --bs-border-radius-xl: 1rem;
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
-  --bs-link-color: #0d6efd;
+  --bs-link-color: #a2d0d6;
   --bs-link-hover-color: #0a58ca;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
@@ -4516,10 +4516,10 @@ textarea.form-control-lg {
   --bs-pagination-hover-border-color: #dee2e6;
   --bs-pagination-focus-color: var(--bs-link-hover-color);
   --bs-pagination-focus-bg: #e9ecef;
-  --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(22, 180, 140, 0.25);
   --bs-pagination-active-color: #fff;
-  --bs-pagination-active-bg: #0d6efd;
-  --bs-pagination-active-border-color: #0d6efd;
+  --bs-pagination-active-bg: #a2d0d6;
+  --bs-pagination-active-border-color: #a2d0d6;
   --bs-pagination-disabled-color: #6c757d;
   --bs-pagination-disabled-bg: #fff;
   --bs-pagination-disabled-border-color: #dee2e6;
@@ -7259,6 +7259,10 @@ textarea.form-control-lg {
 
 .border-opacity-100 {
   --bs-border-opacity: 1;
+}
+
+.w-10 {
+  width: 10% !important;
 }
 
 .w-25 {
@@ -10874,3 +10878,32 @@ textarea.form-control-lg {
   margin-right: 1em;
   border-radius: 20px;
 }
+
+/* Classe pour le conteneur d'image position relative */
+.image-container {
+  position: relative;
+}
+
+/* Classe pour positionner l'icône absolument sur l'image */
+.position-absolute {
+  position: absolute;
+}
+
+/* Classe pour placer l'icône en haut à gauche de l'image avec une marge */
+.top-0 {
+  top: 0;
+}
+.start-0 {
+  left: 0;
+}
+.m-3 {
+  margin: 1rem; /* Ajustez la marge selon vos besoins */
+}
+.icon{
+  color:white;
+  font-size: 2em;
+}
+.icon-plus{
+  color:red;
+}
+

@@ -9,21 +9,28 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 ">
 				<h3>BackOffice
-                    {% if is_granted ("ROLE_ADMIN") %}
+                    {% if is_granted ("ROLE_SUPERADMIN") %}
+						Super Administrateur
+					{% elseif is_granted ("ROLE_ADMIN") %}
 						Administrateur
 					{% elseif is_granted ("ROLE_MANAGER") %}
 						Manager
 					{% endif %}
 				</h3>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_back_product_index') }}">Produits</a>
+					<a class="nav-link" href="{{ path('back_product_index') }}">Produits</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_back_brand_index') }}">Marques</a>
+					<a class="nav-link" href="{{ path('back_brand_index') }}">Marques</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_back_category_index') }}">Catégories</a>
+					<a class="nav-link" href="{{ path('back_category_index') }}">Catégories</a>
 				</li>
+				{% if is_granted ("ROLE_SUPERADMIN") %}
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('back_user_index') }}">Utilisateurs</a>
+				</li>
+				{% endif %}
 
 			</ul>
 
@@ -49,7 +56,7 @@
 						</a>
 					</li>
 					<li>
-						<a class="dropdown-item" href="{{ path ('app_logout')}}">Deconnexion
+						<a class="dropdown-item" href="{{ path ('logout')}}">Deconnexion
 						</a>
 					</li>
 
