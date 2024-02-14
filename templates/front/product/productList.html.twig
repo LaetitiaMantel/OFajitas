@@ -7,6 +7,7 @@
 
 {% block title %}O'fajitas!
 
+
 {% endblock %}
 
 {% block body %}
@@ -16,6 +17,7 @@
 
 			{% if (app.current_route == 'front_product_index') %}
 				<h2 class="h2-color">Tous les produits</h2>
+
 
 			{% elseif (app.current_route == 'front_main_search') %}
 				<h2 class="h2-color">Résultats de la recherche</h2>
@@ -37,8 +39,10 @@
 						<div
 							class="card h-100">
 							<!-- Product image-->
-							<img
-							src="{{ product.picture }}" alt="Card image" class="card-img">
+							<div class="image-container position-relative">
+								<img class="card-img-top" src="{{ product.picture }}" alt="...">
+								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
+							</div>
 
 							<!-- Product details-->
 							<div class="card-body p-4">

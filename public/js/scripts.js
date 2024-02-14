@@ -1,10 +1,6 @@
 
 console.log("OK JS")
 
-
-
-
-
 // Fonction pour effectuer une requête AJAX générique
 function sendAjaxRequest(route, method, successCallback, errorCallback) {
   fetch(route, {
