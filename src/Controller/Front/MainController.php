@@ -1,16 +1,23 @@
 <?php
 namespace App\Controller\Front;
 
-use App\Repository\CategoryRepository;
+use App\Entity\User;
+use App\Form\UserTypeUser;
 use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
+
 
 #[Route('/', name: 'front_main_')]
 class MainController extends AbstractController
 {   
+    
 
     #[Route('/', name: 'home')]
     public function index(ProductRepository $productRepository,CategoryRepository $categoryRepository): Response
@@ -43,6 +50,33 @@ class MainController extends AbstractController
             ]);
         }
 
+        #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
+        public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+        {
+            $user = new User();
+            $form = $this->createForm(UserTypeUser::class, $user);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
+                $user->setRoles(['ROLE_USER']); 
+                $entityManager->persist($user);
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    '<strong>' . $user->getFirstname() . '</strong> Vous étes bien inscrit.'
+                );
+    
+                return $this->redirectToRoute('front_main_home', [], Response::HTTP_SEE_OTHER);
+               //TODO voir pour que l utilisateur inscrit soit automatiquement connnecter
+           
+            }
+    
+            return $this->render('front/user/new.html.twig', [
+                'user' => $user,
+                'form' => $form,
+            ]);
+        }
 
-         
+   
 }
