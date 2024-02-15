@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class FavoriteController extends AbstractController
 {
 
-    #[Route('/favoris', name: 'index')]
+    #[Route('/', name: 'index')]
     
         public function index(FavoriteManager $favoriteManager): Response
         {
