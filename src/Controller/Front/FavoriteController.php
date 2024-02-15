@@ -25,38 +25,8 @@ class FavoriteController extends AbstractController
             ]);
         }
 
-        // #[Route('/ajouter/{id<\d+>}', name: 'add', methods: ['GET', 'POST'])]
-        // public function addToCart(FavoriteManager $favoriteManager, Product $product = null, Request $request): Response
-        // {
-        //     // Vérification du produit à mettre dans les favoris
-        //     if ($product === null) {
-        //         throw $this->createNotFoundException("Le produit demandé n'existe pas");
-        //     }
-    
-        //     // on délègue toute la partie métier au service favoris Manager
-        //     if ($favoriteManager->add($product)) {
-        //         // Le produit n'était pas dans les favoris, ajout avec succès
-        //         $this->addFlash(
-        //             'success',
-        //             '<strong>' . $product->getName() . '</strong> a été ajouté à vos favoris.'
-        //         );
-        //     } else {
-        //         // Le produit était déjà dans les favoris
-        //         $this->addFlash(
-        //             'info',
-        //             $product->getName().' '.'est déjà en favoris'
-        //         );
-        //     }
-
-        //     // Récupérer l'URL de la page précédente (avant l'ajout du produit aux favoris)
-        //     $previousUrl = $request->headers->get('referer');
-
-        //     // Rediriger vers l'URL de la page précédente
-        //     return $this->redirect($previousUrl);
-        // }
-
         #[Route('/ajouter/{id<\d+>}', name: 'add', methods: ['GET', 'POST'])]
-        public function addToCart(FavoriteManager $favoriteManager, Product $product = null): JsonResponse
+        public function add(FavoriteManager $favoriteManager, Product $product = null): JsonResponse
             {
                 // Vérification du produit à mettre dans les favoris
                 if ($product === null) {
@@ -75,32 +45,32 @@ class FavoriteController extends AbstractController
             }
 
 
-        #[Route('/supprimer/{id<\d+>}', name: 'delete', methods: ['POST'])]
-        public function remove(FavoriteManager $favoriteManager, Product $product = null, Request $request): Response
-        {
-            // Vérification du produit à supprimer 
-            if ($product === null) {
-                throw $this->createNotFoundException("l'article  n'existe pas");
-            }
+        // #[Route('/supprimer/{id<\d+>}', name: 'delete', methods: ['POST'])]
+        // public function remove(FavoriteManager $favoriteManager, Product $product = null, Request $request): Response
+        // {
+        //     // Vérification du produit à supprimer 
+        //     if ($product === null) {
+        //         throw $this->createNotFoundException("l'article  n'existe pas");
+        //     }
     
-            // on délègue toute la partie métier au service Favorite Manager
-            if ($favoriteManager->remove($product)) {
-                $this->addFlash(
-                    'success',
-                    '<strong>' . $product->getName() . '</strong> a été supprimé de vos favoris .'
-                );
-            }
+        //     // on délègue toute la partie métier au service Favorite Manager
+        //     if ($favoriteManager->remove($product)) {
+        //         $this->addFlash(
+        //             'success',
+        //             '<strong>' . $product->getName() . '</strong> a été supprimé de vos favoris .'
+        //         );
+        //     }
             
-            // Récupérer l'URL de la page précédente (avant l'ajout du produit aux favoris)
-            $previousUrl = $request->headers->get('referer');
+        //     // Récupérer l'URL de la page précédente (avant l'ajout du produit aux favoris)
+        //     $previousUrl = $request->headers->get('referer');
 
-            // Rediriger vers l'URL de la page précédente
-            return $this->redirect($previousUrl);
+        //     // Rediriger vers l'URL de la page précédente
+        //     return $this->redirect($previousUrl);
     
-        }
+        // }
 
-        #[Route('/supprimer/{id<\d+>}', name: 'delete_js', methods: ['POST'])]
-        public function remove_js(FavoriteManager $favoriteManager, Product $product = null, Request $request): JsonResponse
+        #[Route('/supprimer/{id<\d+>}', name: 'delete', methods: ['POST'])]
+        public function remove(FavoriteManager $favoriteManager, Product $product = null, Request $request): JsonResponse
         {
             // Vérification du produit à supprimer 
             if ($product === null) {
@@ -120,10 +90,8 @@ class FavoriteController extends AbstractController
             }
         }
             
-
-
         #[Route('/vider', name: 'empty', methods: ['GET'])]
-        public function empt(FavoriteManager $favoriteManager): Response
+        public function empty(FavoriteManager $favoriteManager): Response
         {
             if ($favoriteManager->empty()) {
                 $this->addFlash(
@@ -139,5 +107,6 @@ class FavoriteController extends AbstractController
             return $this->render('front/favoris/index.html.twig');
         }
 
+      
     
 }

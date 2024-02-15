@@ -28,32 +28,25 @@ async function createFavoris() {
         }
     });
 
-    // Parcourez tous les boutons et mettez à jour leur classe en fonction des favoris
-    removeButtons.forEach(button => {
-        const productId = button.getAttribute('data-product-id');
-
-
-    });
 
     // Ajoutez un écouteur d'événements à chaque bouton
     removeButtons.forEach(button => {
         button.addEventListener('click', function (event) {
 
+            event.preventDefault();
             // Récupérez l'ID du produit à partir de l'attribut data-product-id
             const productId = button.getAttribute('data-product-id');
 
-            // Mettez à jour le stockage local pour refléter les changements
-            favoris[productId] = false;
-            localStorage.setItem('favoris', JSON.stringify(favoris));
+            deleteFavoris(productId);
 
-            //deleteFavoris(productId);
-
+            localStorage.removeItem('favoris');
         });
     });
+
     if (emptyButton) {
 
         emptyButton.addEventListener('click', function () {
-           
+
             localStorage.removeItem('favoris');
         });
     }
@@ -125,14 +118,31 @@ async function createFavoris() {
 
             if (response.ok) {
                 const favoris = await response.json();
+
                 console.log("Favoris supprimé avec succès :", favoris);
-                // Mettez à jour l'interface utilisateur pour refléter les changements, si nécessaire
+                // Mettez à jour l'interface utilisateur pour refléter les changements de la page favoris
+                const favorisElement = document.querySelector('#favori-' + productId);
+                favorisElement.parentNode.removeChild(favorisElement);
+
+                // Afficher un message de confirmation
+                const element = document.querySelector('#div');
+                const notificationElement = document.createElement('div');
+                notificationElement.classList.add('notification');
+                notificationElement.textContent = "Le favori a été supprimé avec succès.";
+                element.appendChild(notificationElement);
+
+                // Supprimer la notification après quelques secondes
+                setTimeout(() => {
+                    notificationElement.parentNode.removeChild(notificationElement);
+                }, 3000);
+
             } else {
                 console.error("Échec de la suppression du favoris :", response.statusText);
             }
         } catch (error) {
             console.error("Erreur lors de la suppression du favoris :", error);
         }
+
     }
 
 
