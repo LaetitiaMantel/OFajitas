@@ -21,12 +21,12 @@
 								</tr>
 							</thead>
 							<tbody>
-							<div id="div"> </div>
+								<div id="notification"></div>
 								{% for productItem in favoris %}
 									<tr id="favori-{{productItem.product.id}}">
 										<td>
 											{% if productItem.product is defined %}
-												<div class="d-flex align-items-center" >
+												<div class="d-flex align-items-center">
 													<a href="{{ path('front_product_show', {'slug': productItem.product.slug}) }}">
 														<img src="{{ productItem.product.picture }}" class="img-fluid" alt="{{ productItem.product.name }}" style="max-height: 80px; max-width: 80px; margin-right: 10px;">
 													</a>
@@ -44,9 +44,7 @@
 
 
 											{% set key = productItem.product.id %}
-											{# <form action="{{ path('front_favorite_delete', {id: key}) }}" method="POST" class="d-inline"> #}
-												<button type="submit" id="remove" data-product-id="{{ key }}" class="btn btn-outline-danger btn-sm">Supprimer</button>
-											{# </form> #}
+											<button type="submit" id="remove" data-product-id="{{ key }}" class="btn btn-outline-danger btn-sm">Supprimer</button>
 										</td>
 									</tr>
 								{% endfor %}

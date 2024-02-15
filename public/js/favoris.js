@@ -125,8 +125,8 @@ async function createFavoris() {
                 favorisElement.parentNode.removeChild(favorisElement);
 
                 // Afficher un message de confirmation
-                const element = document.querySelector('#div');
-                const notificationElement = document.createElement('div');
+                const element = document.querySelector('#notification');
+                const notificationElement = document.createElement('p');
                 notificationElement.classList.add('notification');
                 notificationElement.textContent = "Le favori a été supprimé avec succès.";
                 element.appendChild(notificationElement);
@@ -136,6 +136,8 @@ async function createFavoris() {
                     notificationElement.parentNode.removeChild(notificationElement);
                 }, 3000);
 
+               
+
             } else {
                 console.error("Échec de la suppression du favoris :", response.statusText);
             }
@@ -145,28 +147,6 @@ async function createFavoris() {
 
     }
 
-
-    async function emptyFavoris(productId) {
-        try {
-            const response = await fetch(emptyFavoriteUrl.replace(1, productId), {
-                method: "DELETE",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ productId: productId }),
-            });
-
-            if (response.ok) {
-                const favoris = await response.json();
-                console.log("Favoris supprimé avec succès :", favoris);
-                // Mettez à jour l'interface utilisateur pour refléter les changements, si nécessaire
-            } else {
-                console.error("Échec de la suppression du favoris :", response.statusText);
-            }
-        } catch (error) {
-            console.error("Erreur lors de la suppression du favoris :", error);
-        }
-    }
 }
 
 

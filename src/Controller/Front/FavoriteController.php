@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/favoris', name: 'front_favorite_')]
@@ -45,30 +44,6 @@ class FavoriteController extends AbstractController
             }
 
 
-        // #[Route('/supprimer/{id<\d+>}', name: 'delete', methods: ['POST'])]
-        // public function remove(FavoriteManager $favoriteManager, Product $product = null, Request $request): Response
-        // {
-        //     // Vérification du produit à supprimer 
-        //     if ($product === null) {
-        //         throw $this->createNotFoundException("l'article  n'existe pas");
-        //     }
-    
-        //     // on délègue toute la partie métier au service Favorite Manager
-        //     if ($favoriteManager->remove($product)) {
-        //         $this->addFlash(
-        //             'success',
-        //             '<strong>' . $product->getName() . '</strong> a été supprimé de vos favoris .'
-        //         );
-        //     }
-            
-        //     // Récupérer l'URL de la page précédente (avant l'ajout du produit aux favoris)
-        //     $previousUrl = $request->headers->get('referer');
-
-        //     // Rediriger vers l'URL de la page précédente
-        //     return $this->redirect($previousUrl);
-    
-        // }
-
         #[Route('/supprimer/{id<\d+>}', name: 'delete', methods: ['POST'])]
         public function remove(FavoriteManager $favoriteManager, Product $product = null, Request $request): JsonResponse
         {
@@ -104,7 +79,8 @@ class FavoriteController extends AbstractController
                     'Les favoris ne peuvent pas être vidé '
                 );
             }
-            return $this->render('front/favoris/index.html.twig');
+           
+            return $this->redirectToRoute('front_main_home');
         }
 
       
