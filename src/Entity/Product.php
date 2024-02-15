@@ -64,9 +64,13 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Review::class)]
     private Collection $reviews;
 
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: LigneOrder::class, cascade: ['persist'])]
+    private Collection $ligneOrders;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+        $this->ligneOrders = new ArrayCollection();
     }
 
 
@@ -231,6 +235,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($review->getProduct() === $this) {
                 $review->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LigneOrder>
+     */
+    public function getLigneOrders(): Collection
+    {
+        return $this->ligneOrders;
+    }
+
+    public function addLigneOrder(LigneOrder $ligneOrder): static
+    {
+        if (!$this->ligneOrders->contains($ligneOrder)) {
+            $this->ligneOrders->add($ligneOrder);
+            $ligneOrder->setProducts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigneOrder(LigneOrder $ligneOrder): static
+    {
+        if ($this->ligneOrders->removeElement($ligneOrder)) {
+            // set the owning side to null (unless already changed)
+            if ($ligneOrder->getProducts() === $this) {
+                $ligneOrder->setProducts(null);
             }
         }
 

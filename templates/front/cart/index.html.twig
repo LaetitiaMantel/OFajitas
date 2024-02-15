@@ -90,9 +90,10 @@ Votre panier
 								<button type="submit" class="btn btn-outline-danger btn-sm">Vider le panier</button>
 							</form>
 							<!-- Bouton pour valider la commande -->
-							<form action="#" method="POST" class="d-inline">
-								<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
-							</form>
+							<form action="{{ path('front_order_add') }}" method="POST" class="d-inline">
+    <button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
+</form>
+
 						</div>
 					</div>
 					<!-- Quand le panier est vide   -->

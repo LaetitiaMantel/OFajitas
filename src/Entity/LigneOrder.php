@@ -22,6 +22,9 @@ class LigneOrder
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'LigneOrder')]
+    private ?Order $order = null;
+
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -76,5 +79,17 @@ class LigneOrder
         $this->name = $name;
 
         return $this;
+    }
+
+    public function setOrder(?Order $order): static
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    public function getOrder(): ?Order
+    {
+        return $this->order;
     }
 }
