@@ -3,3 +3,7 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+auto_login:
+    path: /auto-login/{userId}
+    controller: App\Controller\SecurityController::autoLogin
