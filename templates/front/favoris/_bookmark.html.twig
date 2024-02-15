@@ -1,18 +1,34 @@
-
-
 <form action="
 	    {% if app.session.get('favoris')[key] is defined %}
 	        {{ path('front_favorite_delete', {id: key}) }}
 	    {% else %}
 	        {{ path('front_favorite_add', {id: key}) }}
 	    {% endif %}" method="POST">
-	<button class="btn  ">
+	<button class="btn" id="btn" data-product-id="{{ key }}">
 		<i class=
+<<<<<<< HEAD
 		{% if app.session.get('favoris')[key] is defined %}
 			"bi bi-heart-fill position-absolute top-0 start-0 m-3 icon icon-plus"
 		{% else %}
 			"bi bi-heart position-absolute top-0 start-0 m-3 icon"
 		{% endif %}>
+=======
+		
+		
+			"bi bi-heart-fill position-absolute top-0 start-0 m-3 icon">
+		
+>>>>>>> 4b7b59bbbb636caf1ca7272db12eb2df23229af5
 		</i>
 	</button>
 </form> 
+
+{# <form action="
+	    {% if app.session.get('favoris')[key] is defined %}
+	        {{ path('front_favorite_delete', {id: key}) }}
+	    {% else %}
+	        {{ path('front_favorite_add', {id: key}) }}
+	    {% endif %}" method="POST">
+	<button class="btn" id="btn" data-product-id="{{ key }}">
+		<i  class="{% if app.session.get('favoris')[key] is defined %} bi bi-heart-fill position-absolute top-0 start-0 m-3 icon icon-plus {% else %} bi bi-heart-fill position-absolute top-0 start-0 m-3 icon {% endif %}"></i>
+	</button>
+</form> #}
