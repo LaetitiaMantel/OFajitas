@@ -7,7 +7,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class CartManager
 {
+
     public function __construct(
+
         private RequestStack $requestStack,
         private bool $emptyEnabled
     ) {}

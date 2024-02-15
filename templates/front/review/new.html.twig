@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle critique{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h2 class="h2-color" >Ajouter une critique</h2>
+        
+        {{ include('front/review/_form.html.twig') }}
+						<form action="{{ path('front_product_show', {slug: product.slug}) }}" method="POST">
+							<button class="btn btn-dark btn-buy mb-2">
+								<span class="btn-buy-label mb-2">Retour à l'article</span>
+							</button>
+		                </form>
+    </div>
+{% endblock %}
