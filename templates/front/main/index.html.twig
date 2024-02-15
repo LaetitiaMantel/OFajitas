@@ -33,7 +33,10 @@
 						<div class="card h-100">
 							<!-- Product image-->
 							<div class="image-container position-relative">
+
+								<a href="{{ path('front_product_show', {slug: product.slug}) }}">
 								<img class="card-img-top" src="{{ product.picture }}" alt="...">
+								</a>
 								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 							</div>
 							
@@ -43,13 +46,16 @@
 								<div
 									class="text-center">
 									<!-- Product name-->
-									<h5 class="fw-bolder">{{ product.name}}</h5>
+									<h5 class="fw-bolder">{{ product.name }}</h5>
 									<!-- Product price-->
-									{#  affiche le prix /100 #}
+									{# Affiche le prix / 100 #}
 									{% set price = product.getPrice()/100 %}
-									{#  affiche le prix réel #}
+									{# Affiche le prix réel #}
 									{{ price }}
-									Euro
+									€
+								</div>
+								<div class="mt-3 text-center">
+									{{ include('_starsRating.html.twig', {'stars' : product.rating})}}
 								</div>
 							</div>
 							<!-- Product actions-->

@@ -34,8 +34,10 @@
 						<div
 							class="card h-100">
 							<!-- Product image-->
-							<div class="image-container position-relative">
-								<img class="card-img-top object-fit-cover" src="{{ product.picture }}" alt="...">
+							<div class="image-container position-relative object-fit-cover">
+								<a href="{{ path('front_product_show', {slug: product.slug}) }}">
+								<img class="card-img-top" src="{{ product.picture }}" alt="...">
+								</a>
 								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 							</div>
 
