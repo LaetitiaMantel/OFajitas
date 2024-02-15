@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
+{% block javascripts %}
+<script src="{{ asset('script.js') }}"></script>
+
+{% endblock %}
 
 
 {% block title %}O'fajitas!
+
 
 {% endblock %}
 
@@ -49,29 +54,26 @@
 									{# Affiche le prix / 100 #}
 									{% set price = product.getPrice()/100 %}
 									{# Affiche le prix réel #}
+
 									{{ price }}
 									€
 									{{ include('_starsRating.html.twig', {'stars' : product.rating})}}
+
 
 								</div>
 							</div>
 							<!-- Product actions-->
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
-
-
-									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
-
-									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_cart_add', {id: product.id}) }}">Ajouter au Panier
+									<a class="btn btn-outline-dark mt-auto mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
+										Ajouter au panier
 									</a>
-									
-
+									<a class="btn btn-outline-dark mt-auto" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
+									<div id="flashMessagesContainer-{{ product.id }}"></div>
 								</div>
+							</div></div></div>{% endfor %}
+
 							</div>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
 			<div class="navigation">
 				{% if (app.current_route == 'front_product_index') %}
 					<div class="pagination justify-content-center">

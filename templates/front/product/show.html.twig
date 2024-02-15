@@ -1,23 +1,25 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+	<script src="{{ asset('script.js') }}"></script>
+{% endblock %}
 
 {% block title %}O'fajitas!
-
 {% endblock %}
 
 {% block body %}
-
 	<!-- Section-->
-
 	<section class="py-5">
 		<div class="container px-4 px-lg-5">
 			<div class="row mx-0 mb-5">
-
 				<div class="col-lg-6 col-sm-12">
 					<div class="product-image">
-						<a href="detail.html" class="product-hover-overlay-link">
-							<img src="{{ product.picture }}" alt="product" class="img-fluid">
-						</a>
+						<div class="image-container position-relative">
+							<a href="detail.html" class="product-hover-overlay-link">
+								<img src="{{ product.picture }}" alt="product" class="img-fluid">
+							</a>
+							{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
+						</div>
 					</div>
 				</div>
 				<div class="col-lg-6 col-sm-12">
@@ -27,6 +29,7 @@
 							<em>{{ product.brand.name }}</em>
 						</div>
 					</div>
+
 					<div class="my-2">
 						<div class="text-muted">
 							<span class="h4">
@@ -34,6 +37,7 @@
 								{# Affiche le prix réel #}
 								{{ price }}
 								€
+
 							</span>TTC</div>
 					</div>
 					<div>
@@ -82,10 +86,10 @@
 						{% else %}
 							<p>Pas de critiques sur ce film pour l'instant, ajoutez en une !</p>
 						{% endfor %}
+
 					</div>
 				</div>
-
 			</div>
-		</div>
-	</section>
-{% endblock %}
+
+		</section>
+	{% endblock %}

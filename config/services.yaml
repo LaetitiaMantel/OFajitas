@@ -27,5 +27,3 @@ services:
     App\Service\CartManager:
         arguments:
             $emptyEnabled: '%env(bool:EMPTY_ENABLED)%'
-
- 

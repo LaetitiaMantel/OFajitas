@@ -7,104 +7,86 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class CartManager
 {
-        public function __construct(
+
+    public function __construct(
+
         private RequestStack $requestStack,
         private bool $emptyEnabled
-    ) {
-    }
+    ) {}
 
     public function add(Product $product): bool
     {
-        // on récupère la session
-        $session = $this->requestStack->getCurrentRequest()->getSession();
-        // on récupère le panier de la session
-        $cart = $session->get('cart', []);
+        $session = $this->getSession();
+        $cart = $this->getCartFromSession($session);
 
-        // on rajoute le produit demandé
-        // l'utilisation de array_key_exists garantit l'unicité du panier
-        if (!array_key_exists($product->getId(), $cart)) {
-            $cart[$product->getId()] = [
-                'product' => $product,
-                'quantity' => 1,
-            ];
-            $session->set('cart', $cart);
-            return true;
+        $productId = $product->getId();
+
+        if (!array_key_exists($productId, $cart)) {
+            $cart[$productId] = ['product' => $product, 'quantity' => 1];
         } else {
-            // Si le produit est déjà dans le panier, augmentez la quantité
-            $cart[$product->getId()]['quantity']++;
-            $session->set('cart', $cart);
-            return true;
+            $cart[$productId]['quantity']++;
         }
+
+        $this->updateCartInSession($session, $cart);
+        return true;
     }
 
-public function remove(Product $product): bool
+    public function remove(Product $product): bool
     {
-        // on récupère la session
-        $session = $this->requestStack->getCurrentRequest()->getSession();
-        // on récupère le panier  de la session
-        $cart = $session->get('cart', []);
+        $session = $this->getSession();
+        $cart = $this->getCartFromSession($session);
 
-        // si l'entrée $product existe, on la supprime
+        $productId = $product->getId();
 
-        if (array_key_exists($product->getId(), $cart)) {
-            unset($cart[$product->getId()]);
-            $session->set('cart', $cart);
+        if (array_key_exists($productId, $cart)) {
+            unset($cart[$productId]);
+            $this->updateCartInSession($session, $cart);
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
-      public function empty(): bool
+    public function empty(): bool
     {
         if (!$this->emptyEnabled) {
             return false;
         }
-        // on récupère la session
-        $session = $this->requestStack->getCurrentRequest()->getSession();
-        // on supprime le panier  stockés
+
+        $session = $this->getSession();
         $session->remove('cart');
         return true;
     }
 
     public function getCart(): array
-{
-    
-    $session = $this->requestStack->getCurrentRequest()->getSession();
-    return $session->get('cart', []);
-}
+    {
+        $session = $this->getSession();
+        return $this->getCartFromSession($session);
+    }
 
     public function setQuantity(Product $product, int $newQuantity): bool
     {
-        $session = $this->requestStack->getCurrentRequest()->getSession();
-        $cart = $session->get('cart', []);
+        $session = $this->getSession();
+        $cart = $this->getCartFromSession($session);
+        $productId = $product->getId();
 
-        // Si le produit n'est pas dans le panier, retourner false
-        if (!array_key_exists($product->getId(), $cart)) {
+        if (!array_key_exists($productId, $cart)) {
             return false;
         }
 
-        // Si la nouvelle quantité est inférieure à 1, supprimer le produit du panier
         if ($newQuantity < 1) {
-            unset($cart[$product->getId()]);
+            unset($cart[$productId]);
         } else {
-            // Mettre à jour la quantité du produit dans le panier
-            $cart[$product->getId()]['quantity'] = $newQuantity;
+            $cart[$productId]['quantity'] = $newQuantity;
         }
 
-        // Sauvegarder le panier mis à jour dans la session
-        $session->set('cart', $cart);
-
+        $this->updateCartInSession($session, $cart);
         return true;
     }
 
     public function getCartCount(): int
     {
-        
-        $session = $this->requestStack->getCurrentRequest()->getSession();
-        $cart = $session->get('cart', []);
-
-
+        $cart = $this->getCart();
         $cartCount = 0;
 
         foreach ($cart as $cartItem) {
@@ -114,5 +96,36 @@ public function remove(Product $product): bool
         return $cartCount;
     }
 
-  
+    public function getCartTotal(): float
+{
+    $cart = $this->getCart();
+    $total = 0;
+
+    foreach ($cart as $cartItem) {
+        $product = $cartItem['product'];
+        $quantity = $cartItem['quantity'];
+        // utilisation d'un opérateur d'assignation abrégé 
+        $total += $product->getPrice() * $quantity; 
+    }
+
+    //  On divise pour avoir le prix en euro 
+    $totalInEuros = $total / 100;
+
+    return $totalInEuros;
+    }
+
+    private function getSession()
+    {
+        return $this->requestStack->getCurrentRequest()->getSession();
+    }
+
+    private function getCartFromSession($session): array
+    {
+        return $session->get('cart', []);
+    }
+
+    private function updateCartInSession($session, $cart): void
+    {
+        $session->set('cart', $cart);
+    }
 }

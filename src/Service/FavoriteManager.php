@@ -34,6 +34,7 @@ class FavoriteManager
             ];
             $session->set('favoris', $favoris);
             return true;
+            
         }else{
             return false;
         } 
