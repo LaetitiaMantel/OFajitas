@@ -7,6 +7,12 @@ async function createFavoris() {
     // Sélectionnez tous les boutons "Ajouter aux favoris"
     const addToFavoritesButtons = document.querySelectorAll('#btn');
 
+    // Sélectionnez tous les boutons "supprimer un favorie"
+    const removeButtons = document.querySelectorAll('#remove');
+
+    //Sélectionnez le bouton "Supprimer tout les favoris"
+    const emptyButton = document.querySelector('#empty');
+
     // Récupérez les favoris depuis le stockage local
     const favoris = JSON.parse(localStorage.getItem('favoris')) || {};
 
@@ -21,6 +27,36 @@ async function createFavoris() {
             icon.classList.add('icon-plus');
         }
     });
+
+    // Parcourez tous les boutons et mettez à jour leur classe en fonction des favoris
+    removeButtons.forEach(button => {
+        const productId = button.getAttribute('data-product-id');
+
+
+    });
+
+    // Ajoutez un écouteur d'événements à chaque bouton
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+
+            // Récupérez l'ID du produit à partir de l'attribut data-product-id
+            const productId = button.getAttribute('data-product-id');
+
+            // Mettez à jour le stockage local pour refléter les changements
+            favoris[productId] = false;
+            localStorage.setItem('favoris', JSON.stringify(favoris));
+
+            //deleteFavoris(productId);
+
+        });
+    });
+    if (emptyButton) {
+
+        emptyButton.addEventListener('click', function () {
+           
+            localStorage.removeItem('favoris');
+        });
+    }
 
     // Ajoutez un écouteur d'événements à chaque bouton
     addToFavoritesButtons.forEach(button => {
@@ -53,8 +89,9 @@ async function createFavoris() {
             // Modifiez la classe de l'icône spécifique associée à ce bouton
             icon.classList.toggle('icon-plus');
         });
+
     });
-        async function addFavoris(productId) {
+    async function addFavoris(productId) {
         try {
             const response = await fetch(addToFavoriteUrl.replace(1, productId), {
                 method: "POST",
@@ -79,6 +116,29 @@ async function createFavoris() {
     async function deleteFavoris(productId) {
         try {
             const response = await fetch(deleteFavoriteUrl.replace(1, productId), {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ productId: productId }),
+            });
+
+            if (response.ok) {
+                const favoris = await response.json();
+                console.log("Favoris supprimé avec succès :", favoris);
+                // Mettez à jour l'interface utilisateur pour refléter les changements, si nécessaire
+            } else {
+                console.error("Échec de la suppression du favoris :", response.statusText);
+            }
+        } catch (error) {
+            console.error("Erreur lors de la suppression du favoris :", error);
+        }
+    }
+
+
+    async function emptyFavoris(productId) {
+        try {
+            const response = await fetch(emptyFavoriteUrl.replace(1, productId), {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json',

@@ -99,8 +99,8 @@ class FavoriteController extends AbstractController
     
         }
 
-        #[Route('/supprimer/{id<\d+>}', name: 'delete_js', methods: ['DELETE'])]
-        public function re(FavoriteManager $favoriteManager, Product $product = null, Request $request): JsonResponse
+        #[Route('/supprimer/{id<\d+>}', name: 'delete_js', methods: ['POST'])]
+        public function remove_js(FavoriteManager $favoriteManager, Product $product = null, Request $request): JsonResponse
         {
             // Vérification du produit à supprimer 
             if ($product === null) {
@@ -123,7 +123,7 @@ class FavoriteController extends AbstractController
 
 
         #[Route('/vider', name: 'empty', methods: ['GET'])]
-        public function empty(FavoriteManager $favoriteManager): Response
+        public function empt(FavoriteManager $favoriteManager): Response
         {
             if ($favoriteManager->empty()) {
                 $this->addFlash(
@@ -138,4 +138,6 @@ class FavoriteController extends AbstractController
             }
             return $this->render('front/favoris/index.html.twig');
         }
+
+    
 }

@@ -42,8 +42,9 @@
 											<a class="btn btn-outline-danger btn-sm mb-2" href="{{ path('front_cart_add', {'id': productItem.product.id}) }}">Ajouter au panier</a>
 
 
-											<form action="{{ path('front_favorite_delete', {'id': productItem.product.id}) }}" method="POST" class="d-inline">
-												<button type="submit" class="btn btn-outline-danger btn-sm">Supprimer</button>
+											{% set key = productItem.product.id %}
+											<form action="{{ path('front_favorite_delete', {id: key}) }}" method="POST" class="d-inline">
+												<button type="submit" id="remove" data-product-id="{{ key }}" class="btn btn-outline-danger btn-sm">Supprimer</button>
 											</form>
 										</td>
 									</tr>
@@ -57,7 +58,7 @@
 						class="d-flex justify-content-end">
 						<!-- Bouton pour vider le panier -->
 						<form action="{{ path('front_favorite_empty') }}" method="GET" class="d-inline">
-							<button type="submit" class="btn btn-outline-danger btn-sm">Vider les favoris</button>
+							<button type="submit" id="empty" class="btn btn-outline-danger btn-sm ">Vider les favoris</button>
 						</form>
 					</div>
 				</div>
