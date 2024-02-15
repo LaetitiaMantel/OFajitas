@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Review;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Product;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Review>
@@ -21,6 +22,16 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
+    public function averageRating(Product $product)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('AVG(r.rating) as averageRating')
+            ->andWhere('r.product = :product')
+            ->setParameter('product', $product)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
 //    /**
 //     * @return Review[] Returns an array of Review objects
 //     */

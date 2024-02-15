@@ -51,6 +51,7 @@
 									{# Affiche le prix réel #}
 									{{ price }}
 									€
+									{{ include('_starsRating.html.twig', {'stars' : product.rating})}}
 
 								</div>
 							</div>
