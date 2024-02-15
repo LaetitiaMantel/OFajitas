@@ -75,13 +75,12 @@
 		<!-- Core theme JS-->
 		<script src="{{ asset('js/scripts.js') }}"></script>
 		<script src="{{ asset('js/favoris.js') }}"></script>
-		{% block javascripts %}
-			<script>
-				var cartTotalUrl = "{{ path('front_cart_get_cart_total') }}";
-				const addToFavoriteUrl = "{{ path('front_favorite_add', {id: 1}) }}";
-				const deleteFavoriteUrl = "{{ path('front_favorite_delete_js', {id: 1}) }}";
-			</script>
-		{% endblock %}
+
+		<script>
+			const addToFavoriteUrl = "{{ path('front_favorite_add', {id: 1}) }}";
+			const deleteFavoriteUrl = "{{ path('front_favorite_delete', {id: 1}) }}";
+			
+		</script>
 
 
 	</body>
