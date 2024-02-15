@@ -4,6 +4,18 @@
 {% endblock %}
 
 {% block body %}
+
+{% if app.flashes('success') is not empty %}
+    <div class="alert alert-success" role="alert">
+        {{ app.flashes('success')[0] }}
+    </div>
+{% elseif app.flashes('error') is not empty %}
+    <div class="alert alert-danger" role="alert">
+        {{ app.flashes('error')[0] }}
+    </div>
+{% endif %}
+
+
 	<!-- Section-->
 	<section class="py-5">
 		<div class="container px-4 px-lg-5">
