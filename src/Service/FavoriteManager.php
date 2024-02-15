@@ -68,6 +68,4 @@ class FavoriteManager
         $session->remove('favoris');
         return true;
     }
-
-  
 }
