@@ -132,14 +132,21 @@ class UserController extends AbstractController
      
             $request->getSession()->invalidate(); // Optionnel : invalide la session pour s'assurer que toutes les données de session sont effacées
             
+            // Envoyer un message flash
+            $this->addFlash(
+                'success',
+                'Votre compte a été supprimé avec succès.'
+            );
             
-             // récupère les 12 derniers derniers produits de la bdd
-            $newProducts = $productRepository->findBy([], ['createdAt' => 'DESC'], 8);
-            $categoriesByOrder = $categoryRepository->findBy([],['homeOrder' =>'ASC'], 3);
+            return $this->redirectToRoute('front_main_home');
+            
+            //  // récupère les 12 derniers derniers produits de la bdd
+            // $newProducts = $productRepository->findBy([], ['createdAt' => 'DESC'], 8);
+            // $categoriesByOrder = $categoryRepository->findBy([],['homeOrder' =>'ASC'], 3);
       
-            return $this->render('front/main/index.html.twig', [
-                'newProducts'   => $newProducts,
-                'categoriesByOrder'   => $categoriesByOrder
-            ]);
+            // return $this->render('front/main/index.html.twig', [
+            //     'newProducts'   => $newProducts,
+            //     'categoriesByOrder'   => $categoriesByOrder
+            // ]);
       }
 }
