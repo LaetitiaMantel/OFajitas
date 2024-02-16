@@ -72,9 +72,7 @@ class AppFixtures extends Fixture
         $products = [
             [
                 'name' => 'Tableau imprimable',
-                'description' => "Imprimable 'FAJITAS love is spicy' High Resolution File. Trois tailles disponibles en téléchargement: 5x7, 8x10, 11x14
-        REMARQUE :
-        Vous achetez un fichier numérique uniquement. Aucun article physique ne sera expédié. Aucun matériel imprimé n'est inclus. Vous pouvez imprimer à partir de votre ordinateur personnel ou envoyer à un imprimerie.",
+                'description' => "Imprimable 'FAJITAS love is spicy' High Resolution File. Trois tailles disponibles en téléchargement: 5x7, 8x10, 11x14. REMARQUE  :Vous achetez un fichier numérique uniquement. Aucun article physique ne sera expédié. Aucun matériel imprimé n'est inclus. Vous pouvez imprimer à partir de votre ordinateur personnel ou envoyer à un imprimerie.",
                 'picture' => 'https://i.etsystatic.com/8910527/r/il/2b98eb/1127905000/il_1588xN.1127905000_2glf.jpg',
                 'price' => '299',
                 'rating' => '0',
@@ -283,8 +281,7 @@ class AppFixtures extends Fixture
 
             [
                 'name' => "Boucles d'oreille fajitas",
-                'description' => "Boucles d'oreilles fajitas smiley émaillées avec fermeture à crochet en or hypoallergénique, Article fait main
-        Longueur du pendant: 1.4 Centimètres",
+                'description' => "Boucles d'oreilles fajitas smiley émaillées avec fermeture à crochet en or hypoallergénique, Article fait main. Longueur du pendant: 1.4 Centimètres",
                 'picture' => 'https://i.etsystatic.com/35012761/r/il/e4cb29/5463799965/il_1588xN.5463799965_2nm8.jpg',
                 'price' => '799',
                 'rating' => '0',
@@ -339,10 +336,7 @@ class AppFixtures extends Fixture
 
             [
                 'name' => 'Puzzle « Fajitas de bœuf fraîchement préparés »',
-                'description' => "Puzzle de qualité puzzleYOU avec l'image du puzzle comme modèle
-        Dimensions du puzzle de 1000 pièces : 64 x 48 cm
-        Carton premium de 2,25 mm, découpage de précision & impression de haute qualité pour un maximum de plaisir
-        Motif de puzzle de pilipphoto / Shutterstock",
+                'description' => "Puzzle de qualité puzzleYOU avec l'image du puzzle comme modèle. Dimensions du puzzle de 1000 pièces : 64 x 48 cm. Carton premium de 2,25 mm, découpage de précision & impression de haute qualité pour un maximum de plaisir. Motif de puzzle de pilipphoto / Shutterstock",
                 'picture' => 'https://masa.imagestore.puzzleyou.fr/images/8a7a0c4e-89ac-4d2a-846b-81e51b886b40-965830f056b3d490ea6723d7138fc669?convert=image/jpeg&mipmap=%7B%22width%22%3A%20800%2C%20%22height%22%3A%20600%7D',
                 'price' => '2999',
                 'rating' => '0',
@@ -353,10 +347,7 @@ class AppFixtures extends Fixture
 
             [
                 'name' => 'Puzzle « Fajitas mexicaines au poulet et au bœuf »',
-                'description' => "Chaque pièce a sa propre place, tout comme chaque souvenir a sa propre histoire. Vous devez le mettre dans un endroit exclusif, l'image sera enrichie lorsque vous la mettrez correctement.
-        Exercez la patience, la concentration, la persévérance, l'observation et l'intelligence des gens. 
-        Chaque fois que vous terminez un travail, vous ressentez un sentiment d’accomplissement. Vous sentirez qu'un puzzle aussi difficile peut être complété, tout peut être fait avec concentration.
-        Il y a des indices de divisions alphabétiques au dos des puzzles.",
+                'description' => "Chaque pièce a sa propre place, tout comme chaque souvenir a sa propre histoire. Vous devez le mettre dans un endroit exclusif, l'image sera enrichie lorsque vous la mettrez correctement. Exercez la patience, la concentration, la persévérance, l'observation et l'intelligence des gens. Chaque fois que vous terminez un travail, vous ressentez un sentiment d’accomplissement. Vous sentirez qu'un puzzle aussi difficile peut être complété, tout peut être fait avec concentration. Il y a des indices de divisions alphabétiques au dos des puzzles.",
                 'picture' => 'https://masa.imagestore.puzzleyou.fr/images/ebaad922-e3b1-4ceb-b31d-ca1dc19327e5-f5ab6cf62cc1676de8ad4e31695d6406?convert=image/jpeg&mipmap=%7B%22width%22%3A%20800%2C%20%22height%22%3A%20600%7D',
                 'price' => '2999',
                 'rating' => '0',
@@ -430,7 +421,7 @@ class AppFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new OfajitasProvider);
 
-        // création de 6 marques
+        // création des marques
         foreach ($brands as $brand) {
             $brand = new Brand;
             $brand->setName($faker->unique()->productBrand());
@@ -441,7 +432,7 @@ class AppFixtures extends Fixture
             $this->brands[] = $brand;
         }
 
-        //création de 5 catégories
+        //création des catégories
         foreach ($categories as $category) {
             $newCategory = new Category;
             $newCategory->setName($category['name']);
@@ -454,23 +445,31 @@ class AppFixtures extends Fixture
             $this->categories[] = $newCategory;
         }
 
-        //création de 100 produits
+
+
+        //création des produits
         foreach ($products as $product) {
             $newProduct = new Product();
             $newProduct->setName($product['name']);
             $newProduct->setDescription($product['description']);
             $newProduct->setPicture($product['picture']);
             $newProduct->setPrice($product['price']);
-            $newProduct->setRating($product['rating']);
+            $newProduct->setRating('null');
             $newProduct->setStatus($product['status']);
             $newProduct->setSlug($this->slugger->slug($newProduct->getName())->lower());
-
             $newProduct->setBrand($faker->randomElement($this->brands));
-            $newProduct->setCategory($faker->randomElement($this->categories));
+            // $newProduct->setCategory($faker->randomElement($this->categories));
+            if($product['category'] == $category['name']){
+                $newProduct->setCategory($this->categories[]);
+            }
             $newProduct->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
             $newProduct->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
-
+            
+            for ($i = 0; $i < random_int(0,6); $i ++){
+                $review = new Review
+            }
             $manager->persist($newProduct);
+            $this->products[] = $newProduct;
         }
 
 
