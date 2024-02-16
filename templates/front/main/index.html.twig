@@ -12,12 +12,12 @@
 				{% for category in categoriesByOrder %}
 
 					<div class="col-lg-4">
-						<div class="card border-0 text-center">
+						<div class="shadow card border-0 rounded-4 text-center">
 							<img src="{{ category.picture }}" alt="Card image" class="card-img">
 							<div class="card-img-overlay d-flex align-items-center">
 								<div class="w-100">
 									<a href="{{ path('front_category_show', {slug: category.slug}) }}" class="text-white text-decoration-none">
-										<h3 class="display-4 mb-4 ">{{ category.name}}</h3>
+										<h3 class=" display-4 mb-4 ">{{ category.name}}</h3>
 										<i class="fa-arrow-right fa ml-2"></i>
 									</a>
 								</div>
@@ -33,9 +33,8 @@
 						<div class="card h-100">
 							<!-- Product image-->
 							<div class="image-container position-relative">
-
 								<a href="{{ path('front_product_show', {slug: product.slug}) }}">
-								<img class="card-img-top" src="{{ product.picture }}" alt="...">
+								<img class="shadow card-img-top" src="{{ product.picture }}" alt="...">
 								</a>
 								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 							</div>

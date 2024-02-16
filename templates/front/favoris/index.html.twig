@@ -38,12 +38,9 @@
 											{% endif %}
 										</td>
 										<td>{{ productItem.product.getPrice()/100 }}€</td>
-<td>
-
-
+										<td>
 											{% set key = productItem.product.id %}
 											<button type="submit" id="remove" data-product-id="{{ key }}" class="btn btn-outline-danger btn-sm">Supprimer</button>
-
 										</td>
 									</tr>
 								{% endfor %}
