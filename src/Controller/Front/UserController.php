@@ -5,8 +5,6 @@ namespace App\Controller\Front;
 use App\Entity\User;
 use App\Form\UserTypeUser;
 use Symfony\Component\Mime\Email;
-use App\Repository\ProductRepository;
-use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -50,23 +48,28 @@ class UserController extends AbstractController
               $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
               $user->setRoles(['ROLE_USER']); 
               $entityManager->persist($user);
-              $entityManager->flush();
-              $this->addFlash(
-                  'success',
-                  '<strong>' . $user->getFirstname() . '</strong> Vous avez recu un mail de confirmation.'
-              );
+              try {  
+                $entityManager->flush();
+                 // Envoi de l'e-mail de confirmation
+                $email = (new Email())
+                ->from('jonathanaulnette53@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Confirmation d\'inscription')
+                ->html($this->renderView(
+                    'email/confirmation.html.twig',
+                    ['user' => $user]
+                ));
+                
+                $this->mailer->send($email);
+                $this->addFlash(
+                    'success',
+                    '<strong>' . $user->getFirstname() . '</strong> Vous avez recu un mail de confirmation.'
+                );
+                } catch (\Throwable $th) {
+                    $this->addFlash('warning','Cette adresse mail existe déjà');
+                }
 
-               // Envoi de l'e-mail de confirmation
-              $email = (new Email())
-              ->from('jonathanaulnette53@gmail.com')
-              ->to($user->getEmail())
-              ->subject('Confirmation d\'inscription')
-              ->html($this->renderView(
-                  'email/confirmation.html.twig',
-                  ['user' => $user]
-              ));
-
-              $this->mailer->send($email);
+              
   
               return $this->redirectToRoute('front_main_home', [], Response::HTTP_SEE_OTHER);
              //TODO voir pour que l utilisateur inscrit soit automatiquement connnecter
@@ -114,39 +117,37 @@ class UserController extends AbstractController
 
       #[Route('/supprimer/{email}', name: 'delete', methods: ['POST'])]
       public function delete(Request $request, string $email, EntityManagerInterface $entityManager, 
-      ProductRepository $productRepository, CategoryRepository $categoryRepository,TokenStorageInterface $tokenStorage): Response
+      TokenStorageInterface $tokenStorage): Response
       {
             $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
            
             if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($user);
                 $entityManager->flush();
-                $this->addFlash(
-                    'success',
-                    '<strong>' . $user->getFirstname() . '</strong> a été supprimer de votre base.'
-                );
             }
-
+            // Déconnexion de l'utilisateur après la suppression
             $tokenStorage->setToken(null);
-        
-     
-            $request->getSession()->invalidate(); // Optionnel : invalide la session pour s'assurer que toutes les données de session sont effacées
+            // invalide la session pour s'assurer que toutes les données de session sont effacées
+            $request->getSession()->invalidate(); 
             
+             // Envoi de l'e-mail de confirmation
+             $email = (new Email())
+             ->from('jonathanaulnette53@gmail.com')
+             ->to($user->getEmail())
+             ->subject('Suppression de votre compte')
+             ->html($this->renderView(
+                 'email/suppression.html.twig',
+                 ['user' => $user]
+             ));
+             
+             $this->mailer->send($email);
             // Envoyer un message flash
             $this->addFlash(
                 'success',
                 'Votre compte a été supprimé avec succès.'
             );
-            
+
             return $this->redirectToRoute('front_main_home');
-            
-            //  // récupère les 12 derniers derniers produits de la bdd
-            // $newProducts = $productRepository->findBy([], ['createdAt' => 'DESC'], 8);
-            // $categoriesByOrder = $categoryRepository->findBy([],['homeOrder' =>'ASC'], 3);
-      
-            // return $this->render('front/main/index.html.twig', [
-            //     'newProducts'   => $newProducts,
-            //     'categoriesByOrder'   => $categoriesByOrder
-            // ]);
+          
       }
 }
