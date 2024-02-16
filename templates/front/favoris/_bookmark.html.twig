@@ -6,13 +6,6 @@
 	    {% endif %}" method="POST">
 	<button class="btn" id="btn" data-product-id="{{ key }}">
 		<i class=
-<<<<<<< HEAD
-		{% if app.session.get('favoris')[key] is defined %}
-			"bi bi-heart-fill position-absolute top-0 start-0 m-3 icon icon-plus"
-		{% else %}
-			"bi bi-heart position-absolute top-0 start-0 m-3 icon"
-		{% endif %}>
-=======
 		
 		
 			"bi bi-heart-fill position-absolute top-0 start-0 m-3 icon">
@@ -25,6 +18,5 @@
 	<button class="btn" id="btn" data-product-id="{{ key }}">
 		<i class="bi bi-heart-fill position-absolute top-0 start-0 m-3 icon 
 		{% if not app.session.get('favoris')[key] is not defined %} icon-plus {% endif %}"></i>
->>>>>>> b2ac3a78ea4f6ce2ba11e25aa8a116189ba9ebc1
 		</i>
 	</button>

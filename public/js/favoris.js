@@ -80,6 +80,8 @@ async function createFavoris() {
             }
 
             // Modifiez la classe de l'icône spécifique associée à ce bouton
+            icon.classList.toggle('bi-heart-fill');
+            icon.classList.toggle('bi-heart');
             icon.classList.toggle('icon-plus');
         });
 
@@ -136,7 +138,7 @@ async function createFavoris() {
                     notificationElement.parentNode.removeChild(notificationElement);
                 }, 3000);
 
-               
+
 
             } else {
                 console.error("Échec de la suppression du favoris :", response.statusText);

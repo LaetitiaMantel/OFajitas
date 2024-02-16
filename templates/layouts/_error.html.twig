@@ -4,27 +4,14 @@
 {% block title %}Page d'erreur{% endblock %}
 
 {% block body %}
-    <h1>Page non trouvé</h1>
 
-    <p>code de l'erreur: {{ status_code }}</p>
-    <p>Message de l'erreur: {{ status_text }}</p>
-    <p>Message personnalisé: {{ exception.message }}</p>
-
-    <div class="d-flex align-items-center justify-content-center vh-100">
-            <div class="text-center row">
-                <div class=" col-md-6">
-                    <img src="{{ asset('images/powered-by-fajitas.png')}}" alt="fajitas">
-                </div>
-                <div class=" col-md-6 mt-5">
-                    <p>{{ exception.statusText }}</p>
-                    <p class="lead">
-                        The page you’re looking for doesn’t exist.
-                    </p>
-                    
-                </div>
-
+        <div class="d-flex align-items-center justify-content-center vh-100">
+            <div class="text-center">
+                <h1 class="display-1 fw-bold">{{ status_code }}</h1>
+                <p class="fs-3"> <span class="text-danger">Opps!</span>{{ status_text }}</p>
+                
+                <a href="front_main_index" class="btn gradient ">Retour à l'accueil</a>
             </div>
         </div>
-  
 
 {% endblock %}
