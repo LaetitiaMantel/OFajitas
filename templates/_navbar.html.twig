@@ -76,7 +76,9 @@
 							</a>
 						</li>
 						<li>
+
 							<a class="dropdown-item" href="{{ path ('front_user_new')}}">Inscription
+
 							</a>
 						</li>
 					{% else %}
@@ -99,12 +101,15 @@
 							<hr class="dropdown-divider"/>
 						</li>
 						{% if 'ROLE_ADMIN' not in app.user.roles and 'ROLE_MANAGER' not in app.user.roles %}
-							<li>
-								<a class="dropdown-item" href="#!">
-									Mes achats
-								</a>
-							</li>
+						<li>
+							<a class="dropdown-item" href="#!">
+								Mes achats
+							</a>
+						</li>
 						{% endif %}
+						<li>
+							<hr class="dropdown-divider"/>
+						</li>
 						<li>
 							<a class="dropdown-item" href="{{ path ('logout')}}">Deconnexion
 							</a>
