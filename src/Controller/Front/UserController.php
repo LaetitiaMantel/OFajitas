@@ -43,7 +43,7 @@ class UserController extends AbstractController
           $user = new User();
           $form = $this->createForm(UserTypeUser::class, $user);
           $form->handleRequest($request);
-  
+        //TODO faire une confirmation de password
           if ($form->isSubmitted() && $form->isValid()) {
               $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
               $user->setRoles(['ROLE_USER']); 
@@ -94,7 +94,7 @@ class UserController extends AbstractController
 
             $form = $this->createForm(UserTypeUser::class, $user);
             $form->handleRequest($request);
-        
+            //TODO faire une confirmation de password
             if ($form->isSubmitted() && $form->isValid()) {
                 $newPassword = $form->get('password')->getData();
                 if ($newPassword) {
