@@ -34,7 +34,7 @@ class Product
     #[Assert\NotBlank()]
     private ?int $price = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 2, scale: 1)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 2, scale: 1, nullable: true)]
     #[Assert\Range(
         min: 1,
         max: 5,
@@ -123,17 +123,6 @@ class Product
         return $this;
     }
 
-    public function getRating(): ?string
-    {
-        return $this->rating;
-    }
-
-    public function setRating(string $rating): static
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
 
     public function isStatus(): ?bool
     {
@@ -233,6 +222,26 @@ class Product
                 $review->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of rating
+     */ 
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * Set the value of rating
+     *
+     * @return  self
+     */ 
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
 
         return $this;
     }

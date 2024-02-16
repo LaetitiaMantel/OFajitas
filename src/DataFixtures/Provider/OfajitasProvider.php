@@ -5,16 +5,36 @@ namespace App\DataFixtures\Provider;
 class OfajitasProvider{
 
     // tableau des catégories 
-    private $categories = [
-        'Bijoux',
-        'Pret à porter',
-        'Jouet',
-        'Décoration',
-        'Divers',    
+    public $categories = [
+        [
+            'name' => 'Bijoux',
+            'homeOrder' => '1',
+            'picture' => 'https://i.pinimg.com/736x/0d/dd/54/0ddd547940c67e20da299af168898f51.jpg'
+        ],
+        [
+            'name' => 'Pret à porter',
+            'homeOrder' => '2',
+            'picture' => 'https://ih1.redbubble.net/image.1911015918.1632/ssrco,slim_fit_t_shirt,mens,101010:01c5ca27c6,front,square_product,600x600.jpg'
+        ],
+        [
+            'name' => 'Jouet',
+            'homeOrder' => '3',
+            'picture' => 'https://i5.walmartimages.ca/images/Enlarge/583/440/6000202583440.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF'
+        ],
+        [
+            'name' => 'Décoration',
+            'homeOrder' => '4',
+            'picture' => 'https://i.etsystatic.com/8910527/r/il/2b98eb/1127905000/il_570xN.1127905000_2glf.jpg'
+        ],
+        [
+            'name' => 'Divers',
+            'homeOrder' => '5',
+            'picture' => 'https://i.etsystatic.com/20040893/r/il/1c1a33/5121041702/il_1588xN.5121041702_pern.jpg'
+        ],
     ];
 
     // tableau des marques
-    private $brands = [
+    public $brands = [
         "Melissa & Doug",
         "puzzleYou",
         "Etsy",
@@ -287,15 +307,14 @@ class OfajitasProvider{
     ];
    
 
-    public function product(){
-        return $this->products[array_rand($this->products)];
-    }
+
      /**
-     * Retourne une catégorie au hasard
+     * Retourne la catégorie associé au produit
      */
     public function productCategory()
     {
-        return $this->categories[array_rand($this->categories)];
+        // if ($categories['name'] == $products['categorie'])
+        // return $this->categories;
     }
 
     /**
