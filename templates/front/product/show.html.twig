@@ -68,6 +68,7 @@
 					</div>
 					<div>
 						{% for review in product.reviews %}
+								<h2> Les critiques de cet article</h2>
 							<div class="card border-warning mb-3 p-2">
 								<div class="card-body">
 								{{ include('_starsRating.html.twig', {'stars': review.rating}) }}
@@ -84,7 +85,7 @@
 								</div>
 							</div>
 						{% else %}
-							<p>Pas de critiques sur ce film pour l'instant, ajoutez en une !</p>
+							<p>Pas de critiques sur cet article pour l'instant, ajoutez en une !</p>
 						{% endfor %}
 
 					</div>
