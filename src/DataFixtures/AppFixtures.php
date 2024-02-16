@@ -5,19 +5,17 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Brand;
+use App\Entity\Review;
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Repository\ReviewRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\Provider\OfajitasProvider;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
-{
-
-    public function __construct(private SluggerInterface $slugger)
-    {
-    }
+{    
     // tableau des catégories 
     private $categories = [];
 
@@ -25,6 +23,13 @@ class AppFixtures extends Fixture
     private $brands = [];
 
     private $products = [];
+
+    public function __construct(
+        private SluggerInterface $slugger,
+        private ReviewRepository $reviewRepository
+    ){
+    }
+
 
 
     public function load(ObjectManager $manager): void
@@ -83,7 +88,7 @@ class AppFixtures extends Fixture
 
             [
                 'name' => 'Enseigne au néon',
-                'description' => "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQR8kPbyL1yNac_VEBN1DNUnNnq27K52_BElvc8Q-ZxYSqEKdHa",
+                'description' => 'L’enseigne néon offre une grande polyvalence en termes d’emplacement d’installation, car elle peut être utilisée aussi bien en intérieur qu’en extérieur à l’abri du soleil direct et de la pluie. Dans un environnement intérieur, tel qu’un magasin, un restaurant, un bar ou un bureau, une enseigne néon peut être placée sur un mur, au-dessus d’une porte, derrière un comptoir ou même suspendue au plafond. ',
                 'picture' => 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQR8kPbyL1yNac_VEBN1DNUnNnq27K52_BElvc8Q-ZxYSqEKdHa',
                 'price' => '3599',
                 'rating' => '0',
@@ -454,23 +459,32 @@ class AppFixtures extends Fixture
             $newProduct->setDescription($product['description']);
             $newProduct->setPicture($product['picture']);
             $newProduct->setPrice($product['price']);
-
-            $newProduct->setRating(random_int(1, 5));
+            $newProduct->setRating(null);
             $newProduct->setStatus($product['status']);
             $newProduct->setSlug($this->slugger->slug($newProduct->getName())->lower());
             $newProduct->setBrand($faker->randomElement($this->brands));
-            // $newProduct->setCategory($faker->randomElement($this->categories));
-            if($product['category'] == $category['name']){
-                $newProduct->setCategory($this->categories[]);
-            }
+            $newProduct->setCategory($faker->randomElement($this->categories));
+            // if ($newCategory['name'] == $newProduct['categories']){
+            //    $newProduct->setCategory($this->categories[]);
+            // }
+
             $newProduct->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
             $newProduct->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
             
             for ($i = 0; $i < random_int(0,6); $i ++){
-                $review = new Review
+                $review = new Review;
+                $review->setProduct($newProduct);
+                $review->setUsername($faker->name());
+                $review->setEmail($faker->email());
+                $review->setContent($faker->realTextBetween());
+                $review->setRating(random_int(1, 5));
+                $manager->persist($review);
             }
             $manager->persist($newProduct);
-            $this->products[] = $newProduct;
+            $manager->flush();
+            $averageRating = $this->reviewRepository->averageRating($newProduct);
+            $newProduct->setRating($averageRating);
+            
         }
 
 
