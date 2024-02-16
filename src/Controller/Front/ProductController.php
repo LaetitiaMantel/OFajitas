@@ -38,8 +38,15 @@ class ProductController extends AbstractController
     {
         $product = $productRepository->findOneBy(['slug' => $slug]);
 
+        // si la page n'existe pas, renvoie vers une page 404
+        //if(!$product){
+        //    throw $this->createNotFoundException('la page nexiste pas');
+    
+
         return $this->render('front/product/show.html.twig', [
             'product' => $product,
+        
         ]);
     }
+    
 }

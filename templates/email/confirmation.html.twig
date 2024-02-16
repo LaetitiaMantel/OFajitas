@@ -1,0 +1,15 @@
+{# {% extends 'base.html.twig' %} #}
+
+{% block title %}Confirmation d'inscription{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Inscription réussie !</h4>
+            <p>Merci de vous être inscrit {{user.firstname}}  {{user.lastname}}</p>
+           
+            
+            <p class="mb-0"><a href="http://localhost/Apo/projet-o-fajitas/public/login">Cliquez ici pour vous connecter </a></p>
+        </div>
+    </div>
+{% endblock %}
