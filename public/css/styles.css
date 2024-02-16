@@ -10901,11 +10901,13 @@ textarea.form-control-lg {
   margin: 1rem; /* Ajustez la marge selon vos besoins */
 }
 .icon{
-  color:white;
+  color:black;
   font-size: 2em;
+  
 }
 .icon-plus{
   color:red;
+  
 }
 .notification{
   color:green;
