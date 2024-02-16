@@ -34,6 +34,7 @@ class FavoriteManager
             ];
             $session->set('favoris', $favoris);
             return true;
+            
         }else{
             return false;
         } 
@@ -59,12 +60,12 @@ class FavoriteManager
 
     public function empty(): bool
     {
+        
+
         // on récupère la session
         $session = $this->requestStack->getCurrentRequest()->getSession();
         // on supprime les favoris  stockés
         $session->remove('favoris');
         return true;
     }
-
-  
 }
