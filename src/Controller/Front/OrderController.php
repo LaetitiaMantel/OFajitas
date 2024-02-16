@@ -5,17 +5,24 @@ namespace App\Controller\Front;
 use App\Entity\LigneOrder;
 use App\Entity\Order;
 use App\Service\CartManager;
-use App\Service\FakePaymentService; // Ajout du service fictif de paiement
+use App\Service\FakePaymentService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/commandes', name: 'front_order_')]
 class OrderController extends AbstractController
 {
+    private function generateTemporaryOrderRef(): string
+    {
+        // Générez une référence temporaire en fonction de vos besoins
+        return 'TEMP_' . uniqid();
+    }
+
     #[Route('/valider', name: 'add', methods: ['GET', 'POST'])]
-    public function add(CartManager $cartManager, EntityManagerInterface $em, FakePaymentService $fakePaymentService): Response
+    public function add(Request $request, CartManager $cartManager, EntityManagerInterface $em): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
@@ -33,7 +40,7 @@ class OrderController extends AbstractController
 
         $order = new Order();
         $order->setUser($this->getUser());
-        $order->setRef(uniqid());
+        $order->setRef($this->generateTemporaryOrderRef());
         $order->setCreatedAt(new \DateTimeImmutable());
 
         $em->persist($order);
@@ -58,18 +65,8 @@ class OrderController extends AbstractController
         // Flush uniquement la commande principale, les LigneOrder sont persistées automatiquement grâce à l'annotation "cascade" dans l'entité Order
         $em->flush();
 
-        // Utilisez l'ID après l'appel à $em->flush()
-        $paymentResult = $fakePaymentService->processPayment($order->getId(), $totalAmount);
+        $request->getSession()->set('total_amount', $totalAmount);
 
-        if ($paymentResult) {
-            return $this->render('front/order/add.html.twig', [
-                'cart' => $cart,
-                'totalAmount' => $totalAmount,
-                'paymentResult' => true,
-            ]);
-        } else {
-            $this->addFlash('error', 'Le paiement a échoué. Veuillez réessayer.');
-            return $this->redirectToRoute('front_main_home');
-        }
+        return $this->redirectToRoute('front_order_validate');
     }
 }
