@@ -1,4 +1,9 @@
 <!-- Navigation-->
+    {% block javascript %}
+    <script>
+        var cartCountUrl = "{{ path('front_cart_get_cart_count') }}";
+    </script>
+    {% endblock %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container px-4 px-lg-5">
@@ -14,7 +19,8 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path ('front_favorite_index')}}">
-						<i class="bi bi-heart-fill icon-plus"></i>
+						<i id="heart-menu" class="bi bi-heart-fill"></i>
+									{# {% if app.session.get('favoris') is not empty %} icon-plus {% endif %}"></i> #}
 						Mes Favoris
 					</a>
 				</li>
@@ -69,6 +75,10 @@
 							<a class="dropdown-item" href="{{ path ('login')}}">Connexion
 							</a>
 						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path ('front_main_new')}}">Inscription
+							</a>
+						</li>
 					{% else %}
 						{% if is_granted("ROLE_MANAGER") %}
 							<li>
@@ -102,11 +112,12 @@
 					{% endif %}
 				</ul>
 			</div>
-			<a href="{{ path('front_cart_index') }}" class="btn btn-outline-dark">
-				<i class="bi bi-cart-fill me-1"></i>
-				{% set cartItemCount = globalCartCount.getCartCount() %}
-				<span class="badge bg-dark text-white ms-1 rounded-pill">{{ cartItemCount }}</span>
-			</a>
+<a href="{{ path('front_cart_index') }}" class="btn btn-outline-dark">
+  <i class="bi bi-cart-fill me-1"></i>
+  <span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill" data-cart-count-url="{{ path('front_cart_get_cart_count') }}"></span>
+</a>
+
+
 		</div>
 	</div>
 </nav>

@@ -5,7 +5,6 @@
 
 {% block body %}
 	<!-- Section-->
-
 	<section class="py-5">
 		<div class="container px-4 px-lg-5">
 
@@ -13,12 +12,12 @@
 				{% for category in categoriesByOrder %}
 
 					<div class="col-lg-4">
-						<div class="card border-0 text-center">
+						<div class="shadow card border-0 rounded-4 text-center">
 							<img src="{{ category.picture }}" alt="Card image" class="card-img">
 							<div class="card-img-overlay d-flex align-items-center">
 								<div class="w-100">
 									<a href="{{ path('front_category_show', {slug: category.slug}) }}" class="text-white text-decoration-none">
-										<h3 class="display-4 mb-4 ">{{ category.name}}</h3>
+										<h3 class=" display-4 mb-4 ">{{ category.name}}</h3>
 										<i class="fa-arrow-right fa ml-2"></i>
 									</a>
 								</div>
@@ -26,7 +25,6 @@
 						</div>
 					</div>
 				{% endfor %}
-
 			</div>
 			<h2 class="h2-color">Les nouveautés</h2>
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -35,7 +33,9 @@
 						<div class="card h-100">
 							<!-- Product image-->
 							<div class="image-container position-relative">
-								<img class="card-img-top" src="{{ product.picture }}" alt="...">
+								<a href="{{ path('front_product_show', {slug: product.slug}) }}">
+								<img class="shadow card-img-top" src="{{ product.picture }}" alt="...">
+								</a>
 								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 							</div>
 							
@@ -45,29 +45,30 @@
 								<div
 									class="text-center">
 									<!-- Product name-->
-									<h5 class="fw-bolder">{{ product.name}}</h5>
+									<h5 class="fw-bolder">{{ product.name }}</h5>
 									<!-- Product price-->
-									{#  affiche le prix /100 #}
+									{# Affiche le prix / 100 #}
 									{% set price = product.getPrice()/100 %}
-									{#  affiche le prix réel #}
+									{# Affiche le prix réel #}
 									{{ price }}
-									Euro
+									€
+								</div>
+								<div class="mt-3 text-center">
+									{{ include('_starsRating.html.twig', {'stars' : product.rating})}}
 								</div>
 							</div>
 							<!-- Product actions-->
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
-
-
-									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
-
-									<a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('front_cart_add', {id: product.id}) }}">Ajouter au Panier
+									<a class="btn btn-outline-dark mt-auto mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
+										Ajouter au panier
 									</a>
-
-
+									<a class="btn btn-outline-dark mt-auto" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
+									<div id="flashMessagesContainer-{{ product.id }}"></div>
 								</div>
 							</div>
 						</div>
+
 					</div>
 				{% endfor %}
 			</div>

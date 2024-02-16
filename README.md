@@ -31,6 +31,9 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
    php bin/console doctrine:migrations:migrate
 
   ```
+<<<<<<< HEAD
+
+=======
 5. Chargez les fixtures
    
  ```bash
@@ -38,4 +41,5 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
    php bin/console doctrine:fixtures:load
 
   ```
+>>>>>>> 721767fd6ac82932d683d374e90e1f88512d1c5e
 

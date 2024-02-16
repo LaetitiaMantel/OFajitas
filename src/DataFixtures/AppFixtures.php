@@ -454,7 +454,8 @@ class AppFixtures extends Fixture
             $newProduct->setDescription($product['description']);
             $newProduct->setPicture($product['picture']);
             $newProduct->setPrice($product['price']);
-            $newProduct->setRating('null');
+
+            $newProduct->setRating(random_int(1, 5));
             $newProduct->setStatus($product['status']);
             $newProduct->setSlug($this->slugger->slug($newProduct->getName())->lower());
             $newProduct->setBrand($faker->randomElement($this->brands));
