@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class SecurityController extends AbstractController
 {
-    #[Route(path: '/login', name: 'login')]
+    #[Route(path: '/connexion', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // if ($this->getUser()) {
