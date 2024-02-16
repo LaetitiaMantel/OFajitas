@@ -363,8 +363,8 @@ class AppFixtures extends Fixture
                 'picture' => 'https://i.etsystatic.com/15161228/r/il/df9872/3963183612/il_1588xN.3963183612_iwhz.jpg',
                 'price' => '399',
                 'status' => true,
-                'brand' => 'Etsy',
-                'category' => 'Jouet'
+                'brand' => '2',
+                'category' => '2'
             ],
         ];
 
