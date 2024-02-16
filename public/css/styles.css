@@ -10880,6 +10880,10 @@ textarea.form-control-lg {
   border-radius: 20px;
 }
 
+.btn-heart {
+  text-shadow: 0 0 6px white;
+}
+
 /* Classe pour le conteneur d'image position relative */
 .image-container {
   position: relative;
