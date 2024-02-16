@@ -28,13 +28,6 @@
 						<div class="text-muted">by
 							<em>{{ product.brand.name }}</em>
 						</div>
-						<div>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-						</div>
 					</div>
 
 					<div class="my-2">
@@ -44,19 +37,59 @@
 								{# Affiche le prix réel #}
 								{{ price }}
 								€
-							</span>TTC
-						</div>
-						<div class="mt-5">
-							<p>{{ product.description }}</p>
-						</div>
-						<div class="product-action-buttons">
-							<a class="btn btn-dark btn-buy addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
-								Ajouter au panier
-							</a>
-							<div id="flashMessagesContainer-{{ product.id }}"></div>
-						</div>
+
+							</span>TTC</div>
+					</div>
+					<div>
+						{{ include('_starsRating.html.twig', {'stars': product.rating})}}
+					</div>
+					<div class="mt-5">
+						<p>
+							{{ product.description }}
+						</p>
+					</div>
+					<div class="product-action-buttons">
+						<form action="{{ path('front_favorite_add', {'id': product.id}) }}" method="POST">
+							<button class="btn btn-dark btn-buy mb-2">
+								<span class="btn-buy-label ml-2">Ajouter au favoris</span>
+							</button>
+						</form>
+						<form action="{{ path('front_cart_add', {'id': product.id}) }}" method="POST">
+							<button class="btn btn-dark btn-buy mb-2">
+								<span class="btn-buy-label ml-2">Ajouter au panier</span>
+							</button>
+						</form>
+						<form action="{{ path('front_review_new', {slug: product.slug}) }}" method="POST">
+							<button class="btn btn-dark btn-buy mb-2">
+								<span class="btn-buy-label ml-2">Ajouter une critique</span>
+							</button>
+						</form>
+						
+					</div>
+					<div>
+						{% for review in product.reviews %}
+							<div class="card border-warning mb-3 p-2">
+								<div class="card-body">
+								{{ include('_starsRating.html.twig', {'stars': review.rating}) }}
+									<p class="card-text mb-4">
+										{{ review.content }}
+									</p>
+
+									<blockquote class="blockquote mt-5">
+										<footer class="blockquote-footer">
+											par
+											{{ review.username }}
+										</footer>
+									</blockquote>
+								</div>
+							</div>
+						{% else %}
+							<p>Pas de critiques sur ce film pour l'instant, ajoutez en une !</p>
+						{% endfor %}
+
 					</div>
 				</div>
 			</div>
+
 		</section>
 	{% endblock %}

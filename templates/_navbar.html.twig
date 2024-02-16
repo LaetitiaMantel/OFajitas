@@ -19,7 +19,8 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path ('front_favorite_index')}}">
-						<i class="bi bi-heart-fill icon-plus"></i>
+						<i id="heart-menu" class="bi bi-heart-fill"></i>
+									{# {% if app.session.get('favoris') is not empty %} icon-plus {% endif %}"></i> #}
 						Mes Favoris
 					</a>
 				</li>

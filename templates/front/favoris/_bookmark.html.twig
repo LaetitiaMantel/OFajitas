@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <form action="
 	    {% if app.session.get('favoris')[key] is defined %}
 	        {{ path('front_favorite_delete', {id: key}) }}
@@ -21,14 +22,12 @@
 		</i>
 	</button>
 </form> 
+=======
+<button class="btn" id="btn" data-product-id="{{ key }}">
 
-{# <form action="
-	    {% if app.session.get('favoris')[key] is defined %}
-	        {{ path('front_favorite_delete', {id: key}) }}
-	    {% else %}
-	        {{ path('front_favorite_add', {id: key}) }}
-	    {% endif %}" method="POST">
-	<button class="btn" id="btn" data-product-id="{{ key }}">
-		<i  class="{% if app.session.get('favoris')[key] is defined %} bi bi-heart-fill position-absolute top-0 start-0 m-3 icon icon-plus {% else %} bi bi-heart-fill position-absolute top-0 start-0 m-3 icon {% endif %}"></i>
-	</button>
-</form> #}
+		<i class="position-absolute top-0 start-0 m-3 icon bi bi-heart  "></i>
+
+</button>
+
+>>>>>>> c4967233af6f33879b6dc54fcd1021571d0aeaf6
+
