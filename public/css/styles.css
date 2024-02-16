@@ -138,6 +138,7 @@ h2, .h2 {
 }
 
 h3, .h3 {
+  text-shadow: 0 0 4px #333;
   font-size: calc(1.3rem + 0.6vw);
 }
 @media (min-width: 1200px) {
@@ -10877,6 +10878,10 @@ textarea.form-control-lg {
   --bs-gradient: none;
   margin-right: 1em;
   border-radius: 20px;
+}
+
+.btn-heart {
+  text-shadow: 0 0 6px white;
 }
 
 /* Classe pour le conteneur d'image position relative */

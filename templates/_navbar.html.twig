@@ -19,8 +19,8 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path ('front_favorite_index')}}">
-						<i class="bi bi-heart-fill
-									{% if app.session.get('favoris') is not empty %} icon-plus {% endif %}"></i>
+						<i id="heart-menu" class="bi bi-heart-fill"></i>
+									{# {% if app.session.get('favoris') is not empty %} icon-plus {% endif %}"></i> #}
 						Mes Favoris
 					</a>
 				</li>
@@ -76,6 +76,9 @@
 							</a>
 						</li>
 						<li>
+							<hr class="dropdown-divider"/>
+						</li>
+						<li>
 							<a class="dropdown-item" href="{{ path ('front_main_new')}}">Inscription
 							</a>
 						</li>
@@ -99,12 +102,15 @@
 							<hr class="dropdown-divider"/>
 						</li>
 						{% if 'ROLE_ADMIN' not in app.user.roles and 'ROLE_MANAGER' not in app.user.roles %}
-							<li>
-								<a class="dropdown-item" href="#!">
-									Mes achats
-								</a>
-							</li>
+						<li>
+							<a class="dropdown-item" href="#!">
+								Mes achats
+							</a>
+						</li>
 						{% endif %}
+						<li>
+							<hr class="dropdown-divider"/>
+						</li>
 						<li>
 							<a class="dropdown-item" href="{{ path ('logout')}}">Deconnexion
 							</a>
