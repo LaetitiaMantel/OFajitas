@@ -1,20 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %} Récapitulatif de votre commande 
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<section class="py-5">
+		<div class="container px-4 px-lg-5">
+<h2 class="text-center mb-4">Récapitulatif de votre commande </h2>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/ofajitas/projet-o-fajitas/src/Controller/OrderController.php</code></li>
-        <li>Your template at <code>/var/www/html/ofajitas/projet-o-fajitas/templates/order/index.html.twig</code></li>
-    </ul>
-</div>
+			{% if cart is defined and cart|length > 0 %}
+				<div class="row">
+					<div class="col-md-12 table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Vos produits</th>
+									<th scope="col">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% set total = 0 %}
+								{% for cartItem in cart %}
+									<tr>
+										<td>
+											{% if cartItem.product is defined %}
+												<div class="d-flex align-items-center">
+													<a href="{{ path('front_product_show', {'slug': cartItem.product.slug}) }}">
+														<img src="{{ cartItem.product.picture }}" class="img-fluid" alt="{{ cartItem.product.name }}" style="max-height: 80px; max-width: 80px; margin-right: 10px;">
+													</a>
+													<div>
+														<strong>{{ cartItem.product.name }}</strong>
+														<p>{{ cartItem.product.description }}</p>
+													</div>
+												</div>
+											{% endif %}
+										</td>
+										<td style="white-space: nowrap;">{{ cartItem.quantity * (cartItem.product.getPrice()/100) }}
+											€</td>
+									</tr>
+									{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
+								{% endfor %}
+
+								<tr>
+									<td colspan="1" class="text-end">
+										<strong>Total global :</strong>
+									</td>
+									<td colspan="1" style="white-space: nowrap;">
+										<span id="cart-total-container">{{ total }}
+											€</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-md-12">
+						<div
+							class="d-flex justify-content-end">
+							<!-- Bouton pour valider la commande -->
+							<form id="confirmOrderForm" action="{{ path('#') }}" method="POST" class="d-inline">
+								<button type="submit" class="btn btn-outline-danger-order btn-sm">Confirmer la commande</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<p class="text-center">Votre panier est vide.</p>
+			{% endif %}
+		</div>
+	</section>
+
 {% endblock %}
+

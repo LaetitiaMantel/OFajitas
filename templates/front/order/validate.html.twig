@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Merci pour votre commande
+{% endblock %}
+
+{% block body %}
+	<section class="py-5">
+		<div class="container px-4 px-lg-5">
+			<h2 class="text-center mb-4">Merci pour votre commande</h2>
+
+			<p>Votre commande a été validée avec succès. Merci pour votre achat!</p>
+
+			<a href="{{ path('front_main_home') }}" class="btn btn-outline-danger btn-sm">Retour à l'accueil</a>
+		</div>
+	</section>
+{% endblock %}

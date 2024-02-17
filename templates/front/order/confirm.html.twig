@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Confirmation de commande
+{% endblock %}
+
+{% block body %}
+	<section class="py-5">
+		<div class="container px-4 px-lg-5">
+			<h2 class="text-center mb-4">Confirmation de commande</h2>
+
+			{% if app.user %}
+				{% if app.flashes('message') is not empty %}
+					<div class="alert alert-danger" role="alert">
+						{{ app.flashes('message')[0] }}
+					</div>
+				{% endif %}
+
+				<form method="GET" action="{{ path('front_order_payment') }}">
+					<button type="submit" class="btn btn-outline-danger btn-sm">Confirmer la commande</button>
+				</form>
+			{% else %}
+				<p class="text-center">Vous devez être connecté pour confirmer une commande.</p>
+			{% endif %}
+		</div>
+	</section>
+{% endblock %}
