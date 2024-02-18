@@ -249,25 +249,25 @@ class Product
         return $this->ligneOrders;
     }
 
-    public function addLigneOrder(LigneOrder $ligneOrder): static
-    {
-        if (!$this->ligneOrders->contains($ligneOrder)) {
-            $this->ligneOrders->add($ligneOrder);
-            $ligneOrder->setProducts($this);
-        }
+    // public function addLigneOrder(LigneOrder $ligneOrder): static
+    // {
+    //     if (!$this->ligneOrders->contains($ligneOrder)) {
+    //         $this->ligneOrders->add($ligneOrder);
+    //         $ligneOrder->setProducts($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeLigneOrder(LigneOrder $ligneOrder): static
-    {
-        if ($this->ligneOrders->removeElement($ligneOrder)) {
-            // set the owning side to null (unless already changed)
-            if ($ligneOrder->getProducts() === $this) {
-                $ligneOrder->setProducts(null);
-            }
-        }
+    // public function removeLigneOrder(LigneOrder $ligneOrder): static
+    // {
+    //     if ($this->ligneOrders->removeElement($ligneOrder)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($ligneOrder->getProducts() === $this) {
+    //             $ligneOrder->setProducts(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }

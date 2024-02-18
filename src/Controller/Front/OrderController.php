@@ -55,6 +55,7 @@ class OrderController extends AbstractController
         $order->setRef($temporaryOrderRef);
         $order->setCreatedAt(new \DateTimeImmutable());
 
+
         $session->set('temporary_order', [
             'order' => $order,
             'cart' => $cart,
@@ -124,21 +125,21 @@ class OrderController extends AbstractController
             $order->setCreatedAt(new \DateTimeImmutable());
 
             foreach ($temporaryOrder['cart'] as $cartItem) {
-
-                if (is_array($cartItem) && isset($cartItem['name'], $cartItem['quantity'])) {
-
-                    $productName = $cartItem['name'];
+                if (is_array($cartItem) && isset($cartItem['product'], $cartItem['quantity'])) {
+                    $product = $cartItem['product'];
                     $quantity = $cartItem['quantity'];
                     $ligneOrder = new LigneOrder();
                     $ligneOrder->setOrder($order);
+                    $productName = $product->getName();                   
                     $ligneOrder->setName($productName);
                     $ligneOrder->setQuantity($quantity);
+                    $ligneOrder->setPrice($product->getPrice());
+                    $ligneOrder->setCreatedAt(new \DateTimeImmutable());
 
-
+                    // Persistez chaque entité LigneOrder
                     $em->persist($ligneOrder);
                 }
             }
-
             $em->persist($order);
             $em->flush();
 
