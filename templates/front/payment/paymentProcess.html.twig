@@ -2,52 +2,90 @@
 
 {% block body %}
 
-	<div class="container mt-5">
-		<div class="row justify-content-center">
-			<div
-				class="col-md-6">
-				{# Formulaire des informations de l'utilisateur #}
-				<div class="card">
-					<div class="card-body">
-						<form action="{{ path('front_order_payment_done', {'orderRef': orderRef}) }}" method="post" id="userInfoForm">
-							<h2 class="card-title">Informations de l'utilisateur</h2>
+<div class="container-payment mt-5">
+	<div class="row justify-content-center">
+		<div
+			class="col-md-6">
+			{# Formulaire des informations de l'utilisateur #}
+			<div class="card-payment">
+				<div class="card-body">
+					<form action="{{ path('front_order_payment_done', {'orderRef': orderRef}) }}" method="post" id="userInfoForm">
+						<h2 class="card-title">
+							Vos informations de livraison
+						</h2>
 
-							<div class="mb-3">
-								<label for="firstName" class="form-label">Prénom:</label>
-								<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Entrez votre prénom" value="{{ app.user.firstName ?? '' }}">
-							</div>
 
-							<div class="mb-3">
-								<label for="lastName" class="form-label">Nom:</label>
-								<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Entrez votre nom" value="{{ app.user.lastName ?? '' }}">
-							</div>
+						<div class="mb-3">
+							<label for="firstName" class="form-label">Prénom:</label>
+							<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Entrez votre prénom" value="{{ app.user.firstName ?? '' }}">
+						</div>
 
-							<div class="mb-3">
-								<label for="address" class="form-label">Adresse:</label>
-								<input type="text" class="form-control" id="address" name="address" placeholder="Entrez votre adresse">
-							</div>
+						<div class="mb-3">
+							<label for="lastName" class="form-label">Nom:</label>
+							<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Entrez votre nom" value="{{ app.user.lastName ?? '' }}">
+						</div>
 
-							<div class="mb-3">
-								<label for="addressComplement" class="form-label">Complément d'adresse:</label>
-								<input type="text" class="form-control" id="addressComplement" name="addressComplement" placeholder="Entrez votre complément d'adresse">
-							</div>
+						<div class="mb-3">
+							<label for="address" class="form-label">Adresse:</label>
+							<input type="text" class="form-control" id="address" name="address" placeholder="Adresse">
+						</div>
 
-							<div class="mb-3">
-								<label for="postalCode" class="form-label">Code postal:</label>
-								<input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Entrez votre code postal">
-							</div>
+						<div class="mb-3">
+							<label for="addressComplement" class="form-label">Complément d'adresse:</label>
+							<input type="text" class="form-control" id="addressComplement" name="addressComplement" placeholder="Complément d'adresse">
+						</div>
 
-							<div class="mb-3">
-								<label for="city" class="form-label">Ville:</label>
-								<input type="text" class="form-control" id="city" name="city" placeholder="Entrez votre ville">
-							</div>
+						<div class="mb-3">
+							<label for="postalCode" class="form-label">Code postal:</label>
+							<input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Code postal">
+						</div>
 
-							<div class="mb-3">
-								<label for="phone" class="form-label">Numéro de téléphone:</label>
-								<input type="text" class="form-control" id="phone" name="phone" placeholder="Entrez votre numéro de téléphone">
-							</div>
+						<div class="mb-3">
+							<label for="city" class="form-label">Ville:</label>
+							<input type="text" class="form-control" id="city" name="city" placeholder="Ville">
+						</div>
 
-							<button type="button" class="btn btn-primary" id="validateUserInfo">Valider les informations</button>
+<div class="mb-3">
+	<label for="phone" class="form-label">Numéro de téléphone:</label>
+	<input type="text" class="form-control" id="phone" name="phone" placeholder="Entrez votre numéro de téléphone">
+</div>
+
+<!-- Ajout du champ de coche pour afficher les informations de facturation -->
+<div class="mb-3 form-check">
+	<input type="checkbox" class="form-check-input" id="billingCheckbox">
+	<label class="form-check-label" for="billingCheckbox">Adresse de Facturation (si différente de l'adresse principale)</label>
+</div>
+
+<!-- Informations de facturation supplémentaires (initialement masquées) -->
+<div id="billingAddressFields" style="display: none;">
+
+	<div class="mb-3">
+		<label for="billingAddress" class="form-label">Adresse de facturation:</label>
+		<input type="text" class="form-control" id="billingAddress" name="billingAddress" placeholder="Adressegit">
+	</div>
+
+	<div class="mb-3">
+		<label for="billingAddressComplement" class="form-label">Complément d'adresse de facturation:</label>
+		<input type="text" class="form-control" id="billingAddressComplement" name="billingAddressComplement" placeholder=" Complément d'adresse">
+	</div>
+
+	<div class="mb-3">
+		<label for="billingPostalCode" class="form-label">Code postal :</label>
+		<input type="text" class="form-control" id="billingPostalCode" name="billingPostalCode" placeholder=" Code postal ">
+	</div>
+
+	<div class="mb-3">
+		<label for="billingCity" class="form-label">Ville :</label>
+		<input type="text" class="form-control" id="billingCity" name="billingCity" placeholder="Ville ">
+	</div>
+
+
+
+
+</div>
+<div class="mb-3 text-center">
+	<button type="button" class="btn btn-primary-payment" id="validateUserInfo">Valider les informations</button>
+</div>
 						</form>
 					</div>
 				</div>
@@ -56,7 +94,7 @@
 			<div
 				class="col-md-6">
 				{# Formulaire de paiement #}
-				<div class="card" id="paymentCard" style="display: none;">
+				<div class="card-payment" id="paymentCard" style="display: none;">
 					<div class="card-body">
 						<form action="{{ path('front_order_payment_done', {'orderRef': orderRef}) }}" method="post" id="paymentForm">
 							<h2 class="card-title">Paiement</h2>
@@ -79,9 +117,13 @@
 							<div class="mb-3">
 								<label for="cvv">CVV:</label>
 								<input type="text" id="cvv" placeholder="Entrez le CVV" class="form-control">
-							</div>
+</div>
+<div class="mb-3 text-center">
 
-							<button type="submit" onclick="return processPayment()" class="btn btn-primary">Payer</button>
+
+							<button type="submit" onclick="return processPayment()" class="btn btn-primary-payment">Payer</button>
+</div>
+
 						</form>
 
 						<div id="loader"></div>
@@ -91,8 +133,8 @@
 			</div>
 		</div>
 	</div>
+<script src="{{ asset('js/fakePayment.js') }}"></script>
 
-	<script src="{{ asset('js/fakePayment.js') }}"></script>
 
 {% endblock %}
 

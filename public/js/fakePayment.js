@@ -1,5 +1,17 @@
 console.log("fakepayment ok")
 
+console.log("fakepayment ok");
+document
+  .getElementById("billingCheckbox")
+  .addEventListener("click", function () {
+    const billingAddressFields = document.getElementById(
+      "billingAddressFields"
+    );
+    console.log("Billing address fields:", billingAddressFields);
+    billingAddressFields.style.display = this.checked ? "block" : "none";
+  });
+
+
 document
   .getElementById("validateUserInfo")
   .addEventListener("click", function () {
