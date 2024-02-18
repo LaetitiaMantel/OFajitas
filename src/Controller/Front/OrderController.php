@@ -2,6 +2,7 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Cart;
 use App\Entity\Order;
 use App\Entity\LigneOrder;
 use App\Service\CartManager;
@@ -27,7 +28,11 @@ class OrderController extends AbstractController
     public function confirm(CartManager $cartManager, EntityManagerInterface $em): Response
     {
         $session = $this->getSession();
-        $temporaryOrderRef = $session->get('temporary_order_ref');
+        $temporaryOrderRef = uniqid();
+
+
+        // Enregistrez la référence temporaire dans la session
+        $session->set('temporary_order_ref', $temporaryOrderRef);
 
 
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -39,13 +44,14 @@ class OrderController extends AbstractController
 
         $cart = $cartManager->getCart();
 
+
         if (empty($cart)) {
             $this->addFlash('message', 'Votre panier est vide');
             return $this->redirectToRoute('front_main_home');
         }
 
         $order = new Order();
-        $order->setUser($this->getUser());
+        // $order->setUser($this->getUser());
         $order->setRef($temporaryOrderRef);
         $order->setCreatedAt(new \DateTimeImmutable());
 
@@ -56,21 +62,30 @@ class OrderController extends AbstractController
 
         $session->set('temporary_order_ref', $temporaryOrderRef);
 
-        return $this->render('front/order/confirm.html.twig', ['orderRef' => $temporaryOrderRef]);
+        return $this->render('front/order/confirm.html.twig', [
+            'cart' => $cart,
+            'orderRef' => $temporaryOrderRef,
+
+        ]);
     }
 
-    
-
-
     #[Route('/process', name: 'payment', methods: ['GET'])]
-    public function process(): Response
+    public function process(CartManager $cartManager): Response
     {
         $session = $this->getSession();
         $temporaryOrderRef = $session->get('temporary_order_ref');
+        $totalAmount = $cartManager->getCartTotal();
+
+        // Stockez le montant total en session pour l'utiliser dans le formulaire
+        $session->set('payment_amount', $totalAmount);
 
         // Redirigez vers la page de confirmation de paiement générique
-        return $this->render('front/payment/paymentProcess.html.twig', ['orderRef' => $temporaryOrderRef]);
+        return $this->render('front/payment/paymentProcess.html.twig', [
+            'orderRef' => $temporaryOrderRef,
+            'totalAmount' => $totalAmount,
+        ]);
     }
+
 
     #[Route('/payment/{orderRef}', name: 'payment_done', methods: ['GET', 'POST'])]
     public function payment(Request $request, $orderRef, CartManager $cartManager, FakePaymentService $paymentService, EntityManagerInterface $em): Response
@@ -101,17 +116,36 @@ class OrderController extends AbstractController
         // Processus de paiement simulé
         $paymentResult = $paymentService->processPayment($totalAmount, $cardNumber);
 
-
-        // Processus de paiement simulé
-        $paymentResult = $paymentService->processPayment($totalAmount, $cardNumber);
-
         if ($paymentResult) {
             // Paiement réussi
+            $order = new Order();
+            $order->setUser($this->getUser());
+            $order->setRef($orderRef);
+            $order->setCreatedAt(new \DateTimeImmutable());
+
+            foreach ($temporaryOrder['cart'] as $cartItem) {
+
+                if (is_array($cartItem) && isset($cartItem['name'], $cartItem['quantity'])) {
+
+                    $productName = $cartItem['name'];
+                    $quantity = $cartItem['quantity'];
+                    $ligneOrder = new LigneOrder();
+                    $ligneOrder->setOrder($order);
+                    $ligneOrder->setName($productName);
+                    $ligneOrder->setQuantity($quantity);
+
+
+                    $em->persist($ligneOrder);
+                }
+            }
+
+            $em->persist($order);
             $em->flush();
 
+            // Vider le panier après le paiement réussi
             $cartManager->empty();
 
-            return $this->redirectToRoute('front_order_validate', ['orderRef' => $orderRef]);
+            return $this->redirectToRoute('front_order_validate', ['orderRef' => $order->getRef()]);
         } else {
             // Paiement refusé
             $this->addFlash('error', 'Le paiement a été refusé. Veuillez réessayer.');
@@ -123,10 +157,22 @@ class OrderController extends AbstractController
     #[Route('/validate', name: 'validate', methods: ['GET'])]
     public function validate(): Response
     {
-        
-        
-        return $this->render('front/order/add.html.twig');
+        $session = $this->getSession();
+        $temporaryOrder = $session->get('temporary_order');
+
+        if (!$temporaryOrder || !isset($temporaryOrder['order'])) {
+            return $this->redirectToRoute('front_main_home');
+        }
+
+        $orderRef = $temporaryOrder['order']->getRef();
+
+        return $this->render('front/order/validate.html.twig', [
+            'orderRef' => $orderRef,
+            'userName' => $this->getUser(),
+        ]);
     }
+
+
     private function getSession()
     {
         return $this->requestStack->getCurrentRequest()->getSession();

@@ -86,7 +86,7 @@ class Order
         return $this->Ref;
     }
 
-    public function setRef(string $Ref): static
+    public function setRef(string  $Ref): static
     {
         $this->Ref = $Ref;
 

@@ -10914,10 +10914,8 @@ textarea.form-control-lg {
 
 
 
-/*Payment */
-
-#payment-form {
-  background-color: #fff;
+#paymentForm {
+  background-color: red;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -10926,18 +10924,18 @@ textarea.form-control-lg {
   box-sizing: border-box;
 }
 
-#payment-form h2 {
+#paymentForm h2 {
   color: #333;
   text-align: center;
 }
 
-#payment-form label {
+#paymentForm label {
   display: block;
   margin-bottom: 5px;
   color: #555;
 }
 
-#payment-form input {
+#paymentForm input {
   width: 100%;
   padding: 8px;
   margin-bottom: 15px;
@@ -10946,7 +10944,7 @@ textarea.form-control-lg {
   border-radius: 4px;
 }
 
-#payment-form button {
+#paymentForm button {
   background-color: #3498db;
   color: #fff;
   padding: 10px;
@@ -10957,7 +10955,7 @@ textarea.form-control-lg {
   box-sizing: border-box;
 }
 
-#payment-form #loader {
+#paymentForm #loader {
   border: 6px solid #f3f3f3;
   border-top: 6px solid #3498db;
   border-radius: 50%;
@@ -10973,12 +10971,14 @@ textarea.form-control-lg {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
+
 }
 
-#payment-form #payment-result {
+#paymentForm #payment-result {
   color: #27ae60;
   text-align: center;
   margin-top: 20px;
