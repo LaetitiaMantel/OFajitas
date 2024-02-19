@@ -151,13 +151,7 @@ class OrderController extends AbstractController
             $em->persist($order);
             $em->flush();
 
-             $ligneOrders = $em->getRepository(LigneOrder::class)->findBy(['order_Id' => $order->getId()]);
-
-            foreach ($ligneOrders as $ligneOrder) {
-                $ligneOrder->getName();
-             
-                dd($ligneOrder);
-            }
+            $ligneOrders = $em->getRepository(LigneOrder::class)->findBy(['order' => $order]);
            
             // Envoi de l'e-mail de confirmation
             $email = (new Email())
@@ -168,7 +162,7 @@ class OrderController extends AbstractController
                     'email/confirmationCommande.html.twig',
                     ['user' => $user,
                     'order' => $order,
-                    'ligneOrders' => $ligneOrder,
+                    'ligneOrders' => $ligneOrders,
                     ]
                 ));
             $this->mailer->send($email);

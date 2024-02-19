@@ -1,47 +1,24 @@
-{# {% block title %}Vos achats
-{% endblock %}
-{% block body %}
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Vos achats</h2>
-{% for order in orders|reverse %}
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="card-title">Commande n°
-                        {{ order.getRef() }}</h5>
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Article</th>
-                                <th class="text-center">Quantité</th>
-                                <th class="text-center">Prix</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% set orderTotal = 0 %}
-                            {% for orderLine in orderLines[order.getRef()] %}
-                                <tr>
-                                    <td>{{ orderLine.getName() }}</td>
-                                    <td class="text-center">{{ orderLine.getQuantity() }}</td>
-                                    <td class="text-center">{{ orderLine.getPrice() / 100 }}
-                                        €</td>
-                                </tr>
-                                {% set orderTotal = orderTotal + (orderLine.getQuantity() * orderLine.getPrice()) %}
-                            {% endfor %}
-                            <tr>
-                                <td colspan="2" class="text-end">
-                                    <strong>Total :</strong>
-                                </td>
-                                <td class="text-center">
-                                    <strong>{{ orderTotal / 100 }}
-                                        €</strong>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de commande</title>
+</head>
+<body>
+    <h1>Confirmation de commande</h1>
+    <p>Bonjour {{ user.firstname }},</p>
+    
+    <p>Votre commande numéro {{ order.ref }} a été confirmée avec succès.</p>
+    
+    <p>Détails de la commande :</p>
+    <ul>
+        {% for ligneOrder in ligneOrders %}
+            <li>{{ ligneOrder.name }} - Quantité: {{ ligneOrder.quantity }} - Prix: {{ ligneOrder.price / 100 }} €</li>
         {% endfor %}
-    </div>
-{% endblock %} #}
+    </ul>
+
+   
+    
+    <p>Merci de votre commande et à bientôt !</p>
+</body>
+</html>
