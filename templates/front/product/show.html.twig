@@ -49,29 +49,23 @@
 						</p>
 					</div>
 					<div class="product-action-buttons">
-						<form action="{{ path('front_favorite_add', {'id': product.id}) }}" method="POST">
-							<button class="btn btn-dark btn-buy mb-2">
-								<span class="btn-buy-label ml-2">Ajouter au favoris</span>
-							</button>
-						</form>
-						<form action="{{ path('front_cart_add', {'id': product.id}) }}" method="POST">
-							<button class="btn btn-dark btn-buy mb-2">
-								<span class="btn-buy-label ml-2">Ajouter au panier</span>
-							</button>
-						</form>
+						<a class="btn btn-outline-danger mt-auto mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
+							Ajouter au panier
+						</a>
 						<form action="{{ path('front_review_new', {slug: product.slug}) }}" method="POST">
-							<button class="btn btn-dark btn-buy mb-2">
+							<button class="btn btn-outline-danger btn-buy mb-2">
 								<span class="btn-buy-label ml-2">Ajouter une critique</span>
 							</button>
 						</form>
-						
+
 					</div>
 					<div>
 						{% for review in product.reviews %}
-								<h2> Les critiques de cet article</h2>
+							<h2>
+								Les critiques de cet article</h2>
 							<div class="card border-warning mb-3 p-2">
 								<div class="card-body">
-								{{ include('_starsRating.html.twig', {'stars': review.rating}) }}
+									{{ include('_starsRating.html.twig', {'stars': review.rating}) }}
 									<p class="card-text mb-4">
 										{{ review.content }}
 									</p>
