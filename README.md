@@ -38,5 +38,4 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 
    php bin/console doctrine:fixtures:load
 
-    ```
-
+ ```
