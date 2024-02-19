@@ -27,7 +27,7 @@
 		<!-- Header-->
 		{% if is_granted ("ROLE_MANAGER") %}
 			<header></header>
-				
+
 		{% else %}
 			<header class="gradient py-5">
 
@@ -50,17 +50,6 @@
 			{{ include('_navbar.html.twig') }}
 		{% endif %}
 
-		{% for label, messages in app.flashes %}
-			{% for message in messages %}
-				<div class="flash-{{ label }}">
-					<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
-						{{ message|striptags('<strong>')|raw }}
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
-				</div>
-			{% endfor %}
-		{% endfor %}
-
 		{% block body %}{% endblock %}
 
 
@@ -68,6 +57,10 @@
 			<div class="container text-center">
 				<p class="m-0 text-center text-black-50">Copyright &copy; O'Fajitas 2024</p>
 				<img class="w-10 p-3" src="{{ asset('images/powered-by-fajitas.png')}}" alt="fajitas" srcset="">
+				<a href="{{ path('front_main_contact') }}" class="btn btn-outline-dark">
+					<i class="bi bi-envelope"> Nous contacter</i>
+					<span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill" data-cart-count-url="{{ path('front_cart_get_cart_count') }}"></span>
+				</a>
 			</div>
 		</footer>
 
@@ -79,8 +72,7 @@
 
 		<script>
 			const addToFavoriteUrl = "{{ path('front_favorite_add', {id: 1}) }}";
-			const deleteFavoriteUrl = "{{ path('front_favorite_delete', {id: 1}) }}";
-			
+const deleteFavoriteUrl = "{{ path('front_favorite_delete', {id: 1}) }}";
 		</script>
 
 
