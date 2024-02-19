@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider la commande
+{% endblock %}
+
+{% block body %}
+	<section class="py-5">
+		<div class="container px-4 px-lg-5">
+
+
+			{% if app.user %}
+				<p>
+					{{ app.user.firstname }}
+					{{ app.user.lastname }}!</p>
+			{% endif %}
+
+			{% if cart is defined and cart|length > 0 %}
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Vos produits</th>
+							<th scope="col">Quantité</th>
+							<th scope="col">Prix unitaire</th>
+							<th scope="col">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% set total = 0 %}
+						{% for cartItem in cart %}
+							<tr>
+								<td>
+									{% if cartItem.product is defined %}
+										<div class="d-flex align-items-center">
+											<a href="{{ path('front_product_show', {'slug': cartItem.product.slug}) }}">
+												<img src="{{ cartItem.product.picture }}" class="img-fluid" alt="{{ cartItem.product.name }}" style="max-height: 80px; max-width: 80px; margin-right: 10px;">
+											</a>
+											<div>
+												<strong>{{ cartItem.product.name }}</strong>
+												<p>{{ cartItem.product.description }}</p>
+											</div>
+										</div>
+									{% endif %}
+								</td>
+								<td>{{ cartItem.quantity }}</td>
+								<td>{{ cartItem.product.getPrice()/100 }}
+									€</td>
+								<td>{{ cartItem.quantity * (cartItem.product.getPrice()/100) }}
+									€</td>
+							</tr>
+							{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
+						{% endfor %}
+
+						<tr>
+							<td colspan="3" class="text-end">
+								<strong>Total global :</strong>
+							</td>
+							<td style="white-space: nowrap;">
+								<span id="cart-total-container">{{ total }}
+									€</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			{% else %}
+				<p>Votre panier est vide.</p>
+			{% endif %}
+		</div>
+	</section>
+{% endblock %}
+
