@@ -48,7 +48,8 @@ class UserController extends AbstractController
         //TODO faire une confirmation de password
           if ($form->isSubmitted() && $form->isValid()) {
               $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
-              $user->setRoles(['ROLE_USER']); 
+              $user->setRoles(['ROLE_USER']);
+              $user->setIsBanned(false);
               $entityManager->persist($user);
               try {  
                 $entityManager->flush();
