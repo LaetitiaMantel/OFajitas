@@ -63,7 +63,7 @@
 						{% for review in product.reviews %}
 							<h2>
 								Les critiques de cet article</h2>
-							<div class="card border-warning mb-3 p-2">
+							<div class="card border-warning rounded-5 mb-3 p-2">
 								<div class="card-body">
 									{{ include('_starsRating.html.twig', {'stars': review.rating}) }}
 									<p class="card-text mb-4">
