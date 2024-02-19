@@ -55,17 +55,12 @@ async function createFavoris() {
 
             deleteFavoris(productId);
 
-<<<<<<< HEAD
-            //localStorage.removeItem('favoris');
-            localStorage.setItem('favoris', JSON.stringify(favoris));
-            //localStorage.getItem('favoris', JSON.stringify(favoris));
-=======
             // Mettez à jour les favoris en session
             favoris[productId] = false;
             localStorage.setItem('favoris', JSON.stringify(favoris));
 
           
->>>>>>> 08ef83e53946184c0f9e1f8859c353abba695474
+
         });
     });
 
