@@ -3,6 +3,8 @@
 namespace App\Controller\Front;
 
 use App\Entity\User;
+use App\Entity\Order;
+use App\Entity\LigneOrder;
 use App\Form\UserTypeUser;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
@@ -150,4 +152,30 @@ class UserController extends AbstractController
             return $this->redirectToRoute('front_main_home');
           
       }
+
+    #[Route('/mes-achats', name: 'order_info')]
+    public function orderInfo(EntityManagerInterface $entityManager): Response
+    {
+        // Récupérer l'utilisateur courant
+        $user = $this->getUser();
+
+        // Récupérer les commandes de l'utilisateur depuis la base de données
+        $orders = $entityManager->getRepository(Order::class)->findBy(['user' => $user]);
+
+        // Récupérer les lignes de commande associées à chaque commande
+        $orderLines = [];
+        foreach ($orders as $order) {
+            $orderLines[$order->getRef()] = $entityManager->getRepository(LigneOrder::class)->findBy(['order' => $order]);
+        }
+
+        // on envoie le résultat au twig associé
+        return $this->render('front/information/command.html.twig', [
+            'user'       => $user,
+            'orders'     => $orders,
+            'orderLines' => $orderLines,
+        ]);
+    }
+
+
+
 }
