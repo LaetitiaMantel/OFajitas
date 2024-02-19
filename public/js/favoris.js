@@ -17,7 +17,7 @@ async function createFavoris() {
     const heartMenu = document.querySelector('#heart-menu');
 
     // Récupérez les favoris depuis le stockage local
-    const favoris = JSON.parse(localStorage.getItem('favoris')) || {};
+    let favoris = JSON.parse(localStorage.getItem('favoris')) || {};
 
 
 
@@ -50,11 +50,22 @@ async function createFavoris() {
             // Récupérez l'ID du produit à partir de l'attribut data-product-id
             const productId = button.getAttribute('data-product-id');
 
+            // Récupérez les favoris depuis le stockage de session
+            let favoris = JSON.parse(localStorage.getItem('favoris')) || {};
+
             deleteFavoris(productId);
 
+<<<<<<< HEAD
             //localStorage.removeItem('favoris');
             localStorage.setItem('favoris', JSON.stringify(favoris));
             //localStorage.getItem('favoris', JSON.stringify(favoris));
+=======
+            // Mettez à jour les favoris en session
+            favoris[productId] = false;
+            localStorage.setItem('favoris', JSON.stringify(favoris));
+
+          
+>>>>>>> 08ef83e53946184c0f9e1f8859c353abba695474
         });
     });
 
