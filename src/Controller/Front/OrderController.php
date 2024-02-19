@@ -156,7 +156,7 @@ class OrderController extends AbstractController
             // Envoi de l'e-mail de confirmation
             $email = (new Email())
                 ->from('jonathanaulnette53@gmail.com')
-                ->to($user->getEmail())
+                ->to($order->getUser()->getEmail())
                 ->subject('Confirmation de commande')
                 ->html($this->renderView(
                     'email/confirmationCommande.html.twig',
