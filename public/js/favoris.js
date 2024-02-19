@@ -13,11 +13,11 @@ async function createFavoris() {
     //Sélectionnez le bouton "Supprimer tout les favoris"
     const emptyButton = document.querySelector('#empty');
 
-    //Sélectionnez """
+    //Sélectionnez le coeur du menu 
     const heartMenu = document.querySelector('#heart-menu');
 
     // Récupérez les favoris depuis le stockage local
-    const favoris = JSON.parse(localStorage.getItem('favoris')) || {};
+    let favoris = JSON.parse(localStorage.getItem('favoris')) || {};
 
 
 
@@ -26,6 +26,7 @@ async function createFavoris() {
         const productId = button.getAttribute('data-product-id');
         const icon = button.querySelector('.icon');
         const isFavorited = favoris[productId];
+        //localStorage.getItem('favoris', JSON.stringify(favoris));
 
         // Si le produit est en favori, ajoutez la classe 'icon-plus' et 'bi-heart-fill' à l'icône
         if (isFavorited) {
@@ -34,7 +35,7 @@ async function createFavoris() {
             icon.classList.add('bi-heart-fill');
             heartMenu.classList.add('icon-plus');
         }
-        console.log(isFavorited);
+        //console.log(isFavorited);
 
     
     });
@@ -49,9 +50,17 @@ async function createFavoris() {
             // Récupérez l'ID du produit à partir de l'attribut data-product-id
             const productId = button.getAttribute('data-product-id');
 
+            // Récupérez les favoris depuis le stockage de session
+            let favoris = JSON.parse(localStorage.getItem('favoris')) || {};
+
             deleteFavoris(productId);
 
-            localStorage.removeItem('favoris');
+            // Mettez à jour les favoris en session
+            favoris[productId] = false;
+            localStorage.setItem('favoris', JSON.stringify(favoris));
+
+          
+
         });
     });
 
@@ -135,6 +144,7 @@ async function createFavoris() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ productId: productId }),
+                
             });
 
             if (response.ok) {
@@ -151,8 +161,6 @@ async function createFavoris() {
                 notificationElement.classList.add('notification');
                 notificationElement.textContent = "Le favori a été supprimé avec succès.";
                 element.appendChild(notificationElement);
-
-
 
                 // Supprimer la notification après quelques secondes
                 setTimeout(() => {
