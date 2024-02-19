@@ -3,12 +3,15 @@
 namespace App\Controller\Front;
 
 use App\Entity\Cart;
+use App\Entity\User;
 use App\Entity\Order;
 use App\Entity\LigneOrder;
 use App\Service\CartManager;
+use Symfony\Component\Mime\Email;
 use App\Service\FakePaymentService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -20,6 +23,7 @@ class OrderController extends AbstractController
     public function __construct(
 
         private RequestStack $requestStack,
+        private MailerInterface $mailer
 
     ) {
     }
@@ -89,8 +93,12 @@ class OrderController extends AbstractController
 
 
     #[Route('/payment/{orderRef}', name: 'payment_done', methods: ['GET', 'POST'])]
-    public function payment(Request $request, $orderRef, CartManager $cartManager, FakePaymentService $paymentService, EntityManagerInterface $em): Response
+    public function payment(Request $request, $orderRef, CartManager $cartManager, 
+    FakePaymentService $paymentService, EntityManagerInterface $em,
+    ): Response
     {
+        $user = $this->getUser();
+        
         $session = $this->getSession();
         $temporaryOrder = $session->get('temporary_order');
 
@@ -142,6 +150,22 @@ class OrderController extends AbstractController
             }
             $em->persist($order);
             $em->flush();
+
+            $ligneOrders = $em->getRepository(LigneOrder::class)->findBy(['order' => $order]);
+           
+            // Envoi de l'e-mail de confirmation
+            $email = (new Email())
+                ->from('jonathanaulnette53@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Confirmation de commande')
+                ->html($this->renderView(
+                    'email/confirmationCommande.html.twig',
+                    ['user' => $user,
+                    'order' => $order,
+                    'ligneOrders' => $ligneOrders,
+                    ]
+                ));
+            $this->mailer->send($email);
 
             // Vider le panier après le paiement réussi
             $cartManager->empty();
