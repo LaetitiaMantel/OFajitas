@@ -29,7 +29,7 @@
 							<div class="card-img-overlay d-flex align-items-center">
 								<div class="w-100">
 									<a href="{{ path('front_category_show', {slug: category.slug}) }}" class="text-white text-decoration-none">
-										<h3 class=" display-4 mb-4 ">{{ category.name}}</h3>
+										<h3 class=" display-4 mb-4 category">{{ category.name}}</h3>
 										<i class="fa-arrow-right fa ml-2"></i>
 									</a>
 								</div>
@@ -51,7 +51,6 @@
 								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 							</div>
 							
-
 							<!-- Product details-->
 							<div class="card-body p-4">
 								<div
@@ -72,15 +71,14 @@
 							<!-- Product actions-->
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
-									<a class="btn btn-outline-dark mt-auto mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
+									<a class="btn btn-outline-danger mt-auto mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
 										Ajouter au panier
 									</a>
-									<a class="btn btn-outline-dark mt-auto" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
+									<a class="btn btn-outline-danger mt-auto" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
 									<div id="flashMessagesContainer-{{ product.id }}"></div>
 								</div>
 							</div>
 						</div>
-
 					</div>
 				{% endfor %}
 			</div>

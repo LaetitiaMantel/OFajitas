@@ -11,7 +11,6 @@ use App\Entity\Category;
 use App\Repository\ReviewRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use App\DataFixtures\Provider\OfajitasProvider;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
@@ -408,7 +407,6 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         $faker = Factory::create('fr_FR');
-        $faker->addProvider(new OfajitasProvider);
 
         // création des marques
         foreach ($brands as $brand) {

@@ -137,10 +137,14 @@ h2, .h2 {
   }
 }
 
-h3, .h3 {
+.category {
   text-shadow: 0 0 4px #333;
+}
+
+h3, .h3 {
   font-size: calc(1.3rem + 0.6vw);
 }
+
 @media (min-width: 1200px) {
   h3, .h3 {
     font-size: 1.75rem;
