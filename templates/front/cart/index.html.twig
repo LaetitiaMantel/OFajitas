@@ -1,11 +1,23 @@
 {% extends 'base.html.twig' %}
-{# TODO: TOUT MODIFIER EN FORMULAIRE AVANT DE FAIRE LA COMMANDE #}
+
 {# TODO: Quand tout les produits sont supprimés , afficher la page panier vide #}
 
 	{% block title %}
 Votre panier
 {% endblock %}
 	{% block body %}
+
+
+{% if app.flashes('success') is not empty %}
+    <div class="alert alert-success" role="alert">
+        {{ app.flashes('success')[0] }}
+    </div>
+{% elseif app.flashes('error') is not empty %}
+    <div class="alert alert-danger" role="alert">
+        {{ app.flashes('error')[0] }}
+    </div>
+{% endif %}
+
 		<section class="py-5"> <div class="container px-4 px-lg-5">
 			<h2 class="text-center mb-4">Votre panier</h2>
 
@@ -90,9 +102,10 @@ Votre panier
 								<button type="submit" class="btn btn-outline-danger btn-sm">Vider le panier</button>
 							</form>
 							<!-- Bouton pour valider la commande -->
-							<form action="#" method="POST" class="d-inline">
-								<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
-							</form>
+<form action="{{ path('front_order_confirm') }}" method="POST" class="d-inline">
+	<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
+</form>
+
 						</div>
 					</div>
 					<!-- Quand le panier est vide   -->
