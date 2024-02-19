@@ -1,9 +1,9 @@
 <!-- Navigation-->
-    {% block javascript %}
-    <script>
-        var cartCountUrl = "{{ path('front_cart_get_cart_count') }}";
-    </script>
-    {% endblock %}
+{% block javascript %}
+	<script>
+		var cartCountUrl = "{{ path('front_cart_get_cart_count') }}";
+	</script>
+{% endblock %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container px-4 px-lg-5">
@@ -20,7 +20,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path ('front_favorite_index')}}">
 						<i id="heart-menu" class="bi bi-heart-fill"></i>
-									{# {% if app.session.get('favoris') is not empty %} icon-plus {% endif %}"></i> #}
+						{# {% if app.session.get('favoris') is not empty %} icon-plus {% endif %}"></i> #}
 						Mes Favoris
 					</a>
 				</li>
@@ -32,7 +32,6 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catégories</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
 						{% set categories = globalCategory.categoriesFindAll() %}
 						{% for category in categories %}
 							<li>
@@ -44,7 +43,6 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Marques</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
 						{% set brands = globalBrand.brandsFindAll() %}
 						{% for brand in brands %}
 							<li>
@@ -53,10 +51,7 @@
 						{% endfor %}
 					</ul>
 				</li>
-
 			</ul>
-
-
 			<form class="d-flex" action="{{ path ('front_main_search')}}">
 				<input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Rechercher...">
 				<button class="btn btn-outline-danger" type="submit">
@@ -64,8 +59,6 @@
 				</button>
 			</form>
 			<div class="nav-item dropdown">
-
-
 				<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					<i class="bi bi-person-circle"></i>
 				</a>
@@ -76,9 +69,10 @@
 							</a>
 						</li>
 						<li>
-
+								<hr class="dropdown-divider"/>
+						</li>
+						<li>
 							<a class="dropdown-item" href="{{ path ('front_user_new')}}">Inscription
-
 							</a>
 						</li>
 					{% else %}
@@ -101,11 +95,11 @@
 							<hr class="dropdown-divider"/>
 						</li>
 						{% if 'ROLE_ADMIN' not in app.user.roles and 'ROLE_MANAGER' not in app.user.roles %}
-						<li>
-							<a class="dropdown-item" href="#!">
-								Mes achats
-							</a>
-						</li>
+							<li>
+								<a class="dropdown-item" href="#!">
+									Mes achats
+								</a>
+							</li>
 						{% endif %}
 						<li>
 							<hr class="dropdown-divider"/>
@@ -117,12 +111,10 @@
 					{% endif %}
 				</ul>
 			</div>
-<a href="{{ path('front_cart_index') }}" class="btn btn-outline-dark">
-  <i class="bi bi-cart-fill me-1"></i>
-  <span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill" data-cart-count-url="{{ path('front_cart_get_cart_count') }}"></span>
-</a>
-
-
+			<a href="{{ path('front_cart_index') }}" class="btn btn-outline-dark">
+				<i class="bi bi-cart-fill me-1"></i>
+				<span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill" data-cart-count-url="{{ path('front_cart_get_cart_count') }}"></span>
+			</a>
 		</div>
 	</div>
 </nav>

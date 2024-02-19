@@ -29,7 +29,6 @@
 							<em>{{ product.brand.name }}</em>
 						</div>
 					</div>
-
 					<div class="my-2">
 						<div class="text-muted">
 							<span class="h4">
@@ -37,7 +36,6 @@
 								{# Affiche le prix réel #}
 								{{ price }}
 								€
-
 							</span>TTC</div>
 					</div>
 					<div>
@@ -49,15 +47,15 @@
 						</p>
 					</div>
 					<div class="product-action-buttons">
-						<a class="btn btn-outline-danger mt-auto mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
-							Ajouter au panier
-						</a>
+							<a class="btn btn-outline-danger mt-auto mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
+								Ajouter au panier
+							</a>
+							<div id="flashMessagesContainer-{{ product.id }}"></div>
 						<form action="{{ path('front_review_new', {slug: product.slug}) }}" method="POST">
 							<button class="btn btn-outline-danger btn-buy mb-2">
 								<span class="btn-buy-label ml-2">Ajouter une critique</span>
 							</button>
 						</form>
-
 					</div>
 					<div>
 						{% for review in product.reviews %}
@@ -69,7 +67,6 @@
 									<p class="card-text mb-4">
 										{{ review.content }}
 									</p>
-
 									<blockquote class="blockquote mt-5">
 										<footer class="blockquote-footer">
 											par
@@ -81,10 +78,8 @@
 						{% else %}
 							<p>Pas de critiques sur cet article pour l'instant, ajoutez en une !</p>
 						{% endfor %}
-
 					</div>
 				</div>
 			</div>
-
 		</section>
 	{% endblock %}
