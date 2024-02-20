@@ -79,24 +79,32 @@
 								<button type="button" class="btn btn-primary-payment" id="validateUserInfo">Valider les informations</button>
 							</div>
 						</form>
-<!-- Le formulaire de paiement Stripe -->
-<form action="{{ path('front_order_payment_done', {'orderRef': orderRef}) }}" method="post" id="stripePaymentForm">
-	<h2 class="card-title">Paiement</h2>
+						<!-- Le formulaire de paiement Stripe -->
+						<form action="{{ path('front_order_payment_done', {'orderRef': orderRef}) }}" method="post" id="stripePaymentForm">
+							<h2 class="card-title">Paiement</h2>
 
-	<div class="mb-3">
-		<label for="amount">Montant à payer:</label>
-		<input type="text" id="amount" name="amount" placeholder="" value="{{ totalAmount }}" readonly class="form-control">
+							<div class="mb-3">
+								<label for="amount">Montant à payer:</label>
+								<input type="text" id="amount" name="amount" placeholder="" value="{{ totalAmount }}" readonly class="form-control">
+							</div>
+
+							<div id="card-element"></div>
+
+							<!-- Utilisez les champs supplémentaires ici si nécessaire -->
+
+							<button type="submit" class="btn btn-primary-payment">Payer</button>
+						</form>
+
+						<div id="loader"></div>
+						<div id="payment-result" class="hidden"></div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
-	<div id="card-element"></div>
-
-	<!-- Utilisez les champs supplémentaires ici si nécessaire -->
-
-	<button type="submit" class="btn btn-primary-payment">Payer</button>
-</form>
-
-<div id="loader"></div>
-<div id="payment-result" class="hidden"></div></div></div></div></div></div><script src="https://js.stripe.com/v3/"></script><script>var stripe = Stripe('{{ stripePublicKey }}');
+	<script src="https://js.stripe.com/v3/"></script>
+	<script>
+		var stripe = Stripe('{{ stripePublicKey }}');
 var elements = stripe.elements();
 
 // Créez le formulaire de paiement ici
@@ -134,6 +142,8 @@ alert("Veuillez remplir tous les champs utilisateur.");
 }
 });
 
-function validateUserInfo() { 
+function validateUserInfo() {
 return true;
-}</script>{% endblock %}
+}
+	</script>
+{% endblock %}

@@ -9,8 +9,6 @@ use App\Entity\LigneOrder;
 use App\Service\StripeApi;
 use App\Service\CartManager;
 use Symfony\Component\Mime\Email;
-use App\Service\FakePaymentService;
-use Stripe\Exception\StripeException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -86,17 +84,17 @@ class OrderController extends AbstractController
         $temporaryOrderRef = $session->get('temporary_order_ref');
         $totalAmount = $cartManager->getCartTotal();
 
-        // Stockez le montant total en session pour l'utiliser dans le formulaire
+        // Stocker le montant total en session pour l'utiliser dans le formulaire
         $session->set('payment_amount', $totalAmount);
 
-        // Récupérez ici votre clé API Stripe (probablement $_ENV['STRIPE_PUBLIC_KEY'])
+        // Récupérer la clé API de stripe ( .env)
         $stripePublicKey = $_ENV['STRIPE_PUBLIC_KEY'];
 
         // Redirigez vers la page de confirmation de paiement générique
         return $this->render('front/payment/paymentProcess.html.twig', [
             'orderRef' => $temporaryOrderRef,
             'totalAmount' => $totalAmount,
-            'stripePublicKey' => $stripePublicKey, // Ajoutez la clé API ici
+            'stripePublicKey' => $stripePublicKey,
         ]);
     }
 
