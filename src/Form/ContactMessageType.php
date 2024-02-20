@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ContactMessageType extends AbstractType
 {
@@ -22,7 +23,7 @@ class ContactMessageType extends AbstractType
                 'label' => 'Adresse Email',
                 'empty_data'    => '',
             ])
-            ->add('message', TextType::class, [
+            ->add('message', TextareaType::class, [
                 'label'         => "Votre message ",
                 'empty_data'    => '',
             ]);
