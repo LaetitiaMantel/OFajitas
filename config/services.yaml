@@ -27,5 +27,7 @@ services:
     App\Service\CartManager:
         arguments:
             $emptyEnabled: '%env(bool:EMPTY_ENABLED)%'
-    
-    App\Service\FakePaymentService: ~
+
+    App\Service\StripeApi:
+        arguments:
+            $apikey: '%env(string:STRIPE_SECRET_KEY)%'

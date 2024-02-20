@@ -1,62 +1,82 @@
-console.log("fakepayment ok")
+// document.addEventListener("DOMContentLoaded", function () {
+//   var stripePublicKey = "{{ stripe_public_key }}";
+//   var stripe = Stripe(stripePublicKey);
+//   var elements = stripe.elements();
 
-console.log("fakepayment ok");
-document
-  .getElementById("billingCheckbox")
-  .addEventListener("click", function () {
-    const billingAddressFields = document.getElementById(
-      "billingAddressFields"
-    );
-    console.log("Billing address fields:", billingAddressFields);
-    billingAddressFields.style.display = this.checked ? "block" : "none";
-  });
+//   var cardElement = elements.create("card");
+//   cardElement.mount("#card-element");
 
+//   var form = document.getElementById("stripePaymentForm");
 
-document
-  .getElementById("validateUserInfo")
-  .addEventListener("click", function () {
-    // Vérifier si les champs utilisateur sont valides
-    if (validateUserInfo()) {
-      document.getElementById("paymentCard").style.display = "block"; // Afficher le formulaire de paiement
-    } else {
-      alert("Veuillez remplir tous les champs utilisateur.");
-    }
-  });
+//   form.addEventListener("submit", function (event) {
+//     event.preventDefault();
 
-function validateUserInfo() {
-  var firstName = document.getElementById("firstName").value.trim();
-  var lastName = document.getElementById("lastName").value.trim();
-  // Ajoutez ici d'autres validations si nécessaire
+//     stripe
+//       .createPaymentMethod({
+//         type: "card",
+//         card: cardElement,
+//       })
+//       .then(function (result) {
+//         if (result.error) {
+//           var errorElement = document.getElementById("card-errors");
+//           errorElement.textContent = result.error.message;
+//         } else {
+//           var paymentMethod = result.paymentMethod.id;
+//           var paymentMethodInput = document.createElement("input");
+//           paymentMethodInput.type = "hidden";
+//           paymentMethodInput.name = "payment_method";
+//           paymentMethodInput.value = paymentMethod;
+//           form.appendChild(paymentMethodInput);
 
-  // Vérifiez si les champs ne sont pas vides
-  if (firstName === "" || lastName === "") {
-    return false;
-  }
-  return true;
-}
+//           form.submit();
+//         }
+//       });
+//   });
+// });
 
-function processPayment() {
-  const loader = document.getElementById("loader");
-  loader.style.display = "inline-block";
+// document
+//   .getElementById("billingCheckbox")
+//   .addEventListener("click", function () {
+//     const billingAddressFields = document.getElementById(
+//       "billingAddressFields"
+//     );
+//     billingAddressFields.style.display = this.checked ? "block" : "none";
+//   });
 
-  // Simulation de traitement de paiement
-  setTimeout(() => {
-    const amount = document.getElementById("amount").value;
-    const cardNumber = document.getElementById("card-number").value;
-    const expirationDate = document.getElementById("expiration-date").value;
-    const cvv = document.getElementById("cvv").value;
+// document
+//   .getElementById("validateUserInfo")
+//   .addEventListener("click", function () {
+//     if (validateUserInfo()) {
+//       document.getElementById("paymentCard").style.display = "block";
+//     } else {
+//       alert("Veuillez remplir tous les champs utilisateur.");
+//     }
+//   });
 
-    // Affichage des résultats dans la console
-    console.log("Montant:", amount);
-    console.log("Numéro de carte:", cardNumber);
-    console.log("Date d'expiration:", expirationDate);
-    console.log("CVV:", cvv);
+// function validateUserInfo() {
+//   var firstName = document.getElementById("firstName").value.trim();
+//   var lastName = document.getElementById("lastName").value.trim();
 
-    // Affichage d'un message de succès
-    const paymentResult = document.getElementById("payment-result");
-    paymentResult.textContent = "Le paiement a été traité avec succès!";
-    paymentResult.classList.remove("hidden");
+//   if (firstName === "" || lastName === "") {
+//     return false;
+//   }
+//   return true;
+// }
 
-    loader.style.display = "none";
-  }, 2000);
-}
+// function processPayment() {
+//   const loader = document.getElementById("loader");
+//   loader.style.display = "inline-block";
+
+//   setTimeout(() => {
+//     const amount = document.getElementById("amount").value;
+//     const cardNumber = document.getElementById("card-number").value;
+//     const expirationDate = document.getElementById("expiration-date").value;
+//     const cvv = document.getElementById("cvv").value;
+
+//     const paymentResult = document.getElementById("payment-result");
+//     paymentResult.textContent = "Le paiement a été traité avec succès!";
+//     paymentResult.classList.remove("hidden");
+
+//     loader.style.display = "none";
+//   }, 2000);
+// }

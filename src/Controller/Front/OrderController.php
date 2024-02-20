@@ -6,9 +6,11 @@ use App\Entity\Cart;
 use App\Entity\User;
 use App\Entity\Order;
 use App\Entity\LigneOrder;
+use App\Service\StripeApi;
 use App\Service\CartManager;
 use Symfony\Component\Mime\Email;
 use App\Service\FakePaymentService;
+use Stripe\Exception\StripeException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -16,6 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
+
 
 #[Route('/commandes', name: 'front_order_')]
 class OrderController extends AbstractController
@@ -84,21 +89,22 @@ class OrderController extends AbstractController
         // Stockez le montant total en session pour l'utiliser dans le formulaire
         $session->set('payment_amount', $totalAmount);
 
+        // Récupérez ici votre clé API Stripe (probablement $_ENV['STRIPE_PUBLIC_KEY'])
+        $stripePublicKey = $_ENV['STRIPE_PUBLIC_KEY'];
+
         // Redirigez vers la page de confirmation de paiement générique
         return $this->render('front/payment/paymentProcess.html.twig', [
             'orderRef' => $temporaryOrderRef,
             'totalAmount' => $totalAmount,
+            'stripePublicKey' => $stripePublicKey, // Ajoutez la clé API ici
         ]);
     }
 
 
     #[Route('/payment/{orderRef}', name: 'payment_done', methods: ['GET', 'POST'])]
-    public function payment(Request $request, $orderRef, CartManager $cartManager, 
-    FakePaymentService $paymentService, EntityManagerInterface $em,
-    ): Response
+    public function payment(Request $request, $orderRef, CartManager $cartManager, StripeApi $stripeApi, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
-        
         $session = $this->getSession();
         $temporaryOrder = $session->get('temporary_order');
 
@@ -107,77 +113,67 @@ class OrderController extends AbstractController
         }
 
         $order = $temporaryOrder['order'];
-
-        $orderRefEntity = $em->getRepository(Order::class)->findOneBy(['Ref' => $orderRef]);
-
-        // Vérifiez si l'ordre récupéré correspond à l'ordre dans la session
-        // if (!$order || $order->getId() !== $orderRefEntity->getId()) {
-        //     throw $this->createNotFoundException('Order not found');
-        // }
-
-        // Récupérer le montant total directement depuis le panier
-        //TODO: changer et récupérer via le formulaire ( changer aussi le formulaire pour récpérer via la cart )
         $totalAmount = $cartManager->getCartTotal();
+        $token = $request->request->get('stripeToken');
 
-        // Récupérer le numéro de carte depuis le formulaire
-        $cardNumber = $request->request->get('card_number');
+        try {
+            $paymentResult = $stripeApi->processPayment($totalAmount, $token);
 
-        // Processus de paiement simulé
-        $paymentResult = $paymentService->processPayment($totalAmount, $cardNumber);
+            if ($paymentResult) {
+                // Paiement réussi
+                $order->setUser($user);
+                $order->setRef($orderRef);
+                $order->setCreatedAt(new \DateTimeImmutable());
 
-        if ($paymentResult) {
-            // Paiement réussi
-            $order = new Order();
-            $order->setUser($this->getUser());
-            $order->setRef($orderRef);
-            $order->setCreatedAt(new \DateTimeImmutable());
+                foreach ($temporaryOrder['cart'] as $cartItem) {
+                    if (is_array($cartItem) && isset($cartItem['product'], $cartItem['quantity'])) {
+                        $product = $cartItem['product'];
+                        $quantity = $cartItem['quantity'];
 
-            foreach ($temporaryOrder['cart'] as $cartItem) {
-                if (is_array($cartItem) && isset($cartItem['product'], $cartItem['quantity'])) {
-                    $product = $cartItem['product'];
-                    $quantity = $cartItem['quantity'];
-                    $ligneOrder = new LigneOrder();
-                    $ligneOrder->setOrder($order);
-                    $productName = $product->getName();                   
-                    $ligneOrder->setName($productName);
-                    $ligneOrder->setQuantity($quantity);
-                    $ligneOrder->setPrice($product->getPrice());
-                    $ligneOrder->setCreatedAt(new \DateTimeImmutable());
+                        $ligneOrder = new LigneOrder();
+                        $ligneOrder->setOrder($order);
+                        $ligneOrder->setName($product->getName());
+                        $ligneOrder->setQuantity($quantity);
+                        $ligneOrder->setPrice($product->getPrice());
+                        $ligneOrder->setCreatedAt(new \DateTimeImmutable());
 
-                    // Persistez chaque entité LigneOrder
-                    $em->persist($ligneOrder);
+                        $em->persist($ligneOrder);
+                    }
                 }
+
+                $em->persist($order);
+                $em->flush();
+
+                $ligneOrders = $em->getRepository(LigneOrder::class)->findBy(['order' => $order]);
+
+                // Envoi de l'e-mail de confirmation
+                $email = (new Email())
+                    ->from('jonathanaulnette53@gmail.com')
+                    ->to($order->getUser()->getEmail())
+                    ->subject('Confirmation de commande')
+                    ->html($this->renderView(
+                        'email/confirmationCommande.html.twig',
+                        ['user' => $user, 'order' => $order, 'ligneOrders' => $ligneOrders]
+                    ));
+                $this->mailer->send($email);
+
+                $cartManager->empty();
+
+                return $this->redirectToRoute('front_order_validate', ['orderRef' => $order->getRef()]);
             }
-            $em->persist($order);
-            $em->flush();
 
-            $ligneOrders = $em->getRepository(LigneOrder::class)->findBy(['order' => $order]);
-           
-            // Envoi de l'e-mail de confirmation
-            $email = (new Email())
-                ->from('jonathanaulnette53@gmail.com')
-                ->to($order->getUser()->getEmail())
-                ->subject('Confirmation de commande')
-                ->html($this->renderView(
-                    'email/confirmationCommande.html.twig',
-                    ['user' => $user,
-                    'order' => $order,
-                    'ligneOrders' => $ligneOrders,
-                    ]
-                ));
-            $this->mailer->send($email);
-
-            // Vider le panier après le paiement réussi
-            $cartManager->empty();
-
-            return $this->redirectToRoute('front_order_validate', ['orderRef' => $order->getRef()]);
-        } else {
-            // Paiement refusé
             $this->addFlash('error', 'Le paiement a été refusé. Veuillez réessayer.');
-
+            return $this->redirectToRoute('front_cart_index');
+        } catch (\Stripe\Exception\CardException $e) {
+            $this->addFlash('error', 'Erreur de carte : ' . $e->getMessage());
+            return $this->redirectToRoute('front_cart_index');
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Une erreur s\'est produite : ' . $e->getMessage());
             return $this->redirectToRoute('front_cart_index');
         }
     }
+
+
 
     #[Route('/validate', name: 'validate', methods: ['GET'])]
     public function validate(): Response
