@@ -28,12 +28,15 @@
 						<td>{{ user.lastname }}</td>
 						<td>
 							<a class="btn btn-sm btn-info mb-2" href="{{ path('back_user_show', {'id': user.id}) }}">Détails</a>
-							<a class="btn btn-sm btn-warning mb-2" href="{{ path('back_user_edit', {'id': user.id}) }}">Modifier</a>
+						{% if (user.roles == 'ROLE_USER')%}
+							<a class="btn btn-sm btn-warning mb-2" href="{{ path('back_customer_edit', {'id': user.id}) }}">Modifier</a> 
+						{% else %} 
+							<a class="btn btn-sm btn-warning mb-2" href="{{ path('back_user_edit', {'id': user.id}) }}">Modifier</a> 
 							<a class="btn btn-sm btn-danger mb-2" href="{{ path('back_user_delete', {'id': user.id}) }}">Supprimer</a>
+						{% endif %} 
 						</td>
 					</tr>
 				{% else %}
-
 					<tr>
 						<td colspan="7">no records found</td>
 					</tr>

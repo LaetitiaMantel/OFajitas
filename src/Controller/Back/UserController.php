@@ -5,6 +5,7 @@ namespace App\Controller\Back;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,6 +83,34 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/customer/{id}/edit', name: 'back_customer_edit', methods: ['GET', 'POST'])]
+    public function customerEdit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form->get('password')->getData();
+            if ($newPassword) {
+                $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
+            }
+            $entityManager->flush();
+            $this->addFlash(
+                'success',
+                '<strong>' . $user->getFirstname() . '</strong> a été modifié dans votre base.'
+            );
+
+            return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('back/customer/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+
 
     #[Route('/{id}', name: 'back_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
