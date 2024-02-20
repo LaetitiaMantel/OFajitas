@@ -10858,8 +10858,8 @@ textarea.form-control-lg {
   background-color:grey;
 }
 
-.bg-color-nous-contacter{
-  background-color:grey;
+a{
+  text-decoration: none;
 }
 
 .form-control {
