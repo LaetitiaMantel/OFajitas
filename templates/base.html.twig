@@ -98,10 +98,12 @@
 		<!-- Core theme JS-->
 		<script src="{{ asset('js/scripts.js') }}"></script>
 		<script src="{{ asset('js/favoris.js') }}"></script>
+		<script src="{{ asset('js/connecter.js') }}"></script>
 
 		<script>
 			const addToFavoriteUrl = "{{ path('front_favorite_add', {id: 1}) }}";
-const deleteFavoriteUrl = "{{ path('front_favorite_delete', {id: 1}) }}";
+			const deleteFavoriteUrl = "{{ path('front_favorite_delete', {id: 1}) }}";
+			const connecterUrl = "{{ path('front_user_connecter')}}";
 		</script>
 
 
