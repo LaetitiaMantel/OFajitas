@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  //  Pour ouvrir le champ adresse de facturation si la checkbox facturation est coché : 
+
   const billingCheckbox = document.getElementById("billingCheckbox");
   const billingAddressFields = document.getElementById("billingAddressFields");
 
@@ -49,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Pour ouvrir le paiement après avoir rempli les information de livraison 
   const validateUserInfoButton = document.getElementById("validateUserInfo");
   const paymentCard = document.getElementById("paymentCard");
 
