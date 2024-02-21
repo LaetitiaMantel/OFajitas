@@ -18,7 +18,6 @@ class UserController extends AbstractController
     #[Route('/', name: 'back_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        
         return $this->render('back/user/index.html.twig', [
             'users' => $userRepository->findByRole(),
         ]);
