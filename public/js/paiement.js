@@ -1,20 +1,28 @@
-console.log('paiement')
+console.log('Paiement js ok ')
+
 
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Stripe Public Key:", stripePublicKey);
-
-   const stripe = Stripe(stripePublicKey);
-
+  const stripe = Stripe(stripePublicKey);
   const elements = stripe.elements();
-
   const card = elements.create("card");
   card.mount("#card-element");
 
   const form = document.getElementById("stripePaymentForm");
+  const loader = document.getElementById("loader");
+  const paymentResult = document.getElementById("payment-result");
+
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
+    // Affichez le spinner
+     setTimeout(function () {
+       loader.style.display = "block";
+     }, 500);
+
     stripe.createToken(card).then(function (result) {
+      // Masquez le spinner en cas d'erreur ou de succès
+      loader.style.display = "none";
+
       if (result.error) {
         alert(result.error.message);
       } else {
@@ -24,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tokenInput.setAttribute("value", result.token.id);
         form.appendChild(tokenInput);
 
+        // Soumettez le formulaire au serveur
         form.submit();
       }
     });
