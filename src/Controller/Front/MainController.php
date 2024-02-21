@@ -95,10 +95,19 @@ class MainController extends AbstractController
              return $this->render('front/main/contact.html.twig', [
                 'form' => $form->createView(),
              ]);
-        }
+
+            }
+
+            #[Route('/qui-sommes-nous', name: 'qsn')]
+            public function qsn() : Response 
+            {
+            
+                // on envoie le resultat au twig associé
+                return $this->render('front/main/qsn.html.twig', [
+                    
+                ]);
+            }
+
         
- 
-      
-        
-   
+  
 }

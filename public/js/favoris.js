@@ -37,7 +37,7 @@ async function createFavoris() {
         }
         //console.log(isFavorited);
 
-    
+
     });
 
 
@@ -59,7 +59,7 @@ async function createFavoris() {
             favoris[productId] = false;
             localStorage.setItem('favoris', JSON.stringify(favoris));
 
-          
+
 
         });
     });
@@ -96,7 +96,7 @@ async function createFavoris() {
                 // Mettez à jour le stockage local pour refléter les changements
                 favoris[productId] = false;
                 localStorage.setItem('favoris', JSON.stringify(favoris));
-                
+
 
             } else {
                 addFavoris(productId);
@@ -106,7 +106,7 @@ async function createFavoris() {
                 heartMenu.classList.add('icon-plus');
             }
 
-            
+
             // Modifiez la classe de l'icône spécifique associée à ce bouton
             icon.classList.toggle('bi-heart-fill');
             icon.classList.toggle('bi-heart');
@@ -144,30 +144,33 @@ async function createFavoris() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ productId: productId }),
-                
+
             });
 
             if (response.ok) {
                 const favoris = await response.json();
 
                 console.log("Favoris supprimé avec succès :", favoris);
-                // Mettez à jour l'interface utilisateur pour refléter les changements de la page favoris
-                const favorisElement = document.querySelector('#favori-' + productId);
-                favorisElement.parentNode.removeChild(favorisElement);
 
-                // Afficher un message de confirmation
-                const element = document.querySelector('#notification');
-                const notificationElement = document.createElement('p');
-                notificationElement.classList.add('notification');
-                notificationElement.textContent = "Le favori a été supprimé avec succès.";
-                element.appendChild(notificationElement);
+                if (window.location.pathname.endsWith('/favoris/')) {
 
-                // Supprimer la notification après quelques secondes
-                setTimeout(() => {
-                    notificationElement.parentNode.removeChild(notificationElement);
-                }, 3000);
+                    // Mettez à jour l'interface utilisateur pour refléter les changements de la page favoris
+                    const favorisElement = document.querySelector('#favori-' + productId);
+                    favorisElement.parentNode.removeChild(favorisElement);
 
+                    // Afficher un message de confirmation
+                    const element = document.querySelector('#notification');
+                    const notificationElement = document.createElement('p');
+                    notificationElement.classList.add('notification');
+                    notificationElement.textContent = "Le favori a été supprimé avec succès.";
+                    element.appendChild(notificationElement);
 
+                    // Supprimer la notification après quelques secondes
+                    setTimeout(() => {
+                        notificationElement.parentNode.removeChild(notificationElement);
+                    }, 3000);
+
+                }
 
             } else {
                 console.error("Échec de la suppression du favoris :", response.statusText);

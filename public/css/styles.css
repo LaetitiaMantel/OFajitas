@@ -10872,6 +10872,10 @@ textarea.form-control-lg {
   background-color:grey;
 }
 
+a{
+  text-decoration: none;
+}
+
 .form-control {
   border-radius: 20px;
 }
