@@ -23,7 +23,7 @@
 			<div class="row mx-0 mb-5">
 				{% for category in categoriesByOrder %}
 
-					<div class="col-lg-4">
+					<div class="col-lg-4 mb-5">
 						<div class="shadow card border-0 rounded-4 text-center">
 							<img src="{{ category.picture }}" alt="Card image" class="card-img">
 							<div class="card-img-overlay d-flex align-items-center">
@@ -39,14 +39,14 @@
 				{% endfor %}
 			</div>
 			<h2 class="h2-color">Les nouveautés</h2>
-			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+			<div class="row gx-4 gx-lg-5 row-cols-md-3 row-cols-xl-4 justify-content-center">
 				{% for product in newProducts %}
-					<div class="col mb-5">
+					<div class="col-sm-4 mb-5">
 						<div class="card h-100">
 							<!-- Product image-->
 							<div class="image-container position-relative">
 								<a href="{{ path('front_product_show', {slug: product.slug}) }}">
-								<img class="shadow card-img-top" src="{{ product.picture }}" alt="...">
+								<img class="card-img-top" src="{{ product.picture }}" alt="...">
 								</a>
 								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 							</div>

@@ -308,6 +308,20 @@ figure {
   margin: 0 0 1rem;
 }
 
+.card-img { 
+  width: 100%; 
+  height: 350px; 
+  object-fit: cover; 
+}
+
+.card-img-top { 
+  width: 100%; 
+  height: 250px; 
+  object-fit: cover; 
+  box-shadow: #000;
+}
+
+
 img,
 svg {
   vertical-align: middle;
@@ -10858,6 +10872,10 @@ textarea.form-control-lg {
   background-color:grey;
 }
 
+a{
+  text-decoration: none;
+}
+
 .form-control {
   border-radius: 20px;
 }
@@ -10970,7 +10988,7 @@ textarea.form-control-lg {
     border-radius: 50%;
     width: 30px;
     height: 30px;
-    animation: spin 1s linear infinite;
+    animation: spin 10s linear infinite;
     margin: auto;
     text-align: center;
     display: none;

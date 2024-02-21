@@ -12,11 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-#[Route('/', name: 'front_user_')]
+#[Route('/', name:'front_user_')]
 class UserController extends AbstractController
 {   
     private $mailer;
@@ -177,6 +178,20 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/connecter', name: 'connecter')]
+        public function connecter(): JsonResponse
+            {
+                // Récupérer l'utilisateur courant
+                $user = $this->getUser();
+                
+                if ($user) {
+                    
+                    return new JsonResponse(['success' => $user->getFirstname() .' utilisateur connécter.'], Response::HTTP_OK);
+                } else {
+                    // Le produit était déjà dans les favoris
+                    return new JsonResponse(['info' =>  'false'], Response::HTTP_OK);
+                }
+            }
 
 
 }

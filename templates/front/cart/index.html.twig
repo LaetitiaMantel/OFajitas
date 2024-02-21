@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{# TODO: Quand tout les produits sont supprimés , afficher la page panier vide #}
 
-	{% block title %}
+{% block title %}
 Votre panier
 {% endblock %}
-	{% block body %}
 
+{% block body %}
 
-{% if app.flashes('success') is not empty %}
-    <div class="alert alert-success" role="alert">
-        {{ app.flashes('success')[0] }}
-    </div>
-{% elseif app.flashes('error') is not empty %}
-    <div class="alert alert-danger" role="alert">
-        {{ app.flashes('error')[0] }}
-    </div>
-{% endif %}
+	{% if app.flashes('success') is not empty %}
+		<div class="alert alert-success" role="alert">
+			{{ app.flashes('success')[0] }}
+		</div>
+	{% elseif app.flashes('error') is not empty %}
+		<div class="alert alert-danger" role="alert">
+			{{ app.flashes('error')[0] }}
+		</div>
+	{% endif %}
 
-		<section class="py-5"> <div class="container px-4 px-lg-5">
+	<section class="py-5">
+		<div class="container px-3 px-lg-5">
 			<h2 class="text-center mb-4">Votre panier</h2>
 
 			{% if cart is defined and cart|length > 0 %}
@@ -27,10 +27,9 @@ Votre panier
 						<table class="table">
 							<thead>
 								<tr>
-									<th scope="col">Vos produits
-									</th>
+									<th scope="col">Vos produits</th>
 									<th scope="col">Quantité</th>
-									<th scope="col">Prix unitaire</th>
+									<th scope="col" class =" d-none d-sm-table-cell ">Prix unitaire</th>
 									<th scope="col">Total</th>
 									<th scope="col"></th>
 								</tr>
@@ -41,56 +40,42 @@ Votre panier
 									<tr>
 										<td>
 											{% if cartItem.product is defined %}
-												<div class="d-flex align-items-center">
+												<div class="d-flex flex-column">
+													<strong>{{ cartItem.product.name }}</strong>
 													<a href="{{ path('front_product_show', {'slug': cartItem.product.slug}) }}">
 														<img src="{{ cartItem.product.picture }}" class="img-fluid" alt="{{ cartItem.product.name }}" style="max-height: 80px; max-width: 80px; margin-right: 10px;">
 													</a>
-													<div>
-														<strong>{{ cartItem.product.name }}</strong>
-														<p>{{ cartItem.product.description }}</p>
-													</div>
 												</div>
 											{% endif %}
 										</td>
 										<td>
-											<form action="{{ path('front_cart_adjust_quantity', {'id': cartItem.product.id}) }}" method="POST" class="d-flex">
-												<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control" min="0" style="width: 60px;">
-												<button type="submit" class="btn btn-outline-danger btn-sm">confirmer</button>
-
+											<form action="{{ path('front_cart_adjust_quantity', {'id': cartItem.product.id}) }}" method="POST">
+												<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control mb-2" min="0" style="width: 60px;">											
+												<button type="submit" class="btn btn-outline-danger btn-sm ms-1"><i class="bi bi-check"></i></button>												
 											</form>
 										</td>
-										<td>{{ cartItem.product.getPrice()/100 }}
-											€</td>
-										<td style="white-space: nowrap;">{{ cartItem.quantity * (cartItem.product.getPrice()/100) }}
-											€</td>
-										<td></td>
+										<td class="d-none d-sm-table-cell">{{ cartItem.product.getPrice()/100 }}€</td>
+										<td style="white-space: nowrap ;">{{ cartItem.quantity * (cartItem.product.getPrice()/100) }}€</td>
 										<td>
-											<div class="product-action-buttons">
-												<a class="btn btn-dark btn-buy deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
-													X
+											<div class="product-action-buttons">							
+												<a class="btn btn-outline-danger btn-sm deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
+													<i class="bi bi-x"></i>
 												</a>
 												<div id="flashMessagesContainer-{{ cartItem.product.id }}"></div>
 											</div>
 										</td>
-
-
 									</tr>
 									{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
 								{% endfor %}
-
 								<tr>
 									<td colspan="3" class="text-end">
 										<strong>Total global :</strong>
 									</td>
-									<td colspan="2" style="white-space: nowrap;">
+									<td colspan="2" class="ps-1"style="white-space: nowrap;">
 										<span id="cart-total-container">{{ total }}
 											€</span>
 									</td>
-
-
 								</tr>
-
-
 							</tbody>
 						</table>
 					</div>
@@ -102,18 +87,16 @@ Votre panier
 								<button type="submit" class="btn btn-outline-danger btn-sm">Vider le panier</button>
 							</form>
 							<!-- Bouton pour valider la commande -->
-<form action="{{ path('front_order_confirm') }}" method="POST" class="d-inline">
-	<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
-</form>
-
+							<form action="{{ path('front_order_confirm') }}" method="POST" class="d-inline">
+								<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
+							</form>
 						</div>
 					</div>
 					<!-- Quand le panier est vide   -->
 				{% else %}
 					<p class="text-center">Votre panier est vide.</p>
 				{% endif %}
-
-
 			</div>
-		</section>
-	{% endblock %}
+		</div>
+	</section>
+{% endblock %}

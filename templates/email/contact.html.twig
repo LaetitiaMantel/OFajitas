@@ -1,0 +1,12 @@
+
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Votre nouveau message  !</h4>
+            
+            {{ contactMessage.message}} <br>
+            De la par de {{ contactMessage.name}} . {{ contactMessage.email}}
+        </div>
+    </div>
+{% endblock %}
