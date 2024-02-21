@@ -51,6 +51,7 @@
 						{% endfor %}
 					</ul>
 				</li>
+
 			</ul>
 			<form class="d-flex" action="{{ path ('front_main_search')}}">
 				<input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Rechercher...">
@@ -63,13 +64,22 @@
 					<i class="bi bi-person-circle"></i>
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+					{% if app.user %}
+						<li>
+							<p class="dropdown-header">Bienvenu
+								{{ app.user.firstname }}</p>
+						</li>
+						<li>
+							<hr class="dropdown-divider"/>
+						</li>
+					{% endif %}
 					{% if not app.user %}
 						<li>
 							<a class="dropdown-item" href="{{ path ('login')}}">Connexion
 							</a>
 						</li>
 						<li>
-								<hr class="dropdown-divider"/>
+							<hr class="dropdown-divider"/>
 						</li>
 						<li>
 							<a class="dropdown-item" href="{{ path ('front_user_new')}}">Inscription
@@ -95,11 +105,11 @@
 							<hr class="dropdown-divider"/>
 						</li>
 						{% if 'ROLE_ADMIN' not in app.user.roles and 'ROLE_MANAGER' not in app.user.roles %}
-						<li>
-							<a class="dropdown-item" href="{{ path ('front_user_order_info')}}">
-								Mes achats
-							</a>
-						</li>
+							<li>
+								<a class="dropdown-item" href="{{ path ('front_user_order_info')}}">
+									Mes achats
+								</a>
+							</li>
 						{% endif %}
 						<li>
 							<hr class="dropdown-divider"/>
@@ -111,21 +121,21 @@
 					{% endif %}
 				</ul>
 			</div>
-					<a href="{{ path('front_cart_index') }}" class="btn btn-outline-dark">
-					<i class="bi bi-cart-fill me-1"></i>
-					<span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill" data-cart-count-url="{{ path('front_cart_get_cart_count') }}"></span>
-					</a>
+			<a href="{{ path('front_cart_index') }}" class="btn btn-outline-dark">
+				<i class="bi bi-cart-fill me-1"></i>
+				<span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill" data-cart-count-url="{{ path('front_cart_get_cart_count') }}"></span>
+			</a>
 		</div>
 	</div>
 </nav>
-		{# read and display all flash messages #}
-		{% for label, messages in app.flashes %}
-			{% for message in messages %}
-				<div class="flash-{{ label }}">
-					<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
-						{{ message|striptags('<strong>')|raw }}
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
-				</div>
-			{% endfor %}
-		{% endfor %}
+{# read and display all flash messages #}
+{% for label, messages in app.flashes %}
+	{% for message in messages %}
+		<div class="flash-{{ label }}">
+			<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+				{{ message|striptags('<strong>')|raw }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		</div>
+	{% endfor %}
+{% endfor %}
