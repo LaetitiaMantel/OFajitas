@@ -450,7 +450,7 @@ class AppFixtures extends Fixture
             $newProduct->setBrand($brandsInDb[$product['brand']]);
             $newProduct->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
             $newProduct->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeThisDecade()));
-            
+        
             for ($i = 0; $i < random_int(0,6); $i ++){
                 $review = new Review;
                 $review->setProduct($newProduct);

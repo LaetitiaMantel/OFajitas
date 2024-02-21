@@ -1,0 +1,17 @@
+{# https://symfony.com/doc/current/controller/error_pages.html#use-default-error-controller #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'erreur{% endblock %}
+
+{% block body %}
+
+        <div class="d-flex align-items-center justify-content-center vh-100">
+            <div class="text-center">
+                <h1 class="display-1 fw-bold">{{ status_code }}</h1>
+                <p class="fs-3"> <span class="text-danger">Opps!</span>{{ status_text }}</p>
+                
+                <a href="{{ path('front_main_home') }}" class="btn gradient  btn-sm">Retour à l'accueil</a>
+            </div>
+        </div>
+
+{% endblock %}
