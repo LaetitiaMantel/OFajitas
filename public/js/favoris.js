@@ -152,7 +152,7 @@ async function createFavoris() {
 
                 console.log("Favoris supprimé avec succès :", favoris);
 
-                if (window.location.pathname === '/Apo/projet-o-fajitas/public/favoris/') {
+                if (window.location.pathname.endsWith('/favoris/')) {
 
                     // Mettez à jour l'interface utilisateur pour refléter les changements de la page favoris
                     const favorisElement = document.querySelector('#favori-' + productId);
