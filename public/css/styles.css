@@ -10974,7 +10974,7 @@ a{
     border-radius: 50%;
     width: 30px;
     height: 30px;
-    animation: spin 1s linear infinite;
+    animation: spin 10s linear infinite;
     margin: auto;
     text-align: center;
     display: none;
