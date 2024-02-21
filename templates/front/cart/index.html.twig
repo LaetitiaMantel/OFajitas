@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{# TODO: Quand tout les produits sont supprimés , afficher la page panier vide #}
+
 
 	{% block title %}
 Votre panier
@@ -102,9 +102,9 @@ Votre panier
 								<button type="submit" class="btn btn-outline-danger btn-sm">Vider le panier</button>
 							</form>
 							<!-- Bouton pour valider la commande -->
-<form action="{{ path('front_order_confirm') }}" method="POST" class="d-inline">
-	<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
-</form>
+                            <form action="{{ path('front_order_confirm') }}" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
+                            </form>
 
 						</div>
 					</div>
