@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{# TODO: Quand tout les produits sont supprimés , afficher la page panier vide #}
 
 {% block title %}
-	Votre panier
+Votre panier
 {% endblock %}
-{% block body %}
 
+{% block body %}
 
 	{% if app.flashes('success') is not empty %}
 		<div class="alert alert-success" role="alert">
