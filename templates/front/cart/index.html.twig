@@ -46,16 +46,14 @@
 													<a href="{{ path('front_product_show', {'slug': cartItem.product.slug}) }}">
 														<img src="{{ cartItem.product.picture }}" class="img-fluid" alt="{{ cartItem.product.name }}" style="max-height: 80px; max-width: 80px; margin-right: 10px;">
 													</a>
-													<div>
-														<strong>{{ cartItem.product.name }}</strong>
-													</div>
+													<strong>{{ cartItem.product.name }}</strong>
 												</div>
 											{% endif %}
 										</td>
 										<td>
 											<form action="{{ path('front_cart_adjust_quantity', {'id': cartItem.product.id}) }}" method="POST" class="d-flex">
 												<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control" min="0" style="width: 60px;">
-												<button type="submit" class="btn btn-outline-danger btn-sm">confirmer</button>
+												<button type="submit" class="btn btn-outline-danger btn-sm ms-1"><i class="bi bi-check"></i></button>
 											</form>
 										</td>
 										<td>{{ cartItem.product.getPrice()/100 }}
@@ -66,7 +64,7 @@
 										<td>
 											<div class="product-action-buttons">
 												<a class="btn btn-dark btn-buy deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
-													X
+													<i class="bi bi-x"></i>
 												</a>
 												<div id="flashMessagesContainer-{{ cartItem.product.id }}"></div>
 											</div>
