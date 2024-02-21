@@ -1,11 +1,19 @@
 console.log('Paiement js ok ')
 
-
+// https://docs.stripe.com/js/element 
 document.addEventListener("DOMContentLoaded", function () {
   const stripe = Stripe(stripePublicKey);
   const elements = stripe.elements();
-  const card = elements.create("card");
-  card.mount("#card-element");
+
+  const cardNumberElement = elements.create("cardNumber");
+  const cardExpiryElement = elements.create("cardExpiry");
+  const cardCvcElement = elements.create("cardCvc");
+
+
+cardNumberElement.mount("#cardNumber-element");
+cardExpiryElement.mount("#cardExpiry-element");
+cardCvcElement.mount("#cardCvc-element");
+
 
   const form = document.getElementById("stripePaymentForm");
   const loader = document.getElementById("loader");
@@ -19,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
        loader.style.display = "block";
      }, 500);
 
-    stripe.createToken(card).then(function (result) {
+    stripe.createToken(cardNumberElement).then(function (result) {
       // Masquez le spinner en cas d'erreur ou de succès
       loader.style.display = "none";
 

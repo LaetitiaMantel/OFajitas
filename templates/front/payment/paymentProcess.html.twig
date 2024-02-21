@@ -96,12 +96,22 @@
 						<h2 class="card-title">Paiement</h2>
 
 						<div class="mb-3">
-							<label for="amount">Montant à payer:</label>
-							<input type="text" id="amount" name="amount" placeholder="" value="{{ totalAmount }}" readonly class="form-control">
+<label for="amount">Montant à payer:
+	{{ totalAmount }} € </label>
+
+ 
+
+<input type="hidden" id="amount" name="amount" value="{{ totalAmount }}">
+
 						</div>
 
-						<div id="card-element"></div>
+<div class="mb-3"></div>
 
+<div id="cardNumber-element"></div>
+<div id="cardExpiry-element"></div></div>
+
+<div class="mb-3">
+<div id="cardCvc-element"></div></div>
 			<button type="submit" class="btn btn-primary-payment mx-auto d-block" id="payButton">Payer</button>
 						<div id="loader"></div>
 						<div id="payment-result" class="hidden"></div>
