@@ -1,0 +1,16 @@
+{% extends 'layouts/_error.html.twig' %}
+
+{% block body %}
+
+
+        <div class="d-flex align-items-center justify-content-center vh-100">
+            <div class="text-center">
+                <h1 class="display-1 fw-bold">{{ status_code }}</h1>
+
+                <p class="lead">{{ status_text }}</p>
+                <a href="front_main_index" class="btn gradient">Retour à l'accueil</a>
+            </div>
+        </div>
+
+{% endblock %}
+
