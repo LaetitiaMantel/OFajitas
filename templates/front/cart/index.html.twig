@@ -2,23 +2,24 @@
 
 {# TODO: Quand tout les produits sont supprimés , afficher la page panier vide #}
 
-	{% block title %}
-Votre panier
+{% block title %}
+	Votre panier
 {% endblock %}
-	{% block body %}
+{% block body %}
 
 
-{% if app.flashes('success') is not empty %}
-    <div class="alert alert-success" role="alert">
-        {{ app.flashes('success')[0] }}
-    </div>
-{% elseif app.flashes('error') is not empty %}
-    <div class="alert alert-danger" role="alert">
-        {{ app.flashes('error')[0] }}
-    </div>
-{% endif %}
+	{% if app.flashes('success') is not empty %}
+		<div class="alert alert-success" role="alert">
+			{{ app.flashes('success')[0] }}
+		</div>
+	{% elseif app.flashes('error') is not empty %}
+		<div class="alert alert-danger" role="alert">
+			{{ app.flashes('error')[0] }}
+		</div>
+	{% endif %}
 
-		<section class="py-5"> <div class="container px-4 px-lg-5">
+	<section class="py-5">
+		<div class="container px-4 px-lg-5">
 			<h2 class="text-center mb-4">Votre panier</h2>
 
 			{% if cart is defined and cart|length > 0 %}
@@ -47,7 +48,6 @@ Votre panier
 													</a>
 													<div>
 														<strong>{{ cartItem.product.name }}</strong>
-														<p>{{ cartItem.product.description }}</p>
 													</div>
 												</div>
 											{% endif %}
@@ -56,7 +56,6 @@ Votre panier
 											<form action="{{ path('front_cart_adjust_quantity', {'id': cartItem.product.id}) }}" method="POST" class="d-flex">
 												<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control" min="0" style="width: 60px;">
 												<button type="submit" class="btn btn-outline-danger btn-sm">confirmer</button>
-
 											</form>
 										</td>
 										<td>{{ cartItem.product.getPrice()/100 }}
@@ -72,12 +71,9 @@ Votre panier
 												<div id="flashMessagesContainer-{{ cartItem.product.id }}"></div>
 											</div>
 										</td>
-
-
 									</tr>
 									{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
 								{% endfor %}
-
 								<tr>
 									<td colspan="3" class="text-end">
 										<strong>Total global :</strong>
@@ -86,11 +82,7 @@ Votre panier
 										<span id="cart-total-container">{{ total }}
 											€</span>
 									</td>
-
-
 								</tr>
-
-
 							</tbody>
 						</table>
 					</div>
@@ -102,18 +94,15 @@ Votre panier
 								<button type="submit" class="btn btn-outline-danger btn-sm">Vider le panier</button>
 							</form>
 							<!-- Bouton pour valider la commande -->
-<form action="{{ path('front_order_confirm') }}" method="POST" class="d-inline">
-	<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
-</form>
-
+							<form action="{{ path('front_order_confirm') }}" method="POST" class="d-inline">
+								<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
+							</form>
 						</div>
 					</div>
 					<!-- Quand le panier est vide   -->
 				{% else %}
 					<p class="text-center">Votre panier est vide.</p>
 				{% endif %}
-
-
 			</div>
 		</section>
 	{% endblock %}
