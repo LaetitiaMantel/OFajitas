@@ -88,7 +88,7 @@
 
 <div class="col-md-6">
 	<div class="card-payment" id="paymentCard" style="display: none;">
-		<div class="card-body">
+		<div class="card-body ">
 
 					<!-- Le formulaire de paiement Stripe -->
 					<form action="{{ path('front_order_payment_done', {'orderRef': orderRef}) }}" method="post" id="stripePaymentForm">
@@ -98,20 +98,18 @@
 						<div class="mb-3">
 <label for="amount">Montant à payer:
 	{{ totalAmount }} € </label>
-
- 
-
 <input type="hidden" id="amount" name="amount" value="{{ totalAmount }}">
 
 						</div>
 
-<div class="mb-3"></div>
+						<div class="mb-3"></div>
 
-<div id="cardNumber-element"></div>
-<div id="cardExpiry-element"></div></div>
-
-<div class="mb-3">
-<div id="cardCvc-element"></div></div>
+								<div id="cardNumber-element"></div>
+								<div id="cardExpiry-element"></div> 
+								<div id="cardCvc-element"></div>
+								
+						</div>
+	 
 			<button type="submit" class="btn btn-primary-payment mx-auto d-block" id="payButton">Payer</button>
 						<div id="loader"></div>
 						<div id="payment-result" class="hidden"></div>
