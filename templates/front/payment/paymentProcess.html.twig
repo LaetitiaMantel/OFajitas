@@ -82,47 +82,52 @@
 								<button type="button" class="btn btn-primary-payment" id="validateUserInfo">Valider les informations</button>
 							</div>
 						</form>
-</div></div>
-</div>
+					</div>
+				</div>
+			</div>
 
 
-<div class="col-md-6">
-	<div class="card-payment" id="paymentCard" style="display: none;">
-		<div class="card-body ">
+			<div class="col-md-6">
+				<div class="card-payment" id="paymentCard" style="display: none;">
+					<div
+						class="card-body ">
 
-					<!-- Le formulaire de paiement Stripe -->
-					<form action="{{ path('front_order_payment_done', {'orderRef': orderRef}) }}" method="post" id="stripePaymentForm">
+						<!-- Le formulaire de paiement Stripe -->
+						<form action="{{ path('front_order_payment_done', {'orderRef': orderRef}) }}" method="post" id="stripePaymentForm">
 
-						<h2 class="card-title">Paiement</h2>
+							<h2 class="card-title">Paiement</h2>
 
-						<div class="mb-3">
-<label for="amount">Montant à payer:
-	{{ totalAmount }} € </label>
-<input type="hidden" id="amount" name="amount" value="{{ totalAmount }}">
+							<div class="mb-3">
+								<label for="amount">Montant à payer:
+									{{ totalAmount }}
+									€
+								</label>
+								<input type="hidden" id="amount" name="amount" value="{{ totalAmount }}">
 
-						</div>
+							</div>
 
-						<div class="mb-3"></div>
+							<div class="mb-3">
 
 								<div id="cardNumber-element"></div>
-								<div id="cardExpiry-element"></div> 
+								<div id="cardExpiry-element"></div>
 								<div id="cardCvc-element"></div>
-								
+
+							</div>
+
+
+							<button type="submit" class="btn btn-primary-payment mx-auto d-block" id="payButton">Payer</button>
+							<div id="loader"></div>
+							<div id="payment-result" class="hidden"></div>
 						</div>
-	 
-			<button type="submit" class="btn btn-primary-payment mx-auto d-block" id="payButton">Payer</button>
-						<div id="loader"></div>
-						<div id="payment-result" class="hidden"></div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-<script src="https://js.stripe.com/v3/"></script>
-<script src="{{ asset('js/paiement.js') }}"></script>
-<script>
-	const stripePublicKey = '{{ stripePublicKey }}';
-</script>
+		<script src="https://js.stripe.com/v3/"></script>
+		<script src="{{ asset('js/paiement.js') }}"></script>
+		<script>
+			const stripePublicKey = '{{ stripePublicKey }}';
+		</script>
 
 
-{% endblock %}
+	{% endblock %}
