@@ -39,7 +39,7 @@ class ReviewController extends AbstractController
             $entityManager->flush();
             
             $this->addFlash('success', 'La critique a été ajouté au produit.');
-            $this->addFlash('success', 'La nouvelle note du produit est ' . $averageRating);
+            $this->addFlash('success', 'La nouvelle note du produit est ' . (round($averageRating,2)));
 
             // on retourne sur la page de détail du produit
             return $this->redirectToRoute('front_product_show', ['slug' => $product->getSlug()]);
