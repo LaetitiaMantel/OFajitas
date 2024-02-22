@@ -5,15 +5,15 @@
 
 {% block body %}
 
-{% if app.flashes('success') is not empty %}
-    <div class="alert alert-success" role="alert">
-        {{ app.flashes('success')[0] }}
-    </div>
-{% elseif app.flashes('error') is not empty %}
-    <div class="alert alert-danger" role="alert">
-        {{ app.flashes('error')[0] }}
-    </div>
-{% endif %}
+	{% if app.flashes('success') is not empty %}
+		<div class="alert alert-success" role="alert">
+			{{ app.flashes('success')[0] }}
+		</div>
+	{% elseif app.flashes('error') is not empty %}
+		<div class="alert alert-danger" role="alert">
+			{{ app.flashes('error')[0] }}
+		</div>
+	{% endif %}
 
 
 	<!-- Section-->
@@ -25,15 +25,15 @@
 
 					<div class="col-lg-4 mb-5">
 						<div class="shadow card border-0 rounded-4 text-center">
-							<img src="{{ category.picture }}" alt="Card image" class="card-img">
-							<div class="card-img-overlay d-flex align-items-center">
-								<div class="w-100">
-									<a href="{{ path('front_category_show', {slug: category.slug}) }}" class="text-white text-decoration-none">
+							<a href="{{ path('front_category_show', {slug: category.slug}) }}" class="text-white text-decoration-none">
+								<img src="{{ category.picture }}" alt="Card image" class="card-img">
+								<div class="card-img-overlay d-flex align-items-center">
+									<div class="w-100">
 										<h3 class=" display-4 mb-4 category">{{ category.name}}</h3>
 										<i class="fa-arrow-right fa ml-2"></i>
-									</a>
+									</div>
 								</div>
-							</div>
+							</a>
 						</div>
 					</div>
 				{% endfor %}
@@ -42,15 +42,16 @@
 			<div class="row gx-4 gx-lg-5 row-cols-md-3 row-cols-xl-4 justify-content-center">
 				{% for product in newProducts %}
 					<div class="col-sm-4 mb-5">
-						<div class="card h-100">
+						<div
+							class="card h-100">
 							<!-- Product image-->
 							<div class="image-container position-relative">
 								<a href="{{ path('front_product_show', {slug: product.slug}) }}">
-								<img class="card-img-top" src="{{ product.picture }}" alt="...">
+									<img class="card-img-top" src="{{ product.picture }}" alt="...">
 								</a>
 								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 							</div>
-							
+
 							<!-- Product details-->
 							<div class="card-body p-4">
 								<div
