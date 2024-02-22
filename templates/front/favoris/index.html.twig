@@ -26,25 +26,19 @@
 									<tr id="favori-{{productItem.product.id}}">
 										<td>
 											{% if productItem.product is defined %}
-												<div class="d-flex align-items-center">
+												<div class="d-flex flex-column">
+													<strong>{{ productItem.product.name }}</strong>
 													<a href="{{ path('front_product_show', {'slug': productItem.product.slug}) }}">
 														<img src="{{ productItem.product.picture }}" class="img-fluid" alt="{{ productItem.product.name }}" style="max-height: 80px; max-width: 80px; margin-right: 10px;">
 													</a>
-													<div>
-														<strong>{{ productItem.product.name }}</strong>
-														<p>{{ productItem.product.description }}</p>
-													</div>
 												</div>
 											{% endif %}
 										</td>
 										<td>{{ productItem.product.getPrice()/100 }}€</td>
 										<td>
-
 											<a class="btn btn-outline-danger btn-sm mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': productItem.product.id}) }}" data-product-id="{{ productItem.product.id }}">
 												Ajouter au panier</a>
 											<div id="flashMessagesContainer-{{ productItem.product.id }}"></div>
-
-
 											{% set key = productItem.product.id %}
 											<button type="submit" id="remove" data-product-id="{{ key }}" class="btn btn-outline-danger btn-sm">Supprimer</button>
 										</td>
