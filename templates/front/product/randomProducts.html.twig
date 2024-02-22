@@ -1,0 +1,34 @@
+
+
+<div class="row gx-4 gx-lg-5 row-cols-md-3 row-cols-xl-4 justify-content-center">
+	{% for product in products %}
+		<div class="col-sm-4 mb-5">
+			<div class="card h-100">
+				<div class="image-container position-relative">
+					<a href="{{ path('front_product_show', {slug: product.slug}) }}">
+						<img class="card-img-top" src="{{ product.picture }}" alt="...">
+					</a>
+				</div>
+				<div class="card-body p-4">
+					<div class="text-center">
+						<h5 class="fw-bolder">{{ product.name }}</h5>
+						{{ product.price /100}}
+						€
+					</div>
+				</div>
+				<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+					<div class="text-center">
+							<a class="btn btn-outline-danger mt-auto mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
+								Ajouter au panier
+							</a>
+							<a class="btn btn-outline-danger mt-auto" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
+					
+<div id="flashMessagesContainer-{{ product.id }}"></div>
+</div>
+
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+
