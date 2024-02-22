@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Front;
 
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,10 @@ class ProductController extends AbstractController
             $request->query->getInt('page', 1), /*page number*/
             20 /*limit per page*/
         );
-
+        
+        if ($products === null) {
+            throw $this->createNotFoundException("Le produit demandé n'existe pas");
+        }
         return $this->render('front/product/productList.html.twig', [
             'products' => $products,
         ]);
@@ -38,7 +42,9 @@ class ProductController extends AbstractController
     {
         $product = $productRepository->findOneBy(['slug' => $slug]);
 
-
+        if ($product === null) {
+            throw $this->createNotFoundException("Le produit demandé n'existe pas");
+        }
 
         return $this->render('front/product/show.html.twig', [
             'product' => $product,
