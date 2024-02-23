@@ -18,9 +18,9 @@ cardCvcElement.mount("#cardCvc-element");
   const form = document.getElementById("stripePaymentForm");
   const loader = document.getElementById("loader");
   const paymentResult = document.getElementById("payment-result");
-  const payButton = document.getElementById("payButton");
+  // const payButton = document.getElementById("payButton");
 
-  form.addEventListener("payButton", function (event) {
+  form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     // Affichez le spinner

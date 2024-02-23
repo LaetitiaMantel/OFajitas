@@ -23,6 +23,8 @@ use function Symfony\Component\Clock\now;
 #[Route('/commandes', name: 'front_order_')]
 class OrderController extends AbstractController
 {
+    private $temporaryOrderData;
+
     public function __construct(
 
         private RequestStack $requestStack,
@@ -35,11 +37,11 @@ class OrderController extends AbstractController
     public function confirm(CartManager $cartManager, EntityManagerInterface $em): Response
     {
         $session = $this->getSession();
-        $temporaryOrderRef = uniqid();
+        $orderRef = uniqid();
 
 
         // Enregistrez la référence temporaire dans la session
-        $session->set('temporary_order_ref', $temporaryOrderRef);
+        $session->set('temporary_order_ref', $orderRef);
 
 
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -59,7 +61,7 @@ class OrderController extends AbstractController
 
         $order = new Order();
         // $order->setUser($this->getUser());
-        $order->setRef($temporaryOrderRef);
+        $order->setRef($orderRef);
         $order->setCreatedAt(new \DateTimeImmutable());
 
 
@@ -68,11 +70,11 @@ class OrderController extends AbstractController
             'cart' => $cart,
         ]);
 
-        $session->set('temporary_order_ref', $temporaryOrderRef);
+        $session->set('temporary_order_ref', $orderRef);
 
         return $this->render('front/order/confirm.html.twig', [
             'cart' => $cart,
-            'orderRef' => $temporaryOrderRef,
+            'orderRef' => $orderRef,
 
         ]);
     }
@@ -82,7 +84,7 @@ class OrderController extends AbstractController
     StripeApi $stripeApi,): Response
     {
         $session = $this->getSession();
-        $temporaryOrderRef = $session->get('temporary_order_ref');
+        $orderRef = $session->get('temporary_order_ref');
         $totalAmount = $cartManager->getCartTotal();
     
         // Stocker le montant total en session pour l'utiliser dans le formulaire
@@ -97,20 +99,34 @@ class OrderController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $order->setCreatedAt(now());
             $order->setUser($user);
-            $order->setRef($temporaryOrderRef);
+            $order->setRef($orderRef);
+            $address = $form->get("address")->getData();
+            $zip  = $form->get("zipCode")->getData();
+            $city = $form->get('city')->getData();
+            $session->set('temporary_order_data', [
+                'address' => $address,
+                'zipCode'    => $zip,
+                'city'   => $city,
+            ]);
 
+             
             $em->persist($order);
-            $em->flush();
+
+
+          
+
+            //! enlever flush 
+            // $em->flush();
+
             // $this->addFlash(
             //     'success',
             //     '<strong>' . $user->getFirstname() . '</strong> .'
             // );
             // Redirigez vers la page de confirmation de paiement générique
             return $this->render('front/payment/payment.html.twig', [
-            'orderRef'          => $temporaryOrderRef,
+            'orderRef'          => $orderRef,
             'totalAmount'       => $totalAmount,
             'stripePublicKey'   => $stripePublicKey,
             'order'             => $order,
@@ -123,7 +139,7 @@ class OrderController extends AbstractController
 
         // Redirigez vers la page de confirmation de paiement générique
         return $this->render('front/payment/paymentProcess.html.twig', [
-            'orderRef'          => $temporaryOrderRef,
+            'orderRef'          => $orderRef,
             'totalAmount'       => $totalAmount,
             'stripePublicKey'   => $stripePublicKey,
             'order'             => $order,
@@ -141,11 +157,14 @@ class OrderController extends AbstractController
         $user = $this->getUser();
         $session = $this->getSession();
         $temporaryOrder = $session->get('temporary_order');
-
+        $temporaryOrderData = $session->get('temporary_order_data');
+        $address = $temporaryOrderData['address'];
+        $zip    = $temporaryOrderData['zipCode'];
+        $city    = $temporaryOrderData['city'];
         
 
-        if (!$temporaryOrder || !isset($temporaryOrder['order'], $temporaryOrder['cart'])) {
-            return $this->redirectToRoute('front_main_home');
+        if (!$temporaryOrder || !isset($temporaryOrder['order'], $temporaryOrder['cart'], $temporaryOrderData)) {
+            return $this->redirectToRoute('front_order_confirm');
         }
 
         $order = $temporaryOrder['order'];
@@ -157,9 +176,17 @@ class OrderController extends AbstractController
 
             if ($paymentResult) {
                 // Paiement réussi
+
+
+                $order = new Order;
                 $order->setUser($user);
                 $order->setRef($orderRef);
+                $order->setAddress($address);
+                $order->setZipCode($zip);
+                $order->setCity($city);
                 $order->setCreatedAt(new \DateTimeImmutable());
+
+             
 
                 foreach ($temporaryOrder['cart'] as $cartItem) {
                     if (is_array($cartItem) && isset($cartItem['product'], $cartItem['quantity'])) {
@@ -174,6 +201,7 @@ class OrderController extends AbstractController
                         $ligneOrder->setCreatedAt(new \DateTimeImmutable());
 
                         $em->persist($ligneOrder);
+
                     }
                 }
 
