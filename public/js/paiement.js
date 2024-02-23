@@ -18,8 +18,9 @@ cardCvcElement.mount("#cardCvc-element");
   const form = document.getElementById("stripePaymentForm");
   const loader = document.getElementById("loader");
   const paymentResult = document.getElementById("payment-result");
-  // const payButton = document.getElementById("payButton");
+  //! const payButton = document.getElementById("payButton");
 
+  //! et du coup la j'ai remis type submit psk sinon ça casse le token 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 

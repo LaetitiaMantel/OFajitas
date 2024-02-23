@@ -102,6 +102,7 @@ class OrderController extends AbstractController
             $order->setCreatedAt(now());
             $order->setUser($user);
             $order->setRef($orderRef);
+            //! ici j'ai fait en sorte de récupérer les données soumis dans le formulaire : 
             $address = $form->get("address")->getData();
             $zip  = $form->get("zipCode")->getData();
             $city = $form->get('city')->getData();
@@ -157,6 +158,7 @@ class OrderController extends AbstractController
         $user = $this->getUser();
         $session = $this->getSession();
         $temporaryOrder = $session->get('temporary_order');
+        //! ici  je récupère ce que j'ai dans la session  pour en faire des variables utilisable rapidement : 
         $temporaryOrderData = $session->get('temporary_order_data');
         $address = $temporaryOrderData['address'];
         $zip    = $temporaryOrderData['zipCode'];
@@ -177,7 +179,7 @@ class OrderController extends AbstractController
             if ($paymentResult) {
                 // Paiement réussi
 
-
+//!  Ici  j'ai utilisé les variables que j'ai récupérée de la session  ( et les autres champs)
                 $order = new Order;
                 $order->setUser($user);
                 $order->setRef($orderRef);
@@ -204,9 +206,13 @@ class OrderController extends AbstractController
 
                     }
                 }
-
+                //! donc là c'est comme avant mais on perssist que mtn et on flush $order et $ligneorder : 
                 $em->persist($order);
                 $em->flush();
+
+                //! Pour pas que ses données restent en session j'efface la clé  que j'ai créer pour récupérer les data du formulaire : 
+                    $session->remove('temporary_order_data');
+
 
                 $ligneOrders = $em->getRepository(LigneOrder::class)->findBy(['order' => $order]);
 
