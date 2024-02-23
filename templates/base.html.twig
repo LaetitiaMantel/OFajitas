@@ -22,14 +22,21 @@
 		{% endblock %}
 	</head>
 	<body>
+		
 		<!-- Header-->
 		{% if is_granted ("ROLE_MANAGER") %}
 			<header></header>
 		{% else %}
+		<div class="bandeau " id="bandeau">
+			<div class="d-flex justify-content-between"> 
+				<div class="text-shadow">Ce site est un projet pédagogique crée par des vénérateurs de Fajitas pour des vénérateurs de Fajitas, aucune vente ne sera conclue, plus d'infos sur la page "Qui sommes nous".</div>
+				<button class="btn-close" onclick="fermerBandeau()"></button>
+			</div>
+		</div>
 			<header class="gradient py-5">
 				<div class="container px-4 px-lg-5">
 					<div class="text-center text-white">
-						<img class="img-fluid" src="{{ asset('images/fajitas2.png')}}" alt="fajitas" srcset="">
+						<img class="img-fluid pt-4" src="{{ asset('images/fajitas2.png')}}" alt="fajitas" srcset="">
 						<h1 class="lead fw-normal text-black-50 mb-0">Pour les Fans de Fajitas
 						</h1>
 					</div>
@@ -89,13 +96,14 @@
 		<!-- Bootstrap core JS-->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 		<!-- Core theme JS-->
+		<script src="{{ asset('js/message.js') }}"></script>
 		<script src="{{ asset('js/scripts.js') }}"></script>
 		<script src="{{ asset('js/favoris.js') }}"></script>
 		<script src="{{ asset('js/connecter.js') }}"></script>
 		<script>
 			const addToFavoriteUrl = "{{ path('front_favorite_add', {id: 1}) }}";
-			const deleteFavoriteUrl = "{{ path('front_favorite_delete', {id: 1}) }}";
-			const connecterUrl = "{{ path('front_user_connecter') }}";
+const deleteFavoriteUrl = "{{ path('front_favorite_delete', {id: 1}) }}";
+const connecterUrl = "{{ path('front_user_connecter') }}";
 		</script>
 	</body>
 </html>
