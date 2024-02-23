@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    {# Afficher les champs du formulaire #}
+    {{ form_widget(form) }}
+
+    {# Ajouter le champ CSRF manuellement #}
+    {# {{ form_row(form._token) }} #}
+
+    <button id="validateUserInfo" class="btn btn-warning mb-2">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

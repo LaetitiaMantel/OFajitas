@@ -5,6 +5,7 @@ namespace App\Controller\Front;
 use App\Entity\Cart;
 use App\Entity\User;
 use App\Entity\Order;
+use App\Form\OrderType;
 use App\Entity\LigneOrder;
 use App\Service\StripeApi;
 use App\Service\CartManager;
@@ -17,8 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
-
+use function Symfony\Component\Clock\now;
 
 #[Route('/commandes', name: 'front_order_')]
 class OrderController extends AbstractController
@@ -77,34 +77,72 @@ class OrderController extends AbstractController
         ]);
     }
 
-    #[Route('/process', name: 'payment', methods: ['GET'])]
-    public function process(CartManager $cartManager): Response
+    #[Route('/process', name: 'payment', methods: ['GET', 'POST'])]
+    public function process(CartManager $cartManager,EntityManagerInterface $em,Request $request, 
+    StripeApi $stripeApi,): Response
     {
         $session = $this->getSession();
         $temporaryOrderRef = $session->get('temporary_order_ref');
         $totalAmount = $cartManager->getCartTotal();
-
+    
         // Stocker le montant total en session pour l'utiliser dans le formulaire
         $session->set('payment_amount', $totalAmount);
-
+    
         // Récupérer la clé API de stripe ( .env)
         $stripePublicKey = $_ENV['STRIPE_PUBLIC_KEY'];
 
+        $user = $this->getUser();
+        $order = new Order();
+        $form = $this->createForm(OrderType::class, $order);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $order->setCreatedAt(now());
+            $order->setUser($user);
+            $order->setRef($temporaryOrderRef);
+
+            $em->persist($order);
+            $em->flush();
+            // $this->addFlash(
+            //     'success',
+            //     '<strong>' . $user->getFirstname() . '</strong> .'
+            // );
+            // Redirigez vers la page de confirmation de paiement générique
+            return $this->render('front/payment/payment.html.twig', [
+            'orderRef'          => $temporaryOrderRef,
+            'totalAmount'       => $totalAmount,
+            'stripePublicKey'   => $stripePublicKey,
+            'order'             => $order,
+            'form'              => $form,
+            'user'              => $user
+        ]);
+
+            }
+
+
         // Redirigez vers la page de confirmation de paiement générique
         return $this->render('front/payment/paymentProcess.html.twig', [
-            'orderRef' => $temporaryOrderRef,
-            'totalAmount' => $totalAmount,
-            'stripePublicKey' => $stripePublicKey,
+            'orderRef'          => $temporaryOrderRef,
+            'totalAmount'       => $totalAmount,
+            'stripePublicKey'   => $stripePublicKey,
+            'order'             => $order,
+            'form'              => $form,
+            'user'              => $user
         ]);
     }
 
 
     #[Route('/payment/{orderRef}', name: 'payment_done', methods: ['GET', 'POST'])]
-    public function payment(Request $request, $orderRef, CartManager $cartManager, StripeApi $stripeApi, EntityManagerInterface $em): Response
+    public function payment(Request $request, $orderRef, CartManager $cartManager, 
+    StripeApi $stripeApi, EntityManagerInterface $em,
+    ): Response
     {
         $user = $this->getUser();
         $session = $this->getSession();
         $temporaryOrder = $session->get('temporary_order');
+
+        
 
         if (!$temporaryOrder || !isset($temporaryOrder['order'], $temporaryOrder['cart'])) {
             return $this->redirectToRoute('front_main_home');
@@ -169,6 +207,7 @@ class OrderController extends AbstractController
             $this->addFlash('error', 'Une erreur s\'est produite : ' . $e->getMessage());
             return $this->redirectToRoute('front_cart_index');
         }
+
     }
 
 

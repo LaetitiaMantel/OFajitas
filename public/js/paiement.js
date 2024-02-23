@@ -18,8 +18,9 @@ cardCvcElement.mount("#cardCvc-element");
   const form = document.getElementById("stripePaymentForm");
   const loader = document.getElementById("loader");
   const paymentResult = document.getElementById("payment-result");
+  const payButton = document.getElementById("payButton");
 
-  form.addEventListener("submit", function (event) {
+  form.addEventListener("payButton", function (event) {
     event.preventDefault();
 
     // Affichez le spinner
@@ -48,26 +49,26 @@ cardCvcElement.mount("#cardCvc-element");
 
   //  Pour ouvrir le champ adresse de facturation si la checkbox facturation est coché : 
 
-  const billingCheckbox = document.getElementById("billingCheckbox");
-  const billingAddressFields = document.getElementById("billingAddressFields");
+  // const billingCheckbox = document.getElementById("billingCheckbox");
+  // const billingAddressFields = document.getElementById("billingAddressFields");
 
-  billingCheckbox.addEventListener("change", function () {
-    if (this.checked) {
-      billingAddressFields.style.display = "block";
-    } else {
-      billingAddressFields.style.display = "none";
-    }
-  });
+  // billingCheckbox.addEventListener("change", function () {
+  //   if (this.checked) {
+  //     billingAddressFields.style.display = "block";
+  //   } else {
+  //     billingAddressFields.style.display = "none";
+  //   }
+  // });
 
-  // Pour ouvrir le paiement après avoir rempli les information de livraison 
-  const validateUserInfoButton = document.getElementById("validateUserInfo");
-  const paymentCard = document.getElementById("paymentCard");
+  // // Pour ouvrir le paiement après avoir rempli les information de livraison 
+  // const validateUserInfoButton = document.getElementById("validateUserInfo");
+  // const paymentCard = document.getElementById("paymentCard");
 
-  validateUserInfoButton.addEventListener("click", function () {
-    paymentCard.style.display = "block";
-  });
+  // validateUserInfoButton.addEventListener("click", function () {
+  //   paymentCard.style.display = "block";
+  // });
 
-  function validateUserInfo() {
-    return true;
-  }
+  // function validateUserInfo() {
+  //   return true;
+  // }
 });
