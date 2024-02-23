@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
-
 {% block title %}
 	Votre panier
 {% endblock %}
 
 {% block body %}
-
 	{% if app.flashes('success') is not empty %}
 		<div class="alert alert-success" role="alert">
 			{{ app.flashes('success')[0] }}
@@ -23,82 +21,99 @@
 
 			{% if cart is defined and cart|length > 0 %}
 				<div class="row">
-					<div class="col-md-12 table-responsive">
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">Vos produits</th>
-									<th scope="col">Quantité</th>
-									<th scope="col" class=" d-none d-sm-table-cell ">Prix unitaire</th>
-									<th scope="col">Total</th>
-									<th scope="col"></th>
-								</tr>
-							</thead>
-							<tbody>
+					<div class="col-md-8">
+						{% for cartItem in cart %}
+							<!-- Card pour chaque produit -->
+							<div class="card mb-3 product-card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-6">
+											<a href="{{ path('front_product_show', {'slug': cartItem.product.slug}) }}">
+												<img src="{{ cartItem.product.picture }}" class="card-img-top product-image" alt="{{ cartItem.product.name }}">
+											</a>
+										</div>
+										<div class="col-md-6 d-flex flex-column justify-content-left">
+											<h6 class="card-title text-center">{{ cartItem.product.name }}</h6>
+											<div class="table-responsive">
+												<table class="table table-borderless">
+													<tbody>
+														<tr>
+															<td>
+																<div class="d-flex align-items-center text-start mb-2">
+																	<p class="card-text me-2">Quantité:</p>
+																	<form action="{{ path('front_cart_adjust_quantity', {'id': cartItem.product.id}) }}" method="POST" class="d-flex align-items-center">
+																		<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control me-2" min="0" style="width: 60px;">
+																		<button type="submit" class="btn btn-outline-danger btn-sm">
+																			<i class="bi bi-check"></i>
+																		</button>
+																	</form>
+																</div>
+
+																<div class="d-flex justify-content-between align-items-center text-start">
+																	<p class="card-text mb-2">Total:
+																		{{ cartItem.quantity * (cartItem.product.getPrice()/100) }}€
+																	</p>
+																	<a class="btn btn-outline-danger btn-sm deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
+																		<i class="bi bi-x"></i>
+																		Supprimer
+																	</a>
+<button class="btn btn-outline-danger btn-sm moveToFavoritesButton" data-add-route="{{ path('front_favorite_add', {'id': cartItem.product.id}) }}" data-delete-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
+	<i class="bi bi-heart"></i>
+	Déplacer vers les favoris
+</button>
+
+
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div id="flashMessagesContainer-{{ cartItem.product.id }}"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+					<div
+						class="col-md-4">
+						<!-- Grande carte pour les boutons -->
+						<div class="card product-card">
+							<div class="card-body">
+								<h5 class="card-title">Récapitulatif de votre commande</h5>
+								<hr>
 								{% set total = 0 %}
 								{% for cartItem in cart %}
-									<tr>
-										<td>
-											{% if cartItem.product is defined %}
-												<div class="d-flex flex-column">
-													<strong>{{ cartItem.product.name }}</strong>
-													<a href="{{ path('front_product_show', {'slug': cartItem.product.slug}) }}">
-														<img src="{{ cartItem.product.picture }}" class="img-fluid" alt="{{ cartItem.product.name }}" style="max-height: 80px; max-width: 80px; margin-right: 10px;">
-													</a>
-												</div>
-											{% endif %}
-										</td>
-										<td>
-											<form action="{{ path('front_cart_adjust_quantity', {'id': cartItem.product.id}) }}" method="POST">
-												<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control mb-2" min="0" style="width: 60px;">
-												<button type="submit" class="btn btn-outline-danger btn-sm ms-1">
-													<i class="bi bi-check"></i>
-												</button>
-											</form>
-										</td>
-										<td class="d-none d-sm-table-cell">{{ cartItem.product.getPrice()/100 }}€</td>
-										<td style="white-space: nowrap ;">{{ cartItem.quantity * (cartItem.product.getPrice()/100) }}€</td>
-										<td>
-											<div class="product-action-buttons">
-												<a class="btn btn-outline-danger btn-sm deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
-													<i class="bi bi-x"></i>
-												</a>
-												<div id="flashMessagesContainer-{{ cartItem.product.id }}"></div>
-											</div>
-										</td>
-									</tr>
 									{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
+
 								{% endfor %}
-								<tr>
-									<td colspan="3" class="text-end">
-										<strong>Total global :</strong>
-									</td>
-									<td colspan="2" class="ps-1" style="white-space: nowrap;">
-										<span id="cart-total-container">{{ total }}
-											€</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="col-md-12">
-						<div
-							class="d-flex justify-content-end">
-							<!-- Bouton pour vider le panier -->
-							<form id="emptyCartForm" action="{{ path('front_cart_empty') }}" method="GET" class="d-inline" data-route="{{ path('front_cart_empty') }}">
-								<button type="submit" class="btn btn-outline-danger btn-sm">Vider le panier</button>
-							</form>
-							<!-- Bouton pour valider la commande -->
-							<form action="{{ path('front_order_confirm') }}" method="POST" class="d-inline">
-								<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
-							</form>
+										<h6 class="mb-3">Total de la commande</h6>
+										<p class="mb-4" id="cart-total-container">
+											<span id="cart-total-container-value">{{ total }}</span>
+											€
+										</p>
+								<div class="d-flex justify-content-end">
+									<form id="emptyCartForm" action="{{ path('front_cart_empty') }}" method="GET" class="me-2" data-route="{{ path('front_cart_empty') }}">
+										<button type="submit" class="btn btn-outline-danger btn-sm">Vider le panier</button>
+									</form>
+									<form action="{{ path('front_order_confirm') }}" method="POST">
+										<button type="submit" class="btn btn-outline-danger-order btn-sm">Valider la commande</button>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
-					<!-- Quand le panier est vide   -->
-				{% else %}
-					<p class="text-center">Votre panier est vide.</p>
-				{% endif %}
-			</div>
+				</div>
+			{% else %}
+				<p class="text-center">Votre panier est vide.</p>
+			{% endif %}
 		</div>
 	</section>
+
+<script>
+const cartTotalUrl = "{{ path('front_cart_get_total') }}";
+ 
+
+</script>
 {% endblock %}

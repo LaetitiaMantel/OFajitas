@@ -28,6 +28,8 @@ cardCvcElement.mount("#cardCvc-element");
      }, 500);
 
     stripe.createToken(cardNumberElement).then(function (result) {
+
+      
       // Masquez le spinner en cas d'erreur ou de succès
       loader.style.display = "none";
 

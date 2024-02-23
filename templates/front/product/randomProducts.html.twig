@@ -12,8 +12,7 @@
 				<div class="card-body p-4">
 					<div class="text-center">
 						<h5 class="fw-bolder">{{ product.name }}</h5>
-						{{ product.price /100}}
-						€
+						{{ product.price /100}}€
 					</div>
 				</div>
 				<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -22,10 +21,8 @@
 								Ajouter au panier
 							</a>
 							<a class="btn btn-outline-danger mt-auto" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
-					
-<div id="flashMessagesContainer-{{ product.id }}"></div>
-</div>
-
+						<div id="flashMessagesContainer-{{ product.id }}"></div>
+					</div>
 				</div>
 			</div>
 		</div>

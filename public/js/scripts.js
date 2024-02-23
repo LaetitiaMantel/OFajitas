@@ -1,5 +1,4 @@
-
-console.log("OK JS")
+ 
 
 // Fonction pour effectuer une requête AJAX générique
 function sendAjaxRequest(route, method, successCallback, errorCallback) {
@@ -40,31 +39,32 @@ function handleAddToCartEvent(button, productId) {
 
 // Fonction pour gérer les événements de suppression du panier et mise à jour du compteur
 function handleDeleteFromCartEvent(button, productId) {
-  const flashMessagesContainer = document.getElementById(
-    "flashMessagesContainer-" + productId
-  );
   const route = button.getAttribute("data-route");
 
   sendAjaxRequest(
     route.replace("{id<\\d+>}", productId),
     "POST",
     (data) => {
-      flashMessagesContainer.innerHTML = data.message;
+      const productCard = button.closest(".product-card");
+      if (productCard) {
+        productCard.style.opacity = 0;
+        setTimeout(() => {
+          productCard.remove();
+          getCartCount();
 
-      const productRow = button.closest("tr");
-      if (productRow) {
-        productRow.style.opacity = 0;
-        setTimeout(() => productRow.remove(), 500);
-        getCartCount();
+          getCartTotal(); // Appel de getCartTotal après la suppression du produit
+
+          // Après avoir mis à jour le total, vérifiez si le panier est vide
+          const cartTotalContainer = document.getElementById(
+            "cart-total-container"
+          );
+          const cartTotal = parseFloat(cartTotalContainer.innerText);
+        }, 500);
       }
-
-      setTimeout(() => (flashMessagesContainer.innerHTML = ""), 3000);
-      getCartTotal();
     },
     (error) => console.error("Erreur lors de la requête AJAX :", error)
   );
 }
-
 // Fonction pour vider le panier et mise à jour du compteur
 function emptyCartEvent(route) {
   const flashMessagesContainer = document.getElementById(
@@ -81,9 +81,6 @@ function emptyCartEvent(route) {
 
       setTimeout(() => (flashMessagesContainer.innerHTML = ""), 3000);
       getCartCount();
-
-      // Ajoutez la ligne suivante pour mettre à jour le total du panier après le vidage
-      getCartTotal();
     },
     (error) => console.error("Erreur lors de la requête AJAX :", error)
   );
@@ -117,11 +114,9 @@ function getCartTotal() {
     cartTotalUrl,
     "POST",
     (data) => {
-      console.log("AJAX success:", data);
-      const cartTotal = data.cartTotal !== undefined ? data.cartTotal : 0;
+      cartTotal = data.cartTotal !== undefined ? data.cartTotal : 0;
       localStorage.setItem("cart-total", cartTotal);
 
-      
       cartTotalContainer.innerText = cartTotal + " €";
     },
     (error) => {
@@ -130,7 +125,55 @@ function getCartTotal() {
   );
 }
 
+// Gestion de l'événement de déplacement vers les favoris
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("moveToFavoritesButton")) {
+    event.preventDefault();
 
+    const productId = event.target.getAttribute("data-product-id");
+    const addToFavoriteRoute = event.target.getAttribute("data-add-route");
+    const deleteFromCartRoute = event.target.getAttribute("data-delete-route");
+
+    console.log("Add to Favorite Route:", addToFavoriteRoute); 
+    console.log("Delete from Cart Route:", deleteFromCartRoute); 
+
+    // Effectuer la requête AJAX pour ajouter aux favoris
+    sendAjaxRequest(
+      addToFavoriteRoute,
+      "GET",
+      (data) => {
+        console.log("Add to Favorites Success data:", data);
+      
+        sendAjaxRequest(
+          deleteFromCartRoute,
+          "POST",
+          (data) => {
+            // Gérez la suppression du panier ici si nécessaire
+            const productCard = event.target.closest(".product-card");
+            if (productCard) {
+              productCard.style.opacity = 0;
+              setTimeout(() => {
+                productCard.remove();
+                getCartCount();
+                getCartTotal();
+              }, 500);
+            }
+          },
+          (error) =>
+            console.error(
+              "Erreur lors de la requête AJAX pour supprimer du panier :",
+              error
+            )
+        );
+      },
+      (error) =>
+        console.error(
+          "Erreur lors de la requête AJAX pour ajouter aux favoris :",
+          error
+        )
+    );
+  }
+});
 
 // Appeler les fonctions au chargement de la page
 document.addEventListener("DOMContentLoaded", () => {
@@ -139,6 +182,14 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
       handleAddToCartEvent(button, button.getAttribute("data-product-id"));
+    });
+  });
+
+  // Gestion des événements de suppression du panier
+  document.querySelectorAll(".deleteFromCartButton").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      handleDeleteFromCartEvent(button, button.getAttribute("data-product-id"));
     });
   });
 
@@ -167,6 +218,17 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
       handleDeleteFromCartEvent(button, button.getAttribute("data-product-id"));
     });
+  });
+
+  document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("moveToFavoritesButton")) {
+      event.preventDefault();
+
+      const productId = event.target.getAttribute("data-product-id");
+      const addToFavoriteRoute = event.target.getAttribute("data-add-route");
+      const deleteFromCartRoute =
+        event.target.getAttribute("data-delete-route");
+    }
   });
 
   // Appeler la fonction au chargement de la page
