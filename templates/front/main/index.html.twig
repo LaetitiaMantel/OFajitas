@@ -15,14 +15,11 @@
 		</div>
 	{% endif %}
 
-
 	<!-- Section-->
 	<section class="py-5">
 		<div class="container px-4 px-lg-5">
-
 			<div class="row mx-0 mb-5">
 				{% for category in categoriesByOrder %}
-
 					<div class="col-lg-4 mb-5">
 						<div class="shadow card border-0 rounded-4 text-center">
 							<a href="{{ path('front_category_show', {slug: category.slug}) }}" class="text-white text-decoration-none">
@@ -48,41 +45,40 @@
 							<div class="image-container position-relative">
 								<a href="{{ path('front_product_show', {slug: product.slug}) }}">
 									<img class="card-img-top" src="{{ product.picture }}" alt="...">
-								
-								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
-							</div>
 
-							<!-- Product details-->
-							<div class="card-body p-4">
-								<div
-									class="text-center">
-									<!-- Product name-->
-									<h5 class="fw-bolder">{{ product.name }}</h5>
-									<!-- Product price-->
-									{# Affiche le prix / 100 #}
-									{% set price = product.getPrice()/100 %}
-									{# Affiche le prix réel #}
-									{{ price }}
-									€
+									{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 								</div>
-								<div class="mt-3 text-center">
-									{{ include('_starsRating.html.twig', {'stars' : product.rating})}}
+								<!-- Product details-->
+								<div class="card-body p-4">
+									<div
+										class="text-center">
+										<!-- Product name-->
+										<h5 class="fw-bolder">{{ product.name }}</h5>
+										<!-- Product price-->
+										{# Affiche le prix / 100 #}
+										{% set price = product.getPrice()/100 %}
+										{# Affiche le prix réel #}
+										{{ price }}
+										€
+									</div>
+									<div class="mt-3 text-center">
+										{{ include('_starsRating.html.twig', {'stars' : product.rating})}}
+									</div>
 								</div>
-							</div>
-							<!-- Product actions-->
-							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center">
-									<a class="btn btn-outline-danger mt-auto mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
-										Ajouter au panier
-									</a>
-									<a class="btn btn-outline-danger mt-auto" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
-									<div id="flashMessagesContainer-{{ product.id }}"></div>
+								<!-- Product actions-->
+								<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+									<div class="text-center">
+										<a class="btn btn-outline-danger mt-auto mb-2 addToCartButton" href="#" data-route="{{ path('front_cart_add', {'id': product.id}) }}" data-product-id="{{ product.id }}">
+											Ajouter au panier
+										</a>
+										<a class="btn btn-outline-danger mt-auto" href="{{ path('front_product_show', {slug: product.slug}) }}">Voir produit</a>
+										<div id="flashMessagesContainer-{{ product.id }}"></div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				{% endfor %}
+					{% endfor %}
+				</div>
 			</div>
-		</div>
-	</section>
-{% endblock %}
+		</section>
+	{% endblock %}
