@@ -10936,6 +10936,7 @@ a{
   
 }
 .notification{
+  margin-top: 1em;
   color:green;
 }
 
@@ -11000,6 +11001,17 @@ a{
   
 }
 
+.bandeau {
+  background-color: #fabb73;
+  color: #fff;
+  padding: 10px;
+  text-shadow: 0 0 4px #f55a42;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
 
 @keyframes spin {
     0% {

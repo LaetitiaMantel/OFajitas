@@ -6,8 +6,8 @@
 {% block body %}
 	<div class="container">
 		<h1>Modifier l'utilisateur</h1>
-	{% if (user.roles == 'ROLE_USER')%}
-		{{ include('back/customer/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+	{% if 'ROLE_USER' in user.roles %}
+		{{ include('back/user/_customer.form.html.twig', {'button_label': 'Enregistrer'}) }}
     {% else %}
         {{ include('back/user/_form.html.twig', {'button_label': 'Update'}) }}
 	{% endif %}
