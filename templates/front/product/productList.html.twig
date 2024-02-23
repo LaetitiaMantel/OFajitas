@@ -9,25 +9,15 @@
 	<!-- Section-->
 	<section class="py-5">
 		<div class="container px-4 px-lg-5">
-
 			{% if (app.current_route == 'front_product_index') %}
 				<h2 class="h2-color">Tous les produits</h2>
-
-
 			{% elseif (app.current_route == 'front_main_search') %}
 				<h2 class="h2-color">Résultats de la recherche</h2>
-
 			{% elseif (app.current_route == 'front_category_show') %}
 				<h2 class="h2-color">{{category.name }}</h2>
-
 			{% else %}
-
 				<h2 class="h2-color">{{brand.name }}</h2>
-
-
 			{% endif %}
-
-
 			<div class="row gx-4 gx-lg-5 row-cols-md-3 row-cols-xl-4 justify-content-center">
 				{% for product in products %}
 					<div class="col-sm-4 mb-5">
@@ -40,7 +30,6 @@
 								</a>
 								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 							</div>
-
 							<!-- Product details-->
 							<div class="card-body p-4">
 								<div
@@ -54,7 +43,6 @@
 									{{ price }}
 									€
 									{{ include('_starsRating.html.twig', {'stars' : product.rating})}}
-
 								</div>
 							</div>
 							<!-- Product actions-->
@@ -78,7 +66,5 @@
 					</div>
 				{% endif %}
 			</div>
-
-
 		</section>
 	{% endblock %}

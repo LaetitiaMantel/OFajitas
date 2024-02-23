@@ -6,14 +6,11 @@
 {% block body %}
 	<section class="py-5">
 		<div class="container px-4 px-lg-5">
-
-
 			{% if app.user %}
 				<p>
 					{{ app.user.firstname }}
 					{{ app.user.lastname }}!</p>
 			{% endif %}
-
 			{% if cart is defined and cart|length > 0 %}
 				<table class="table">
 					<thead>
@@ -49,7 +46,6 @@
 							</tr>
 							{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
 						{% endfor %}
-
 						<tr>
 							<td colspan="3" class="text-end">
 								<strong>Total global :</strong>
@@ -67,4 +63,3 @@
 		</div>
 	</section>
 {% endblock %}
-
