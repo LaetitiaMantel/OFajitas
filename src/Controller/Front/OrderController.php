@@ -60,7 +60,7 @@ class OrderController extends AbstractController
         }
 
         $order = new Order();
-        // $order->setUser($this->getUser());
+        $order->setUser($this->getUser());
         $order->setRef($orderRef);
         $order->setCreatedAt(new \DateTimeImmutable());
 
@@ -95,7 +95,10 @@ class OrderController extends AbstractController
 
         $user = $this->getUser();
         $order = new Order();
-        $form = $this->createForm(OrderType::class, $order);
+        $form = $this->createForm(OrderType::class, $order, [
+            'user' => $user
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -104,12 +107,26 @@ class OrderController extends AbstractController
             $order->setRef($orderRef);
             //! ici j'ai fait en sorte de récupérer les données soumis dans le formulaire : 
             $address = $form->get("address")->getData();
-            $zip  = $form->get("zipCode")->getData();
+            $addressComplement = $form->get("addressComplement")->getData();
+            $zip = $form->get("zipCode")->getData();
             $city = $form->get('city')->getData();
+            $phoneNumber = $form->get('phoneNumber')->getData();
+            $billingAddress = $form->get('billingAddress')->getData();
+            $billingAddressComplement = $form->get('billingAddressComplement')->getData();
+            $billingZipCode = $form->get('billingZipCode')->getData();
+            $billingCity = $form->get('billingCity')->getData();
+
+            //! envoie en session 
             $session->set('temporary_order_data', [
                 'address' => $address,
-                'zipCode'    => $zip,
-                'city'   => $city,
+                'addressComplement' => $addressComplement,
+                'zipCode' => $zip,
+                'city' => $city,
+                'phoneNumber' => $phoneNumber,
+                'billingAddress' => $billingAddress,
+                'billingAddressComplement' => $billingAddressComplement,
+                'billingZipCode' => $billingZipCode,
+                'billingCity' => $billingCity,
             ]);
 
              
@@ -163,7 +180,13 @@ class OrderController extends AbstractController
         $address = $temporaryOrderData['address'];
         $zip    = $temporaryOrderData['zipCode'];
         $city    = $temporaryOrderData['city'];
-        
+        $addressComplement = $temporaryOrderData['addressComplement'];
+        $phoneNumber = $temporaryOrderData['phoneNumber'];
+        $billingAddress = $temporaryOrderData['billingAddress'];
+        $billingAddressComplement = $temporaryOrderData['billingAddressComplement'];
+        $billingZipCode = $temporaryOrderData['billingZipCode'];
+        $billingCity = $temporaryOrderData['billingCity'];
+
 
         if (!$temporaryOrder || !isset($temporaryOrder['order'], $temporaryOrder['cart'], $temporaryOrderData)) {
             return $this->redirectToRoute('front_order_confirm');
@@ -186,9 +209,17 @@ class OrderController extends AbstractController
                 $order->setAddress($address);
                 $order->setZipCode($zip);
                 $order->setCity($city);
+                $order->setAddressComplement($addressComplement);
+                $order->setPhoneNumber($phoneNumber);
+                $order->setBillingAddress($billingAddress);
+                $order->setBillingAddressComplement($billingAddressComplement);
+                $order->setBillingZipCode($billingZipCode);
+                $order->setBillingCity($billingCity);
+
+
+
                 $order->setCreatedAt(new \DateTimeImmutable());
 
-             
 
                 foreach ($temporaryOrder['cart'] as $cartItem) {
                     if (is_array($cartItem) && isset($cartItem['product'], $cartItem['quantity'])) {

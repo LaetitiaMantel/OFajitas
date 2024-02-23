@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const cardCvcElement = elements.create("cardCvc");
 
 
-cardNumberElement.mount("#cardNumber-element");
-cardExpiryElement.mount("#cardExpiry-element");
-cardCvcElement.mount("#cardCvc-element");
+  cardNumberElement.mount("#cardNumber-element");
+  cardExpiryElement.mount("#cardExpiry-element");
+  cardCvcElement.mount("#cardCvc-element");
 
 
   const form = document.getElementById("stripePaymentForm");
@@ -50,16 +50,16 @@ cardCvcElement.mount("#cardCvc-element");
 
   //  Pour ouvrir le champ adresse de facturation si la checkbox facturation est coché : 
 
-  // const billingCheckbox = document.getElementById("billingCheckbox");
-  // const billingAddressFields = document.getElementById("billingAddressFields");
+  const billingCheckbox = document.getElementById("billingCheckbox");
+  const billingAddressFields = document.getElementById("billingAddressFields");
 
-  // billingCheckbox.addEventListener("change", function () {
-  //   if (this.checked) {
-  //     billingAddressFields.style.display = "block";
-  //   } else {
-  //     billingAddressFields.style.display = "none";
-  //   }
-  // });
+  billingCheckbox.addEventListener("change", function () {
+    if (this.checked) {
+      billingAddressFields.style.display = "block";
+    } else {
+      billingAddressFields.style.display = "none";
+    }
+  });
 
   // // Pour ouvrir le paiement après avoir rempli les information de livraison 
   // const validateUserInfoButton = document.getElementById("validateUserInfo");
