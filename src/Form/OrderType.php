@@ -15,6 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
+
 
 class OrderType extends AbstractType
 {
@@ -61,26 +64,33 @@ class OrderType extends AbstractType
                 'label' => 'Numéro de téléphone',
                 'required' => true,
             ])
-            ->add('useDifferentDeliveryAddress', CheckboxType::class, [
-                'label' => 'Adresse de livraison ',
+            ->add('useDifferentDeliveryAddress', CheckboxType::class,  [
+                'label' => 'Adresse de livraison différente',
                 'required' => false,
                 'attr' => ['class' => 'billingCheckbox'],
                 'mapped' => false,
             ])
-            ->add('billingAddress', HiddenType::class,  [
-                'label' => 'Adresse de facturation',
+            ->add('billingAddress', TextType::class,  [
+                'label' => 'Adresse ',
+                'required' => false,
                 'attr' => ['class' => 'billingAddressFields'],
             ])
-            ->add('billingAddressComplement', HiddenType::class, [
-                'label' => 'Complément d\'adresse de facturation',
+
+            ->add('billingAddressComplement', TextType::class,  [
+                'label' => 'Complément d\'adresse ',
+                'required' => false,
                 'attr' => ['class' => 'billingAddressFields'],
             ])
-            ->add('billingZipCode', HiddenType::class, [
-                'label' => 'Code postal de facturation',
+
+            ->add('billingZipCode', TextType::class, [
+                'label' => 'Code postal',
+                'required' => false,
                 'attr' => ['class' => 'billingAddressFields'],
             ])
-            ->add('billingCity', HiddenType::class, [
-                'label' => 'Ville de facturation',
+
+            ->add('billingCity', TextType::class, [
+                'label' => 'Ville ',
+                'required' => false,
                 'attr' => ['class' => 'billingAddressFields'],
             ]);
     }
@@ -92,4 +102,11 @@ class OrderType extends AbstractType
             'user' => null,
         ]);
     }
+
+
+    // public function buildView(FormView $view, FormInterface $form, array $options): void
+    // {
+    //     $view->vars['billingCheckboxClass'] = 'billingCheckbox';
+    //     $view->vars['billingAddressFieldsClass'] = 'billingAddressFields';
+    // }
 }
