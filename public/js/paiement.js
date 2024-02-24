@@ -10,15 +10,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const cardCvcElement = elements.create("cardCvc");
 
 
-cardNumberElement.mount("#cardNumber-element");
-cardExpiryElement.mount("#cardExpiry-element");
-cardCvcElement.mount("#cardCvc-element");
+  cardNumberElement.mount("#cardNumber-element");
+  cardExpiryElement.mount("#cardExpiry-element");
+  cardCvcElement.mount("#cardCvc-element");
 
 
   const form = document.getElementById("stripePaymentForm");
   const loader = document.getElementById("loader");
   const paymentResult = document.getElementById("payment-result");
+  //! const payButton = document.getElementById("payButton");
 
+  //! et du coup la j'ai remis type submit psk sinon ça casse le token 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -48,28 +50,16 @@ cardCvcElement.mount("#cardCvc-element");
     });
   });
 
-  //  Pour ouvrir le champ adresse de facturation si la checkbox facturation est coché : 
+  
+  // // Pour ouvrir le paiement après avoir rempli les information de livraison 
+  // const validateUserInfoButton = document.getElementById("validateUserInfo");
+  // const paymentCard = document.getElementById("paymentCard");
 
-  const billingCheckbox = document.getElementById("billingCheckbox");
-  const billingAddressFields = document.getElementById("billingAddressFields");
+  // validateUserInfoButton.addEventListener("click", function () {
+  //   paymentCard.style.display = "block";
+  // });
 
-  billingCheckbox.addEventListener("change", function () {
-    if (this.checked) {
-      billingAddressFields.style.display = "block";
-    } else {
-      billingAddressFields.style.display = "none";
-    }
-  });
-
-  // Pour ouvrir le paiement après avoir rempli les information de livraison 
-  const validateUserInfoButton = document.getElementById("validateUserInfo");
-  const paymentCard = document.getElementById("paymentCard");
-
-  validateUserInfoButton.addEventListener("click", function () {
-    paymentCard.style.display = "block";
-  });
-
-  function validateUserInfo() {
-    return true;
-  }
+  // function validateUserInfo() {
+  //   return true;
+  // }
 });

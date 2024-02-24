@@ -29,7 +29,9 @@ function handleAddToCartEvent(button, productId) {
     route.replace("{id}", productId),
     "POST",
     (data) => {
+      
       flashMessagesContainer.innerHTML = data.message;
+      flashMessagesContainer.classList.add('notification');
       setTimeout(() => (flashMessagesContainer.innerHTML = ""), 3000);
       getCartCount();
     },
