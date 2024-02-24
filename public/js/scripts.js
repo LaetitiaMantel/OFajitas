@@ -220,6 +220,56 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+
+
+var quantityInput = document.getElementById('quantityInput');
+
+quantityInput.addEventListener('change', function () {
+    updateQuantity();
+});
+
+quantityInput.addEventListener('blur', function () {
+    updateQuantity();
+});
+
+function updateQuantity() {
+    // Récupérer la nouvelle quantité
+    var newQuantity = parseInt(quantityInput.value);
+
+    // Vérifier si la nouvelle quantité est valide (supérieure ou égale à zéro)
+    if (newQuantity >= 0) {
+        // Extraire l'ID du produit à partir de l'URL du formulaire
+        var productId = quantityInput.form.action.match(/\/(\d+)$/)[1];
+
+        // Utilisez l'URL d'ajustement de quantité correspondant au produit
+        var url = window['adjustQuantityUrl' + productId];
+
+        var formData = new FormData(quantityInput.form);
+        formData.set('new_quantity', newQuantity);
+
+        fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Gérer la réponse JSON si nécessaire
+                console.log(data);
+
+                // Après l'ajustement de la quantité, mettre à jour le nombre d'articles dans le panier et le total du panier
+                getCartCount();
+                getCartTotal();
+
+                // Mettre à jour le total/produit dans le DOM
+                var totalContainer = document.getElementById('totalContainer');
+                totalContainer.innerText = data.updatedTotal + " €"; 
+            })
+            .catch(error => {
+                console.error('Erreur lors de la requête:', error);
+            });
+    }
+}
+
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("moveToFavoritesButton")) {
       event.preventDefault();
@@ -230,9 +280,10 @@ document.addEventListener("DOMContentLoaded", () => {
         event.target.getAttribute("data-delete-route");
     }
   });
-
   // Appeler la fonction au chargement de la page
   window.onload = function () {
     getCartCount();
   };
 });
+
+

@@ -36,7 +36,7 @@ class CartController extends AbstractController
 
         return new JsonResponse([
             'message' => 'Produit ajouté au panier.',
-            'cartTotal' => $cartTotal,  
+            'cartTotal' => $cartTotal,
         ]);
     }
 
@@ -49,7 +49,8 @@ class CartController extends AbstractController
             throw $this->createNotFoundException("L'article n'existe pas");
         }
 
-        if ($cartManager->remove($product)) {}
+        if ($cartManager->remove($product)) {
+        }
 
         return new JsonResponse(['message' => 'Produit supprimé du panier.']);
     }
@@ -64,25 +65,34 @@ class CartController extends AbstractController
         return $this->redirectToRoute('front_cart_index');
     }
 
-    #[Route('/{id<\d+>}', name: 'adjust_quantity', methods: ['POST'])]
-    public function adjustQuantity(CartManager $cartManager, Product $product = null, Request $request): Response
+    #[Route('/ajuster-quantite/{id<\d+>}', name: 'adjust_quantity_ajax', methods: ['POST'])]
+    public function adjustQuantityAjax(CartManager $cartManager, Product $product = null, Request $request): JsonResponse
     {
         if ($product === null) {
-            throw $this->createNotFoundException("Le produit demandé n'existe pas");
+            return new JsonResponse([
+                'errorMessage' => "Le produit demandé n'existe pas"
+            ], 404);
         }
 
         $newQuantity = (int) $request->request->get('new_quantity', 1);
 
         if ($cartManager->setQuantity($product, $newQuantity)) {
-            $this->addFlash('success', 'La quantité de <strong>' . $product->getName() . '</strong> a été mise à jour.');
-        } else {
-            $this->addFlash(
-                'danger',
-                'La quantité de <strong>' . $product->getName() . '</strong> dans votre panier ne peut pas être mise à jour.'
-            );
-        }
+            $responseData = [
+                'successMessage' => 'La quantité de <strong>' . $product->getName() . '</strong> a été mise à jour.',
+            ];
 
-        return $this->redirectToRoute('front_cart_index');
+            // Si c'est une opération d'ajustement de la quantité, ajouter le total du panier mis à jour
+            if ($request->request->get('is_adjustment')) {
+                $cartTotal = $cartManager->getCartTotal();
+                $responseData['cartTotal'] = $cartTotal;
+            }
+
+            return new JsonResponse($responseData);
+        } else {
+            return new JsonResponse([
+                'errorMessage' => 'La quantité de <strong>' . $product->getName() . '</strong> dans votre panier ne peut pas être mise à jour.'
+            ], 400);
+        }
     }
 
     #[Route('/count', name: 'get_cart_count', methods: ['POST'])]
@@ -91,42 +101,9 @@ class CartController extends AbstractController
         return new JsonResponse(['cartCount' => $cartManager->getCartCount()]);
     }
 
-     #[Route('/total', name: 'get_total', methods: ['POST'])]
+    #[Route('/total', name: 'get_total', methods: ['POST'])]
     public function getCartTotal(CartManager $cartManager): JsonResponse
     {
         return new JsonResponse(['cartTotal' => $cartManager->getCartTotal()]);
     }
-    #[Route('/ajuster-quantite/{id<\d+>}', name: 'adjust_quantity_ajax', methods: ['POST'])]
-    public function adjustQuantityAjax(CartManager $cartManager, Product $product = null, Request $request): JsonResponse
-    {
-        if ($product === null) {
-            throw $this->createNotFoundException("Le produit demandé n'existe pas");
-        }
-
-        $newQuantity = (int) $request->request->get('new_quantity', 1);
-
-        if ($cartManager->setQuantity($product, $newQuantity)) {
-            $this->addFlash('success', 'La quantité de <strong>' . $product->getName() . '</strong> a été mise à jour.');
-        } else {
-            $this->addFlash(
-                'danger',
-                'La quantité de <strong>' . $product->getName() . '</strong> dans votre panier ne peut pas être mise à jour.'
-            );
-        }
-
-        // Si c'est une opération d'ajustement de la quantité, renvoyer le total du panier mis à jour
-        if ($request->request->get('is_adjustment')) {
-            $cartTotal = $cartManager->getCartTotal();
-            return new JsonResponse([
-                'message' => 'Quantité ajustée avec succès.',
-                'cartTotal' => $cartTotal,
-            ]);
-        }
-
-        // Si c'est une opération d'ajout au panier, renvoyer simplement un message de succès
-        return new JsonResponse(['message' => 'Produit ajouté au panier.']);
-    }
-
-    
-
 }

@@ -114,6 +114,9 @@ class CartManager
     return $totalInEuros;
     }
 
+
+    
+
     private function getSession()
     {
         return $this->requestStack->getCurrentRequest()->getSession();
