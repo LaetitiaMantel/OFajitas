@@ -2,8 +2,9 @@
 
 {% block stylesheets %}
 	{{ parent() }}			<link href="{{ asset ('css/cart.css') }}" rel="stylesheet"/>
+ {% endblock %}
 
-{% endblock %}
+
 
 
 {% block title %}
@@ -29,84 +30,64 @@
 			{% if cart is defined and cart|length > 0 %}
 				<div class="row">
 					<div class="col-md-8">
-						{% for cartItem in cart %}
-							<!-- Card pour chaque produit -->
-							<div class="card mb-3 product-card">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-md-6">
-											<a href="{{ path('front_product_show', {'slug': cartItem.product.slug}) }}">
-												<img src="{{ cartItem.product.picture }}" class="card-img-top product-image" alt="{{ cartItem.product.name }}">
-											</a>
-										</div>
-										<div class="col-md-6 d-flex flex-column justify-content-left">
-											<h6 class="card-title text center ">{{ cartItem.product.name }}</h6>
-											<div class="table-responsive">
-												<table class="table table-borderless">
-													<tbody>
-														<tr>
-															<td>
-																<div class="d-flex align-items-center text-start textContent mb-2">
-																	<ul>
-																		<li>
-<div class="d-flex align-items-center card-info">
-    <label for="quantityInput{{ cartItem.product.id }}" class="card-text me-2 quantity-label">Quantité : </label>
-    <form action="{{ path('front_cart_adjust_quantity_ajax', {'id': cartItem.product.id}) }}" method="POST" class="d-flex align-items-center" id="quantityForm">
-        <input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control me-2 quantity_input custom-input" min="1" id="quantityInput{{ cartItem.product.id }}" data-adjust-url="{{ path('front_cart_adjust_quantity_ajax', {'id': cartItem.product.id}) }}">
-    </form>
-</div>
+{% for cartItem in cart %}
+	<!-- Card pour chaque produit -->
+	<div class="card mb-3 product-card">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-6">
+					<a href="{{ path('front_product_show', {'slug': cartItem.product.slug}) }}">
+						<img src="{{ cartItem.product.picture }}" class="card-img-top product-image" alt="{{ cartItem.product.name }}">
+					</a>
+				</div>
+				<div class="col-md-6">
+					<table class="table table-borderless">
+						<tbody>
+							<tr>
+								<th scope="row">Produit</th>
+								<td>{{ cartItem.product.name }}</td>
+							</tr>
+							<tr>
+								<th scope="row">Prix</th>
+								<td>{{ (cartItem.product.getPrice() / 100) ~ ' €' }}</td>
+							</tr>
+							<tr>
+								<th scope="row">Quantité</th>
+								<td>
+									<label for="quantityInput{{ cartItem.product.id }}" class="visually-hidden">Quantité :</label>
+									<form action="{{ path('front_cart_adjust_quantity_ajax', {'id': cartItem.product.id}) }}" method="POST" class="d-flex align-items-center" id="quantityForm">
+										<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control me-2 quantity_input custom-input" min="1" id="quantityInput{{ cartItem.product.id }}" data-adjust-url="{{ path('front_cart_adjust_quantity_ajax', {'id': cartItem.product.id}) }}">
+									</form>
+								</td>
+							</tr>
+<tr>
+	<th scope="row">Sous-total</th>
+	<td>
+		<span id="product-subtotal-{{ cartItem.product.id }}">
+			{{ (cartItem.product.getPrice() * cartItem.quantity / 100) ~ ' €' }}
+		</span>
+	</td>
+</tr>
 
-																		</li>
-
-<li>
-	<p class="card-text mb-2 product-total" data-product-id="{{ cartItem.product.id }}">
-		Sous-total  :
-		<span>{{ (cartItem.product.getPrice() * cartItem.quantity / 100) ~ ' €' }}</span>
-	</p>
-</li>
-
-
-<li>
-	<p class="card-text mb-2 product-unit-price" data-product-id="{{ cartItem.product.id }}">
-		Prix  :
-		<span>{{ (cartItem.product.getPrice() / 100) ~ ' €' }}</span>
-	</p>
-</li>
-
-
-
-
-
-
-
-																		 
-<li>
-	<div class="btn-container">
-		<a class="btn btn-outline-danger btn-sm deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
-			<i class="bi bi-x"></i>
-			Supprimer
-		</a>
-		<button class="btn btn-outline-danger btn-sm moveToFavoritesButton" data-add-route="{{ path('front_favorite_add', {'id': cartItem.product.id}) }}" data-delete-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
-			<i class="bi bi-heart"></i>
-			Déplacer vers les favoris
-		</button>
+						</tbody>
+					</table>
+					<div class="btn-container d-flex justify-content-center">
+						<a class="btn btn-outline-danger btn-sm deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
+							<i class="bi bi-x"></i>
+							Supprimer
+						</a>
+						<button class="btn btn-outline-danger btn-sm moveToFavoritesButton" data-add-route="{{ path('front_favorite_add', {'id': cartItem.product.id}) }}" data-delete-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
+							<i class="bi bi-heart"></i>
+							Déplacer vers les favoris
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</li>
+{% endfor %}
 
-																	</ul>
 
-																</div>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div id="flashMessagesContainer-{{ cartItem.product.id }}"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						{% endfor %}
 					</div>
 					<div
 						class="col-md-4">

@@ -4,62 +4,52 @@
 }
 
 
-ul {
 
-    list-style: none;
-}
 .textContent {
     margin: 0;
     padding: 0;
     text-align: center;
 }
 
-.card-info ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-}
 
-.card-info li {
-    display: flex;
-    align-items: center; /* Centre verticalement */
-    justify-content: center; /* Centre horizontalement */
-    margin: 0 10px; /* Ajustez la marge selon vos préférences */
+.card-info{
+    white-space: none ;
 }
-
 #quantityForm {
     min-width: 4em;
     max-width: 5em;
 }
 
-.card-info .card-text {
-    margin: 0; 
-}
 
-.card-info .product-total,
-.card-info .product-unit-price {
-    margin-top: 5px; /* Ajoute un espace entre les éléments */
-}
+
+
 
 .card {
     display: flex;
     flex-direction: column;
 }
-
-.card-body .btn {
-    margin-top: 10px;
+ 
+/* Ajoutez le style ci-dessous pour réduire l'espace entre les éléments */
+.btn-container>* {
+    margin-top: 5px;
+    /* Ajustez selon vos besoins */
 }
 
 input[type="number"] {
     border: none;
     background-color: whitesmoke;
     font-size: 1em;
+    max-width: 5em;
+    min-width: 4em;
+    margin: none ;
+    padding-left: 0;
+   
 }
 
-
-.card-body .card-title{
-font-size: 1.25em;
-
+.card-body .card-title {
+ 
+    font-size: 1.25em;
+   text-align: left ;
 }
 
 .panier {

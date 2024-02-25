@@ -36,38 +36,45 @@ function handleAddToCartEvent(button, productId) {
 }
 
 // Fonction pour gérer les événements de suppression du panier et mise à jour du compteur
+// Fonction pour gérer les événements de suppression du panier et mise à jour du compteur
 function handleDeleteFromCartEvent(button, productId) {
   const route = button.getAttribute("data-route");
 
   sendAjaxRequest(
     route.replace("{id<\\d+>}", productId),
     "POST",
-    (data) => {
+    async (data) => {
       const productCard = button.closest(".product-card");
       if (productCard) {
         productCard.style.opacity = 0;
-        setTimeout(() => {
+        setTimeout(async () => {
           productCard.remove();
+          getCartTotal();
           getCartCount();
 
-          getCartTotal(); // Appel de getCartTotal après la suppression du produit
+          // Attendre un court délai pour s'assurer que les éléments sont mis à jour
+          await new Promise((resolve) => setTimeout(resolve, 100));
 
-          // Après avoir mis à jour le total, vérifiez si le panier est vide
-          const cartTotalContainer = document.getElementById(
-            "cart-total-container"
-          );
-          const cartTotal = parseFloat(cartTotalContainer.innerText);
+          
+          // Vérifier si le panier est vide après la suppression du produit
+          const cartCountContainer = document.getElementById("cart-count");
+          const cartCount = parseInt(cartCountContainer.innerText);
+
+          if (cartCount === 0) {
+            // Recharger la page si le panier est vide
+            window.location.href = window.location.href;
+          }
         }, 500);
       }
     },
     (error) => console.error("Erreur lors de la requête AJAX :", error)
   );
 }
+
+
 // Fonction pour vider le panier et mise à jour du compteur
 function emptyCartEvent(route) {
-  const flashMessagesContainer = document.getElementById(
-    "flashMessagesContainer"
-  );
+  const flashMessagesContainer = document.getElementById("flashMessagesContainer");
 
   sendAjaxRequest(
     route,
@@ -83,7 +90,6 @@ function emptyCartEvent(route) {
     (error) => console.error("Erreur lors de la requête AJAX :", error)
   );
 }
-
 // Fonction pour obtenir le nombre d'articles dans le panier
 function getCartCount() {
   const cartCountContainer = document.getElementById("cart-count");
@@ -188,13 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Gestion des événements de suppression du panier
-  document.querySelectorAll(".deleteFromCartButton").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      handleDeleteFromCartEvent(button, button.getAttribute("data-product-id"));
-    });
-  });
+  
 
   // Gestion de l'événement de vidage du panier
   const emptyCartButton = document.getElementById("emptyCartButton");
@@ -232,56 +232,27 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+//  fonction pour modifier le total par produit à la modification de la quantité : 
 
-
-
-// Fonction pour récupérer  le total/ produit 
-
-
-document.addEventListener("DOMContentLoaded", function () {
 function updateProductTotals(data) {
-  for (var productId in data.productTotals) {
+  console.log("Received data:", data);
+
+  for (let productId in data.productTotals) {
     if (data.productTotals.hasOwnProperty(productId)) {
-      var total = data.productTotals[productId];
-
-
-      // Mettez à jour le montant total à côté de chaque champ de quantité
-      var productTotalElement = document.querySelector(
-        '[data-product-id="' + productId + '"] span'
+      const total = data.productTotals[productId];
+      const productSubtotalElement = document.getElementById(
+        `product-subtotal-${productId}`
       );
-      if (productTotalElement) {
-        productTotalElement.textContent = total + " €";
+
+      if (productSubtotalElement) {
+        const subtotal = total;
+        console.log("Product ID:", productId);
+        console.log("Subtotal:", subtotal);
+        productSubtotalElement.textContent = subtotal + " €";
       }
     }
   }
 }
-
-
-  function initCartUpdateListener() {
-    document.addEventListener("cartUpdated", function () {
-      fetch("/front_cart_get_product_totals", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(
-              "Erreur lors de la récupération des totaux par produit"
-            );
-          }
-          return response.json();
-        })
-        .then((data) => {
-          updateProductTotals(data);
-        })
-        .catch((error) => {
-          console.error(error.message);
-        });
-    });
-  }
 
   // Fonction pour update la quantité Ajax :
   const quantityInputs = document.querySelectorAll('[id^="quantityInput"]');
@@ -291,59 +262,67 @@ function updateProductTotals(data) {
     quantityInput.addEventListener("blur", updateQuantity);
   });
 
-async function updateQuantity(event) {
-  const quantityInput = event.target;
-  const newQuantity = parseInt(quantityInput.value);
+  async function updateQuantity(event) {
+    const quantityInput = event.target;
+    const newQuantity = parseInt(quantityInput.value);
 
-  if (newQuantity >= 0) {
-    const productIdMatch = quantityInput.form.action.match(/\/(\d+)$/);
-    const productId = productIdMatch ? productIdMatch[1] : null;
+    if (newQuantity >= 0) {
+     const productIdMatch = quantityInput.form.action.match(/\/(\d+)$/);
+     console.log("Form action:", quantityInput.form.action);
+     const productId = productIdMatch ? productIdMatch[1] : null;
+     console.log("Extracted Product ID:", productId);
+      if (productId !== null) {
+        const url = window["adjustQuantityUrl" + productId];
 
-    if (productId !== null) {
-      const url = window["adjustQuantityUrl" + productId];
-
-      if (!url) {
-        console.error("L'URL d'ajustement de quantité n'est pas définie.");
-        return;
-      }
-
-      const formData = new FormData(quantityInput.form);
-      formData.set("new_quantity", newQuantity);
-
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          body: formData,
-        });
-
-        if (!response.ok) {
-          throw new Error("Erreur lors de la requête AJAX");
+        if (!url) {
+          console.error("L'URL d'ajustement de quantité n'est pas définie.");
+          return;
         }
 
-        const data = await response.json();
+        const formData = new FormData(quantityInput.form);
+        formData.set("new_quantity", newQuantity);
 
-       
-        getCartCount();
-        getCartTotal();
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            body: formData,
+          });
 
-        // Nouvelle mise à jour pour inclure les totaux par produit
-        updateProductTotals(data);
-      } catch (error) {
-        console.error("Erreur lors de la requête:", error);
+          if (!response.ok) {
+            throw new Error("Erreur lors de la requête AJAX");
+          }
+
+          const data = await response.json();
+
+          getCartCount();
+          getCartTotal();
+
+          // Nouvelle mise à jour pour inclure les totaux par produit
+          updateProductTotals(data);
+          // Ajouter cette ligne pour mettre à jour le sous-total dans la table
+          updateProductSubtotal(productId, data.subtotal);
+        } catch (error) {
+          console.error("Erreur lors de la requête:", error);
+        }
+      } else {
+        console.error(
+          "Impossible de récupérer l'ID du produit depuis l'URL du formulaire."
+        );
       }
     } else {
       console.error(
-        "Impossible de récupérer l'ID du produit depuis l'URL du formulaire."
+        "La nouvelle quantité doit être supérieure ou égale à zéro."
       );
     }
-  } else {
-    console.error("La nouvelle quantité doit être supérieure ou égale à zéro.");
   }
-}
-   // Initialiser le listener lors du chargement du DOM
-  initCartUpdateListener();
 
-});
+  function updateProductSubtotal(productId, newSubtotal) {
+    const productSubtotalElement = document.querySelector(
+      `.product-subtotal[data-product-id="${productId}"]`
+    );
 
-
+    if (productSubtotalElement) {
+      productSubtotalElement.textContent = newSubtotal + " €";
+    }
+  }
 
