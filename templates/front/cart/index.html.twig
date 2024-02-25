@@ -42,7 +42,7 @@
 																<div class="d-flex align-items-center text-start mb-2">
 																	<p class="card-text me-2">Quantité:</p>
 																	<form action="{{ path('front_cart_adjust_quantity_ajax', {'id': cartItem.product.id}) }}" method="POST" class="d-flex align-items-center" id="quantityForm">
-																	<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control me-2" min="0" style="width: 60px;" id="quantityInput">
+																	<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control me-2" min="1" style="width: 60px;" id="quantityInput">
 																</form>
 																</div>
 																<div class="d-flex justify-content-between align-items-center text-start">
@@ -108,11 +108,14 @@
 <script>
         const cartTotalUrl = "{{ path('front_cart_get_total') }}";
         var adjustQuantityBaseUrl = "{{ path('front_cart_adjust_quantity_ajax', {'id': 0}) }}"; 
+		
 
         {% for cartItem in cart %}
             var adjustQuantityUrl{{ cartItem.product.id }} = adjustQuantityBaseUrl.replace(/\/0$/, '/' + {{ cartItem.product.id }});
 		
         {% endfor %}
+
+
 
 </script>
 {% endblock %}

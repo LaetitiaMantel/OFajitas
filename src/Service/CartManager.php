@@ -114,6 +114,21 @@ class CartManager
     return $totalInEuros;
     }
 
+    public function getProductTotal(Product $product): float
+    {
+        $session = $this->getSession();
+        $cart = $this->getCartFromSession($session);
+        $productId = $product->getId();
+        $productTotal = 0;
+
+        if (array_key_exists($productId, $cart)) {
+            $quantity = $cart[$productId]['quantity'];
+            $productTotal = $product->getPrice() * $quantity / 100; 
+        }
+
+        return $productTotal;
+    }
+
 
     
 
@@ -131,4 +146,9 @@ class CartManager
     {
         $session->set('cart', $cart);
     }
+
+
+
+
+
 }
