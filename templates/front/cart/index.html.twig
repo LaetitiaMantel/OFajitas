@@ -1,10 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	Votre panier
+{% block stylesheets %}
+	{{ parent() }}			<link href="{{ asset ('css/cart.css') }}" rel="stylesheet"/>
+
 {% endblock %}
 
-{% block body %}
+
+{% block title %}
+	 Votre panier
+{% endblock %}
+
+{% block  body %}
 	{% if app.flashes('success') is not empty %}
 		<div class="alert alert-success" role="alert">
 			{{ app.flashes('success')[0] }}
@@ -15,9 +21,10 @@
 		</div>
 	{% endif %}
 
-	<section class="py-5">
-		<div class="container px-3 px-lg-5">
-			<h2 class="text-center mb-4">Votre panier</h2>
+<section id="cartSection" class="py-5">
+
+		<div class="container cartContainer  px-3 px-lg-5">
+			<h2 class="text-center mb-4 panier ">Votre panier</h2>
 
 			{% if cart is defined and cart|length > 0 %}
 				<div class="row">
@@ -33,30 +40,61 @@
 											</a>
 										</div>
 										<div class="col-md-6 d-flex flex-column justify-content-left">
-											<h6 class="card-title text-center">{{ cartItem.product.name }}</h6>
+											<h6 class="card-title text center ">{{ cartItem.product.name }}</h6>
 											<div class="table-responsive">
 												<table class="table table-borderless">
 													<tbody>
 														<tr>
 															<td>
-																<div class="d-flex align-items-center text-start mb-2">
-																	<p class="card-text me-2">Quantité:</p>
-																	<form action="{{ path('front_cart_adjust_quantity_ajax', {'id': cartItem.product.id}) }}" method="POST" class="d-flex align-items-center" id="quantityForm">
-																	<input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control me-2" min="1" style="width: 60px;" id="quantityInput">
-																</form>
-																</div>
-																<div class="d-flex justify-content-between align-items-center text-start">
-																	<p class="card-text mb-2">Total:
-																		{{ cartItem.quantity * (cartItem.product.getPrice()/100) }}€
-																	</p>
-																	<a class="btn btn-outline-danger btn-sm deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
-																		<i class="bi bi-x"></i>
-																		Supprimer
-																	</a>
-																	<button class="btn btn-outline-danger btn-sm moveToFavoritesButton" data-add-route="{{ path('front_favorite_add', {'id': cartItem.product.id}) }}" data-delete-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
-																		<i class="bi bi-heart"></i>
-																		Déplacer vers les favoris
-																	</button>
+																<div class="d-flex align-items-center text-start textContent mb-2">
+																	<ul>
+																		<li>
+<div class="d-flex align-items-center card-info">
+    <label for="quantityInput{{ cartItem.product.id }}" class="card-text me-2 quantity-label">Quantité : </label>
+    <form action="{{ path('front_cart_adjust_quantity_ajax', {'id': cartItem.product.id}) }}" method="POST" class="d-flex align-items-center" id="quantityForm">
+        <input type="number" name="new_quantity" value="{{ cartItem.quantity }}" class="form-control me-2 quantity_input custom-input" min="1" id="quantityInput{{ cartItem.product.id }}" data-adjust-url="{{ path('front_cart_adjust_quantity_ajax', {'id': cartItem.product.id}) }}">
+    </form>
+</div>
+
+																		</li>
+
+<li>
+	<p class="card-text mb-2 product-total" data-product-id="{{ cartItem.product.id }}">
+		Sous-total  :
+		<span>{{ (cartItem.product.getPrice() * cartItem.quantity / 100) ~ ' €' }}</span>
+	</p>
+</li>
+
+
+<li>
+	<p class="card-text mb-2 product-unit-price" data-product-id="{{ cartItem.product.id }}">
+		Prix  :
+		<span>{{ (cartItem.product.getPrice() / 100) ~ ' €' }}</span>
+	</p>
+</li>
+
+
+
+
+
+
+
+																		 
+<li>
+	<div class="btn-container">
+		<a class="btn btn-outline-danger btn-sm deleteFromCartButton" href="#" data-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
+			<i class="bi bi-x"></i>
+			Supprimer
+		</a>
+		<button class="btn btn-outline-danger btn-sm moveToFavoritesButton" data-add-route="{{ path('front_favorite_add', {'id': cartItem.product.id}) }}" data-delete-route="{{ path('front_cart_remove', {'id': cartItem.product.id}) }}" data-product-id="{{ cartItem.product.id }}">
+			<i class="bi bi-heart"></i>
+			Déplacer vers les favoris
+		</button>
+	</div>
+</li>
+
+																	</ul>
+
 																</div>
 															</td>
 														</tr>
@@ -80,7 +118,6 @@
 								{% set total = 0 %}
 								{% for cartItem in cart %}
 									{% set total = total + (cartItem.quantity * (cartItem.product.getPrice()/100)) %}
-
 								{% endfor %}
 										<h6 class="mb-3">Total de la commande</h6>
 										<p class="mb-4" id="cart-total-container">
@@ -106,16 +143,14 @@
 	</section>
 
 <script>
-        const cartTotalUrl = "{{ path('front_cart_get_total') }}";
-        var adjustQuantityBaseUrl = "{{ path('front_cart_adjust_quantity_ajax', {'id': 0}) }}"; 
-		
+    const cartTotalUrl = "{{ path('front_cart_get_total') }}";
+    {% for cartItem in cart %}
+        var adjustQuantityUrl{{ cartItem.product.id }} = "{{ path('front_cart_adjust_quantity_ajax', {'id': cartItem.product.id}) }}";
+		     const url{{ cartItem.product.id }} = adjustQuantityUrl{{ cartItem.product.id }};
+    {% endfor %}
 
-        {% for cartItem in cart %}
-            var adjustQuantityUrl{{ cartItem.product.id }} = adjustQuantityBaseUrl.replace(/\/0$/, '/' + {{ cartItem.product.id }});
-		
-        {% endfor %}
-
-
+   
 
 </script>
+
 {% endblock %}

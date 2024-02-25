@@ -79,13 +79,17 @@ class CartController extends AbstractController
         if ($cartManager->setQuantity($product, $newQuantity)) {
             $responseData = [
                 'successMessage' => 'La quantité de <strong>' . $product->getName() . '</strong> a été mise à jour.',
+                'quantity' => $newQuantity,
+                'price' => $product->getPrice(), 
             ];
 
-            // Si c'est une opération d'ajustement de la quantité, ajouter le total du panier mis à jour
-            if ($request->request->get('is_adjustment')) {
-                $cartTotal = $cartManager->getCartTotal();
-                $responseData['cartTotal'] = $cartTotal;
-            }
+            // Ajoutez le total du panier mis à jour
+            $cartTotal = $cartManager->getCartTotal();
+            $responseData['cartTotal'] = $cartTotal;
+
+            // Ajoutez le total par produit mis à jour
+            $productTotals = $cartManager->getProductTotals();
+            $responseData['productTotals'] = $productTotals;
 
             return new JsonResponse($responseData);
         } else {
@@ -94,6 +98,8 @@ class CartController extends AbstractController
             ], 400);
         }
     }
+
+
 
     #[Route('/count', name: 'get_cart_count', methods: ['POST'])]
     public function getCartCount(CartManager $cartManager): JsonResponse
@@ -106,4 +112,16 @@ class CartController extends AbstractController
     {
         return new JsonResponse(['cartTotal' => $cartManager->getCartTotal()]);
     }
+
+
+    // test update produit : 
+
+
+    #[Route('/get_product_totals', name: 'get_product_totals', methods: ['GET'])] 
+    public function getProductTotalsAction(Request $request, CartManager $cartManager): JsonResponse {
+    $productTotals = $cartManager->getProductTotals();
+
+    return $this->json($productTotals);
+    }
+
 }

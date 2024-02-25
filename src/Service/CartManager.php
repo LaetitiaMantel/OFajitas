@@ -113,25 +113,7 @@ class CartManager
 
     return $totalInEuros;
     }
-
-    public function getProductTotal(Product $product): float
-    {
-        $session = $this->getSession();
-        $cart = $this->getCartFromSession($session);
-        $productId = $product->getId();
-        $productTotal = 0;
-
-        if (array_key_exists($productId, $cart)) {
-            $quantity = $cart[$productId]['quantity'];
-            $productTotal = $product->getPrice() * $quantity / 100; 
-        }
-
-        return $productTotal;
-    }
-
-
-    
-
+ 
     private function getSession()
     {
         return $this->requestStack->getCurrentRequest()->getSession();
@@ -148,7 +130,22 @@ class CartManager
     }
 
 
+ // test pour udpate le prix par produit : 
+    public function getProductTotals(): array
+    {
+        $cart = $this->getCart();
+        $productTotals = [];
 
+        foreach ($cart as $cartItem) {
+            $product = $cartItem['product'];
+            $quantity = $cartItem['quantity'];
+            $total = $product->getPrice() * $quantity;
+            $totalInEuros = $total / 100;
 
+            $productTotals[$product->getId()] = $totalInEuros;
+        }
 
+        return $productTotals;
+    }
+    
 }
