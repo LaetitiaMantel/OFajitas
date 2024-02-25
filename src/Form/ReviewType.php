@@ -3,9 +3,7 @@
 
 namespace App\Form;
 
-use App\Entity\Movie;
 use App\Entity\Review;
-use DateTimeImmutable;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

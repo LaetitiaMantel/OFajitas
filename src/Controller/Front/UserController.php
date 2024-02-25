@@ -187,7 +187,8 @@ class UserController extends AbstractController
         $user = $this->getUser();
 
         if ($user) {
-            return new JsonResponse(['success' => $user->getFirstname() . ' utilisateur connécter.'], Response::HTTP_OK);
+
+            return new JsonResponse(['success' => $user->User->getFirstname() . ' utilisateur connécter.'], Response::HTTP_OK);
         } else {
             // Le produit était déjà dans les favoris
             return new JsonResponse(['info' =>  'false'], Response::HTTP_OK);

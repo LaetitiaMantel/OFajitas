@@ -13,43 +13,35 @@
 							<h2 class="card-title">
 								Vos informations de livraison
 							</h2>
-
 							<div class="mb-3">
 								<label for="firstName" class="form-label">Prénom:</label>
 								<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Entrez votre prénom" value="{{ app.user.firstName ?? '' }}">
 							</div>
-
 							<div class="mb-3">
 								<label for="lastName" class="form-label">Nom:</label>
 								<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Entrez votre nom" value="{{ app.user.lastName ?? '' }}">
 							</div>
-
 							<!-- Autres champs de formulaire pour les informations de l'utilisateur -->
 							<div class="mb-3">
 								<label for="address" class="form-label">Adresse:</label>
 								<input type="text" class="form-control" id="address" name="address" placeholder="Adresse">
 							</div>
-
 							<div class="mb-3">
 								<label for="addressComplement" class="form-label">Complément d'adresse:</label>
 								<input type="text" class="form-control" id="addressComplement" name="addressComplement" placeholder="Complément d'adresse">
 							</div>
-
 							<div class="mb-3">
 								<label for="postalCode" class="form-label">Code postal:</label>
 								<input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Code postal">
 							</div>
-
 							<div class="mb-3">
 								<label for="city" class="form-label">Ville:</label>
 								<input type="text" class="form-control" id="city" name="city" placeholder="Ville">
 							</div>
-
 							<div class="mb-3">
 								<label for="phone" class="form-label">Numéro de téléphone:</label>
 								<input type="text" class="form-control" id="phone" name="phone" placeholder="Entrez votre numéro de téléphone">
 							</div>
-
 							<div class="mb-3 form-check">
 								<input type="checkbox" class="form-check-input" id="billingCheckbox">
 								<label class="form-check-label" for="billingCheckbox">Adresse de Facturation (si différente de l'adresse principale)</label>
@@ -101,8 +93,17 @@
 
 						<!-- Le formulaire de paiement Stripe -->
 						<form action="{{ path('front_order_payment_done', {'orderRef': orderRef}) }}" method="post" id="stripePaymentForm">
+						<!-- Le formulaire de paiement Stripe -->
+						<form action="{{ path('front_order_payment_done', {'orderRef': orderRef}) }}" method="post" id="stripePaymentForm">
 
 							<h2 class="card-title">Paiement</h2>
+							<h2 class="card-title">Paiement</h2>
+
+							<div class="mb-3">
+								<label for="amount">Montant à payer:
+									{{ totalAmount }}
+									€
+								</label>
 
 							<div class="mb-3">
 								<label for="amount">Montant à payer:
@@ -112,15 +113,25 @@
 
 
 								<input type="hidden" id="amount" name="amount" value="{{ totalAmount }}">
+								<input type="hidden" id="amount" name="amount" value="{{ totalAmount }}">
 
 							</div>
+							</div>
 
+							<div class="mb-3"></div>
 							<div class="mb-3"></div>
 
 							<div id="cardNumber-element"></div>
 							<div id="cardExpiry-element"></div>
 						</div>
+							<div id="cardNumber-element"></div>
+							<div id="cardExpiry-element"></div>
+						</div>
 
+						<div class="mb-3">
+							<div id="cardCvc-element"></div>
+						</div>
+						<button type="submit" class="btn btn-primary-payment mx-auto d-block" id="payButton">Payer</button>
 						<div class="mb-3">
 							<div id="cardCvc-element"></div>
 						</div>
@@ -140,3 +151,4 @@
 
 
 {% endblock %}
+

@@ -10,7 +10,7 @@ async function createFavoris() {
     // Sélectionnez tous les boutons "supprimer un favorie"
     const removeButtons = document.querySelectorAll('#remove');
 
-    //Sélectionnez le bouton "Supprimer tout les favoris"
+    //Sélectionnez le bouton "Supprimer tous les favoris"
     const emptyButton = document.querySelector('#empty');
 
     //Sélectionnez le coeur du menu 
