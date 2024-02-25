@@ -1,0 +1,61 @@
+.card-body {
+    background-color: whitesmoke;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.textContent {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+
+.card-info{
+    white-space: none ;
+}
+#quantityForm {
+    min-width: 4em;
+    max-width: 5em;
+}
+
+
+
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+ 
+/* Ajoutez le style ci-dessous pour réduire l'espace entre les éléments */
+.btn-container>* {
+    margin-top: 5px;
+    /* Ajustez selon vos besoins */
+}
+
+input[type="number"] {
+    border: none;
+    background-color: whitesmoke;
+    font-size: 1em;
+    max-width: 5em;
+    min-width: 4em;
+    margin: none ;
+    padding-left: 0;
+   
+}
+
+.card-body .card-title {
+ 
+    font-size: 1.25em;
+   text-align: left ;
+}
+
+.panier {
+    font-size: 3em;
+    background: linear-gradient(to bottom right, #bfe198, #a2d0d6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
