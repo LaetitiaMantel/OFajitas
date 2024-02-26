@@ -16,6 +16,7 @@
 					<div class="product-image">
 						<div class="image-container position-relative">
 							<img src="{{ product.picture }}" alt="product" class="img-fluid">
+
 							{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 						</div>
 					</div>
