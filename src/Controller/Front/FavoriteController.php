@@ -34,8 +34,7 @@ class FavoriteController extends AbstractController
             
                 // on délègue toute la partie métier au service favoris Manager
                 if ($favoriteManager->add($product)) {
-                    // Le produit n'était pas dans les favoris, ajout avec succès
-                  
+                    // Le produit n'était pas dans les favoris, ajout avec succès                  
                     return new JsonResponse(['success' => $product->getName() . ' a été ajouté à vos favoris.'], Response::HTTP_OK);
                 } else {
                     // Le produit était déjà dans les favoris
@@ -78,11 +77,8 @@ class FavoriteController extends AbstractController
                     'danger',
                     'Les favoris ne peuvent pas être vidé '
                 );
-            }
-           
+            }           
             return $this->redirectToRoute('front_main_home');
-        }
-
-      
+        }      
     
 }

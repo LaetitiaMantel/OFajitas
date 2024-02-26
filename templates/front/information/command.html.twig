@@ -53,17 +53,10 @@
 				</div>
 			{% endfor %}
 		{% else %}
-<div class="text-center">
-	<p>Vous n'avez pas encore de commande, Découvrez tout de suite  nos produits :</p>
- 
-{{ render(controller('App\\Controller\\Front\\ProductController::getRandomProducts')) }}
-
-
-
-
-</div> 
-
+			<div class="text-center">
+				<p>Vous n'avez pas encore de commande, Découvrez tout de suite  nos produits :</p>
+				{{ render(controller('App\\Controller\\Front\\ProductController::getRandomProducts')) }}
+			</div>
 		{% endif %}
 	</div>
 {% endblock %}
-
