@@ -181,6 +181,7 @@ class UserController extends AbstractController
         // Récupérer l'utilisateur courant
         $user = $this->getUser();
 
+
         if ($user) {
             return new JsonResponse(['info' => 'true'], Response::HTTP_OK);
         } else {

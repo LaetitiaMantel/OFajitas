@@ -43,6 +43,7 @@ security:
         - { path: ^/back/user,                  roles: ROLE_SUPERADMIN }
         - { path: ^/back,                       roles: ROLE_MANAGER }
         - { path: ^/commandes,                  roles: ROLE_USER }
+
     
     # REFER :https://symfony.com/doc/6.4/security.html#hierarchical-roles
     role_hierarchy:
