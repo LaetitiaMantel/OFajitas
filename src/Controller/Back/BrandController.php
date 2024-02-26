@@ -78,7 +78,7 @@ class BrandController extends AbstractController
 
         return $this->render('back/brand/edit.html.twig', [
             'brand' => $brand,
-            'form' => $form,
+            'form'  => $form,
         ]);
     }
 

@@ -10936,8 +10936,10 @@ a{
   
 }
 .notification{
+  margin-top: 1em;
   color:green;
 }
+
 
 
 /* payment */
@@ -11000,6 +11002,17 @@ a{
   
 }
 
+.bandeau {
+  background-color: #fabb73;
+  color: #fff;
+  padding: 10px;
+  text-shadow: 0 0 4px #f55a42;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
 
 @keyframes spin {
     0% {
@@ -11009,5 +11022,24 @@ a{
     100% {
         transform: rotate(360deg);
     }
+}
+
+.favoriteTitle {
+  font-size: 3em;
+  background: linear-gradient(to bottom right, #bfe198, #a2d0d6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#hiddenForm {
+
+display: none;
+
+}
+
+.site-container {
+  padding-top: 50px;
+  min-height: calc(100vh - 600px);
 }
 

@@ -47,3 +47,33 @@ CART:quantity
 IsPick,0N PRODUCT, 1N CART
 :
 :
+
+// MCD final
+https://www.mocodo.net/?mcd=eNqNkUFuwyAQRfdzCg7AItmycxwrtdTaEXZadRVRM3JQbHABq2pPXwxJmuy6YoyH9__8gZpvC86EtOgcJels5mkacETtKflRU24kUtIp_02JN14MkBvthdLhwboikRCqNXkud1X8glvFPmehfXw6WdUhhQ0ORvcBRMOLPa-3h7ylZFWRDc-qLYF4MC1GpG6Ye2AA3tRWoo1dh-YiloQYKPf384p78HK5TEiJrrNq8spoOqnOzxZpMmaFD4pe-Nkl4ScR5luoedYWu5q_R9kLDa6XCXtFncyIRxP9RAYsdhmOQg3UmiE0Cue-QgNNSeM_Ip9ORmM1jx9oIZOy1NFHymGp8owvdnh7yxpKt1fdmd4lsiwqNjLgxWtZvDEyO7TRPEn-SBe2Gg2EKJTuYVD6jLI193PHmBMBIK-rNsvb40vRNNmuYOQBN4axRL-MYTFkK4_Ch2U1UeE2wCr4f6QAwC97Ps6G
+
+ORDER:adress, adressSupplement, zipCode, city, total
+Contains, 1N ORDER, 11 LIGNORDER
+LIGNORDER:quantity, price,
+Belong to,11 PRODUCT, 0N BRAND 
+BRAND:name,slug
+:
+
+toOrder, 0N USER, 11 ORDER
+:
+isOrder, 0N PRODUCT,11 LIGNORDER
+PRODUCT:name,description,picture,price,rate,status,slug
+Has,  0N CATEGORY, 11 PRODUCT
+CATEGORY:name,picture,home_order,slug
+
+USER:email,role,password,adresse, adressSupplement, zipCode, city, phoneNumber
+AddIn, 11 USER,  11 CART
+CART:quantity
+IsPick,0N PRODUCT, 1N CART
+:
+REVIEW: username, email, content, rating
+linkedTo, 11 PRODUCT, 0N REVIEW
+
+CONTACT_MESSAGE: name, email, message, created_at
+isSent, 11 USER, 01 CONTACT_MESSAGE
+
+
