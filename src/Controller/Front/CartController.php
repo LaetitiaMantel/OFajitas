@@ -80,7 +80,7 @@ class CartController extends AbstractController
             $responseData = [
                 'successMessage' => 'La quantité de <strong>' . $product->getName() . '</strong> a été mise à jour.',
                 'quantity' => $newQuantity,
-                'price' => $product->getPrice(), 
+                'price' => $product->getPrice(),
             ];
 
             // Ajoutez le total du panier mis à jour
@@ -113,12 +113,9 @@ class CartController extends AbstractController
         return new JsonResponse(['cartTotal' => $cartManager->getCartTotal()]);
     }
 
+    #[Route('/get_product_totals', name: 'get_product_totals', methods: ['GET'])]
 
-    // test update produit : 
-
-
-    #[Route('/get_product_totals', name: 'get_product_totals', methods: ['GET'])] 
-    public function getProductTotalsAction(Request $request, CartManager $cartManager): JsonResponse {
+    public function getProductTotalsAction( CartManager $cartManager): JsonResponse {
     $productTotals = $cartManager->getProductTotals();
 
     return $this->json($productTotals);
