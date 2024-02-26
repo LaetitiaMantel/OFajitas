@@ -63,8 +63,8 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'back_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
-        if (!in_array('ROLE_ADMIN', $user->getRoles()) || !in_array('ROLE_MANAGER', $user->getRoles())) {
-            $form = $this->createForm(CustomerType::class, $user);
+        if (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_MANAGER', $user->getRoles())) {
+            $form = $this->createForm(UserType::class, $user);
 
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
@@ -82,7 +82,7 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
             }
         } else {
-            $form = $this->createForm(UserType::class, $user);
+            $form = $this->createForm(CustomerType::class, $user);
 
             $form->handleRequest($request);
 
