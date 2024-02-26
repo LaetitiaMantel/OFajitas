@@ -1,4 +1,4 @@
 function fermerBandeau() {
-    var bandeau = document.getElementById("bandeau");
+    const bandeau = document.getElementById("bandeau");
     bandeau.style.display = "none";
 }
