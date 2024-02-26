@@ -8,17 +8,12 @@
 	<section class="py-5">
 		<div class="container px-4 px-lg-5">
 			<h2 class="text-center mb-4">Merci pour votre commande</h2>
-
 			<p>Votre commande ({{ orderRef }}) a été validée avec succès,
 				{{ app.user.firstname }}
 				{{ app.user.lastname }}
 				. Merci pour votre achat!</p>
-
-
 			<a href="{{ path('front_main_home') }}" class="btn btn-outline-danger btn-sm">Retour à l'accueil</a>
-			<a href="{{ path('front_user_order_info') }}" class="btn btn-outline-danger btn-sm">Tout mes achats </a>
-
+			<a href="{{ path('front_user_order_info') }}" class="btn btn-outline-danger btn-sm">Tous mes achats</a>
 		</div>
 	</section>
 {% endblock %}
-
