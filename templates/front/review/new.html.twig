@@ -6,7 +6,6 @@
 {% block body %}
 	<div class="container">
 		<h2 class="h2-color">Ajouter une critique</h2>
-
 		{{ include('front/review/_form.html.twig') }}
 		<form action="{{ path('front_product_show', {slug: product.slug}) }}" method="POST">
 			<button class="btn btn-outline-danger btn-buy mb-2">

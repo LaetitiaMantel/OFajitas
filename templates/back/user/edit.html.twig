@@ -6,10 +6,10 @@
 {% block body %}
 	<div class="container">
 		<h1>Modifier l'utilisateur</h1>
-	{% if (user.roles == 'ROLE_USER')%}
-		{{ include('back/customer/_form.html.twig', {'button_label': 'Enregistrer'}) }}
-    {% else %}
+	{% if 'ROLE_ADMIN' in user.roles or 'ROLE_MANAGER' in user.roles %}
         {{ include('back/user/_form.html.twig', {'button_label': 'Update'}) }}
+    {% else %}
+		{{ include('back/user/_customer.form.html.twig', {'button_label': 'Enregistrer'}) }}
 	{% endif %}
 
 		<a class="btn btn-success mb-2" href="{{ path('back_user_index') }}"> Retour à la liste </a>

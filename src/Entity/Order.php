@@ -29,6 +29,33 @@ class Order
     #[ORM\Column(length: 20)]
     private ?string $Ref = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $addressComplement = null;
+
+    #[ORM\Column]
+    private ?int $zipCode = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $phoneNumber = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $billingAddress = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $billingAddressComplement = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $billingZipCode = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $billingCity = null;
+
     public function __construct()
     {
         $this->LigneOrder = new ArrayCollection();
@@ -89,6 +116,114 @@ class Order
     public function setRef(string  $Ref): static
     {
         $this->Ref = $Ref;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getAddressComplement(): ?string
+    {
+        return $this->addressComplement;
+    }
+
+    public function setAddressComplement(?string $addressComplement): static
+    {
+        $this->addressComplement = $addressComplement;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?int
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(int $zipCode): static
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): static
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?int
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(?int $phoneNumber): static
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getBillingAddress(): ?string
+    {
+        return $this->billingAddress;
+    }
+
+    public function setBillingAddress(?string $billingAddress): static
+    {
+        $this->billingAddress = $billingAddress;
+
+        return $this;
+    }
+
+    public function getBillingAddressComplement(): ?string
+    {
+        return $this->billingAddressComplement;
+    }
+
+    public function setBillingAddressComplement(?string $billingAddressComplement): static
+    {
+        $this->billingAddressComplement = $billingAddressComplement;
+
+        return $this;
+    }
+
+    public function getBillingZipCode(): ?int
+    {
+        return $this->billingZipCode;
+    }
+
+    public function setBillingZipCode(?int $billingZipCode): static
+    {
+        $this->billingZipCode = $billingZipCode;
+
+        return $this;
+    }
+
+    public function getBillingCity(): ?string
+    {
+        return $this->billingCity;
+    }
+
+    public function setBillingCity(?string $billingCity): static
+    {
+        $this->billingCity = $billingCity;
 
         return $this;
     }

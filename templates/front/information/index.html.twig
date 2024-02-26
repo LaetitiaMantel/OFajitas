@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="container">
 		<h2 class="h2-color">Vos informations</h2>
-		
+
 		<table class="table">
 			<thead>
 				<tr>
@@ -17,20 +17,16 @@
 				</tr>
 			</thead>
 			<tbody>
-					<tr>
-						
-						<td>{{ user.email }}</td>
-						<td>{{ user.firstname }}</td>
-						<td>{{ user.lastname }}</td>
-						<td>
-						
-							<a class="btn btn-sm btn-warning mb-2" href="{{ path('front_user_edit', {'email': user.email}) }}">Modifier</a>
-							{# <a class="btn btn-sm btn-danger mb-2" href="{{ path('front_user_delete', {'email': user.email}) }}" >Supprimer mon compte</a> #}
-							{{ include('front/user/_delete_form.html.twig') }}
-						</td>
-					</tr>
-			
-
+				<tr>
+					<td>{{ user.email }}</td>
+					<td>{{ user.firstname }}</td>
+					<td>{{ user.lastname }}</td>
+					<td>
+						<a class="btn btn-sm btn-warning mb-2" href="{{ path('front_user_edit', {'email': user.email}) }}">Modifier</a>
+						{# <a class="btn btn-sm btn-danger mb-2" href="{{ path('front_user_delete', {'email': user.email}) }}" >Supprimer mon compte</a> #}
+						{{ include('front/user/_delete_form.html.twig') }}
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
