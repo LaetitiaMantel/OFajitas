@@ -37,7 +37,7 @@ function handleAddToCartEvent(button, productId) {
   );
 }
 
-// Fonction pour gérer les événements de suppression du panier et mise à jour du compteur
+
 // Fonction pour gérer les événements de suppression du panier et mise à jour du compteur
 function handleDeleteFromCartEvent(button, productId) {
   const route = button.getAttribute("data-route");
@@ -53,6 +53,7 @@ function handleDeleteFromCartEvent(button, productId) {
           productCard.remove();
           getCartTotal();
           getCartCount();
+          //essai raté pour recharger la page si il reste qu'un seul produit : 
 
           // Attendre un court délai pour s'assurer que les éléments sont mis à jour
           await new Promise((resolve) => setTimeout(resolve, 100));
@@ -92,6 +93,7 @@ function emptyCartEvent(route) {
     (error) => console.error("Erreur lors de la requête AJAX :", error)
   );
 }
+
 // Fonction pour obtenir le nombre d'articles dans le panier
 function getCartCount() {
   const cartCountContainer = document.getElementById("cart-count");
@@ -234,10 +236,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
+//-------------//
+
 //  fonction pour modifier le total par produit à la modification de la quantité : 
 
 function updateProductTotals(data) {
-  console.log("Received data:", data);
+  // console.log("Received data:", data);
 
   for (let productId in data.productTotals) {
     if (data.productTotals.hasOwnProperty(productId)) {
@@ -248,8 +253,8 @@ function updateProductTotals(data) {
 
       if (productSubtotalElement) {
         const subtotal = total;
-        console.log("Product ID:", productId);
-        console.log("Subtotal:", subtotal);
+        // console.log("Product ID:", productId);
+        // console.log("Subtotal:", subtotal);
         productSubtotalElement.textContent = subtotal + " €";
       }
     }
@@ -270,9 +275,9 @@ function updateProductTotals(data) {
 
     if (newQuantity >= 0) {
      const productIdMatch = quantityInput.form.action.match(/\/(\d+)$/);
-     console.log("Form action:", quantityInput.form.action);
+    //  console.log("Form action:", quantityInput.form.action);
      const productId = productIdMatch ? productIdMatch[1] : null;
-     console.log("Extracted Product ID:", productId);
+    //  console.log("Extracted Product ID:", productId);
       if (productId !== null) {
         const url = window["adjustQuantityUrl" + productId];
 

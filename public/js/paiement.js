@@ -49,17 +49,4 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
-
-  
-  // // Pour ouvrir le paiement après avoir rempli les information de livraison 
-  // const validateUserInfoButton = document.getElementById("validateUserInfo");
-  // const paymentCard = document.getElementById("paymentCard");
-
-  // validateUserInfoButton.addEventListener("click", function () {
-  //   paymentCard.style.display = "block";
-  // });
-
-  // function validateUserInfo() {
-  //   return true;
-  // }
 });
