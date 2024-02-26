@@ -11024,13 +11024,22 @@ a{
     }
 }
 
-
+.favoriteTitle {
+  font-size: 3em;
+  background: linear-gradient(to bottom right, #bfe198, #a2d0d6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 #hiddenForm {
 
 display: none;
 
-}.site-container {
+}
+
+.site-container {
   padding-top: 50px;
   min-height: calc(100vh - 600px);
 }
+
