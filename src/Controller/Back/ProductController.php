@@ -47,8 +47,8 @@ class ProductController extends AbstractController
         }
 
         return $this->render('back/product/new.html.twig', [
-            'product' => $product,
-            'form' => $form,
+            'product'   => $product,
+            'form'      => $form,
         ]);
     }
 
@@ -79,8 +79,8 @@ class ProductController extends AbstractController
         }
 
         return $this->render('back/product/edit.html.twig', [
-            'product' => $product,
-            'form' => $form,
+            'product'   => $product,
+            'form'      => $form,
         ]);
     }
 

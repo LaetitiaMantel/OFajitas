@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Attendez que le document soit prêt
+    // Attendre que le document soit prêt
     createFavoris();
 });
 
@@ -7,7 +7,7 @@ async function createFavoris() {
     // Sélectionnez tous les boutons "Ajouter aux favoris"
     const addToFavoritesButtons = document.querySelectorAll('#btn');
 
-    // Sélectionnez tous les boutons "supprimer un favorie"
+    // Sélectionnez tous les boutons "supprimer un favoris"
     const removeButtons = document.querySelectorAll('#remove');
 
     //Sélectionnez le bouton "Supprimer tous les favoris"
@@ -26,7 +26,6 @@ async function createFavoris() {
         const productId = button.getAttribute('data-product-id');
         const icon = button.querySelector('.icon');
         const isFavorited = favoris[productId];
-        //localStorage.getItem('favoris', JSON.stringify(favoris));
 
         // Si le produit est en favori, ajoutez la classe 'icon-plus' et 'bi-heart-fill' à l'icône
         if (isFavorited) {
@@ -35,8 +34,6 @@ async function createFavoris() {
             icon.classList.add('bi-heart-fill');
             heartMenu.classList.add('icon-plus');
         }
-        //console.log(isFavorited);
-
 
     });
 
@@ -44,7 +41,7 @@ async function createFavoris() {
     // Ajoutez un écouteur d'événements à chaque bouton
     removeButtons.forEach(button => {
         button.addEventListener('click', function (event) {
-
+            //ne pas recharger la page
             event.preventDefault();
 
             // Récupérez l'ID du produit à partir de l'attribut data-product-id
@@ -64,10 +61,13 @@ async function createFavoris() {
         });
     });
 
+    // Vérifie si la variable 'emptyButton' est définie et non nulle
     if (emptyButton) {
-
+        // Ajoute un écouteur d'événements de clic au bouton identifié par 'emptyButton'
         emptyButton.addEventListener('click', function () {
+            // Lorsque le bouton est cliqué, cette fonction est exécutée
 
+            // Supprime l'élément 'favoris' du stockage local du navigateur
             localStorage.removeItem('favoris');
 
         });

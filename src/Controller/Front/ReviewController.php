@@ -19,13 +19,10 @@ class ReviewController extends AbstractController
     {
         $review = new Review();
         $form = $this->createForm(ReviewType::class, $review);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             // association du produit courant avec la critique
             $review->setProduct($product);
-
             // on persiste et on sauvegarde
             $entityManager->persist($review);
             // on doit sauvegarder pour mettre en base la dernière critique
@@ -37,14 +34,11 @@ class ReviewController extends AbstractController
             $product->setRating($averageRating);
             // on sauvegarde
             $entityManager->flush();
-            
             $this->addFlash('success', 'La critique a été ajouté au produit.');
             $this->addFlash('success', 'La nouvelle note du produit est ' . (round($averageRating,2)));
-
             // on retourne sur la page de détail du produit
             return $this->redirectToRoute('front_product_show', ['slug' => $product->getSlug()]);
         }
-
         return $this->render('front/review/new.html.twig', [
             'product' => $product,
             'form'  => $form,
