@@ -264,13 +264,13 @@ class OrderController extends AbstractController
             }
 
             $this->addFlash('error', 'Le paiement a été refusé. Veuillez réessayer.');
-            return $this->redirectToRoute('front_cart_index');
+            return $this->redirectToRoute('front_order_confirm');
         } catch (\Stripe\Exception\CardException $e) {
             $this->addFlash('error', 'Erreur de carte : ' . $e->getMessage());
-            return $this->redirectToRoute('front_cart_index');
+            return $this->redirectToRoute('front_order_confirm');
         } catch (\Exception $e) {
             $this->addFlash('error', 'Une erreur s\'est produite : ' . $e->getMessage());
-            return $this->redirectToRoute('front_cart_index');
+            return $this->redirectToRoute('front_order_confirm');
         }
 
     }
