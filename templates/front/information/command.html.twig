@@ -7,48 +7,63 @@
 	<div class="container mt-5">
 		<h2 class="text-center mb-4">Vos achats</h2>
 
-		{% for order in orders|reverse %}
-			<div class="card mb-4">
-				<div class="card-header">
-					<h5 class="card-title">Commande n°
-						{{ order.getRef() }}
-						du 
-						{{ order.getCreatedAt()|date('d/m/Y') }}</h5>
+		{% if orders is not empty %}
+			{% for order in orders|reverse %}
+				<div class="card mb-4">
+					<div class="card-header">
+						<h5 class="card-title">Commande n°
+							{{ order.getRef() }}
+							du
+							{{ order.getCreatedAt()|date('d/m/Y') }}</h5>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Article</th>
+										<th class="text-center">Quantité</th>
+										<th class="text-center">Prix</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% set orderTotal = 0 %}
+									{% for orderLine in orderLines[order.getRef()] %}
+										<tr>
+											<td>{{ orderLine.getName() }}</td>
+											<td class="text-center">{{ orderLine.getQuantity() }}</td>
+											<td class="text-center">{{ orderLine.getPrice() / 100 }}
+												€</td>
+										</tr>
+										{% set orderTotal = orderTotal + (orderLine.getQuantity() * orderLine.getPrice()) %}
+									{% endfor %}
+									<tr>
+										<td colspan="2" class="text-end">
+											<strong>Total :</strong>
+										</td>
+										<td class="text-center">
+											<strong>{{ orderTotal / 100 }}
+												€</strong>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
-				<div class="card-body">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Article</th>
-								<th class="text-center">Quantité</th>
-								<th class="text-center">Prix</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% set orderTotal = 0 %}
-							{% for orderLine in orderLines[order.getRef()] %}
-								<tr>
-									<td>{{ orderLine.getName() }}</td>
-									<td class="text-center">{{ orderLine.getQuantity() }}</td>
-									<td class="text-center">{{ orderLine.getPrice() / 100 }}
-										€</td>
-								</tr>
-								{% set orderTotal = orderTotal + (orderLine.getQuantity() * orderLine.getPrice()) %}
-							{% endfor %}
-							<tr>
-								<td colspan="2" class="text-end">
-									<strong>Total :</strong>
-								</td>
-								<td class="text-center">
-									<strong>{{ orderTotal / 100 }}
-										€</strong>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		{% endfor %}
+			{% endfor %}
+		{% else %}
+<div class="text-center">
+	<p>Vous n'avez pas encore de commande, Découvrez tout de suite  nos produits :</p>
+ 
+{{ render(controller('App\\Controller\\Front\\ProductController::getRandomProducts')) }}
+
+
+
+
+</div> 
+
+		{% endif %}
 	</div>
 {% endblock %}
 
