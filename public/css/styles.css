@@ -10941,6 +10941,7 @@ a{
 }
 
 
+
 /* payment */
 
 
@@ -11023,3 +11024,13 @@ a{
     }
 }
 
+
+
+#hiddenForm {
+
+display: none;
+
+}.site-container {
+  padding-top: 50px;
+  min-height: calc(100vh - 600px);
+}
