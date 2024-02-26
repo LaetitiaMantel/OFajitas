@@ -375,6 +375,7 @@ class AppFixtures extends Fixture
         $user->setPassword('$2y$13$RLlU5yiOWZ.UrX2JLGsuzOYqQ1q2b8bnHC6fWNdmbDqU9vpN/GhYO');
         $user->setFirstname('Jonathan');
         $user->setLastname('Fajitas');
+        $user->setIsBanned(false);
         $manager->persist($user);
 
         // admin
@@ -384,6 +385,7 @@ class AppFixtures extends Fixture
         $user->setPassword('$2y$13$nLf0MAlwK3oQBNVeZJaXduk2O5CzhldPfG/9lDNCNgD5pHTaiIyOS');
         $user->setFirstname('Laet');
         $user->setLastname('Fajitas');
+        $user->setIsBanned(false);
         $manager->persist($user);
 
         // manager
@@ -393,6 +395,7 @@ class AppFixtures extends Fixture
         $user->setPassword('$2y$13$xw9rC.dF9jJmAXnPzTsny.PMghC.NEFlroHkXM92zCQox9SPqokMy');
         $user->setFirstname('Anna');
         $user->setLastname('Fajitas');
+        $user->setIsBanned(false);
         $manager->persist($user);
 
         // user
@@ -402,6 +405,7 @@ class AppFixtures extends Fixture
         $user->setPassword('$2y$13$/hHmOqI0nPYqOczmSlqGiOEHMh8GPs5H8F5aUUGiDtDHu9JMdudey');
         $user->setFirstname('Franck');
         $user->setLastname('Fajitas');
+        $user->setIsBanned(false);
         $manager->persist($user);
 
         $manager->flush();

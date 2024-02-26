@@ -47,3 +47,36 @@ CART:quantity
 IsPick,0N PRODUCT, 1N CART
 :
 :
+
+// MCD final, ajout tables review, messenger_messages, contact_message
+https://www.mocodo.net/?mcd=eNqNkk1u2zAQhfdzCh6Ai2TLnSILroFGCiSlRVcCLQ5kIhSpkFSC9vQdkbZjo5uuxJ_h9968ETTtrmqFVB5D4Cx_u3VZDM5oI2d_9FI6hZyNOv7mLLooDZTORqktPXisWSLQ6pF9P-zrtIPrSryv0sb0dPF6RA5PaJydCMTpxUvb7F7LnrOHmj21Rb1jkD7Cyhl5MOsEAiC6xiv0qeq1O4tlIQE6fF1ecHdezocZqTCMXi9RO8sXPcbVI8_GvIykGGVcQxb-Jqm_jVoWfbVv2l9J9kyDy2HGXlAnN-Pgkp_EgM2uwFlqw70zVChD-KQCnpPG_4h8OTmL9Tof0UOh1MEmHzmHbVUW7Wan7a9ZwyG86PGN3ySyDSoVCmirH4fqp2BrQJ_Ms-yPjTTVZICi0HYCo-0bqt7d9p1izgSAsqn7ouyH56rrin0l2B1uprbktLXhkbJVg4w0rC4pXBt4IP_3FIDtIdoJ_XBGBMGOTlEUJ5QULY3lfcUVhyz3hacwP0haHg2mnUKjP9BfpJ_pDtXtX1Szf7UA_gLP4vwk
+
+ORDER:adress, adressSupplement, zipCode, city, total
+Contains, 1N ORDER, 11 LIGNORDER
+LIGNORDER:quantity, price,
+Belong to,11 PRODUCT, 0N BRAND 
+BRAND:name,slug
+:
+
+toOrder, 0N USER, 11 ORDER
+:
+isOrder, 0N PRODUCT,11 LIGNORDER
+PRODUCT:name,description,picture,price,rate,status,slug
+Has,  0N CATEGORY, 11 PRODUCT
+CATEGORY:name,picture,home_order,slug
+
+USER:email,role,password,adresse, adressSupplement, zipCode, city, phoneNumber
+AddIn, 11 USER,  11 CART
+CART:quantity
+IsPick,0N PRODUCT, 1N CART
+:
+REVIEW: username, email, content, rating
+linkedTo, 11 PRODUCT, 0N REVIEW
+
+CONTACT_MESSAGE: name, email, message, created_at
+isSent, 11 USER, 01 CONTACT_MESSAGE
+
+messenger_messages: body, headers, queue_name, created_at, available_at, delivered_at
+isMailed, 0N USER, 1N messenger_messages
+
+

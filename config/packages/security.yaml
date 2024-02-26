@@ -21,7 +21,7 @@ security:
                 path: logout
                 # where to redirect after logout
                 # target: app_any_route
-
+            user_checker: App\Security\UserChecker
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800
@@ -39,6 +39,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/back/user,    roles: ROLE_SUPERADMIN }
         - { path: ^/back,    roles: ROLE_MANAGER }
     
     # REFER :https://symfony.com/doc/6.4/security.html#hierarchical-roles

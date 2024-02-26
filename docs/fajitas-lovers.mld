@@ -20,3 +20,35 @@ CART:id,id_product,id_user,quantity
 IsPick,PRODUCT,  CART
 :
 :
+
+MLD final
+https://www.mocodo.net/?mcd=eNp1UttOhDAQfe9X9AP6BbwhS9ZNdDEFNT6RbjthG6HFXjT69U65xqgvZZgy5zIcXj6dyueMasXo6KyKMrSpjh6cEQMwCoPQPaPSmgAmMOpE0KYjJ_-g5St74NXhsWgYpUXOG5KODOe1ahe0VCYw9haFCTp8klypk8GBx7rk61yq09xM5mwPbBTef1inmFAOvEclc1HHcexhmLR86bGwCq8kAqOBqzVwjsMFHCG9Nq-gGosUu0g-2SVLIzFOJhV46fQYtDVs1DJEh_xOS2DoFpgPIkTPfB87Jh1gS-WBxVEt1cUJo9LaJDY66z6xJrfCMzTXlMeKv-wiyNrayFfCqx2gRcO4q_-YSLDV9MG2vYofSk5IRm6gt6ajAf3udm94fj5Qov06tV3dnY7neXY6sz9-2MaP6IkgYW2i_1W4AWcrDmZrsUXXDKSspe3uFAXGS2jjV0v43CVmpKjOTV407X1Z1_mxnPP6I58DRkN0KQozZisC-q6nmGxR-4lCSBoC04Frl3E_I1-sQo1XEKjaJ9kQoZ3pdngM5DtSi0sP05uCXr-DW6nv8Q7UTv6b6xv-2SoJ
+
+REVIEW: id, product_id, username, email, content, rating
+IsPick,PRODUCT,  CART
+CART:id,id_product,id_user,quantity
+AddIn,  USER,  CART
+USER:id,email,role,password,adresse, adressSupplement, zipCode, city, phoneNumber
+
+linkedTo,  PRODUCT,  REVIEW
+PRODUCT:id,name,description,picture,price,rate,status,slug,createdAt,updatedAt,brand_id,category_id
+Has, CATEGORY,  PRODUCT
+CATEGORY:id,name,picture,home_order,slug,createdAt,updatedAt
+toOrder,  USER,  ORDER
+
+:
+Belong to, PRODUCT,  BRAND 
+isOrder,  PRODUCT, LIGNORDER
+ORDER:id_product,id_user,createdAt
+:
+
+:
+BRAND:id,name,slug,createdAt,updatedAt
+LIGNORDER:id_user, id_order, quantity, price,createdAt
+Contains,  ORDER,  LIGNORDER
+:
+CONTACT_MESSAGE: id, name, email, message, created_at
+isSent,  USER,  CONTACT_MESSAGE
+
+messenger_messages: id, body, headers, queue_name, created_at, available_at, delivered_at
+isMailed,  USER,  messenger_messages

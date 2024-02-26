@@ -64,13 +64,10 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Review::class)]
     private Collection $reviews;
 
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: LigneOrder::class, cascade: ['persist'])]
-    private Collection $ligneOrders;
-
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
-        $this->ligneOrders = new ArrayCollection();
+       
     }
 
 
@@ -249,4 +246,7 @@ class Product
 
         return $this;
     }
+
+
+    
 }

@@ -113,7 +113,7 @@ class CartManager
 
     return $totalInEuros;
     }
-
+ 
     private function getSession()
     {
         return $this->requestStack->getCurrentRequest()->getSession();
@@ -128,4 +128,24 @@ class CartManager
     {
         $session->set('cart', $cart);
     }
+
+
+ // test pour udpate le prix par produit : 
+    public function getProductTotals(): array
+    {
+        $cart = $this->getCart();
+        $productTotals = [];
+
+        foreach ($cart as $cartItem) {
+            $product = $cartItem['product'];
+            $quantity = $cartItem['quantity'];
+            $total = $product->getPrice() * $quantity;
+            $totalInEuros = $total / 100;
+
+            $productTotals[$product->getId()] = $totalInEuros;
+        }
+
+        return $productTotals;
+    }
+    
 }

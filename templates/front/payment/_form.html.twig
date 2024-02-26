@@ -1,0 +1,30 @@
+<h2>Vos informations de livraison :</h2>
+
+{{ form_start(form) }}
+
+{{ form_row(form.Firstname) }}
+{{ form_row(form.Lastname) }}
+{{ form_row(form.address) }}
+{{ form_row(form.addressComplement) }}
+{{ form_row(form.zipCode) }}
+{{ form_row(form.city) }}
+{{ form_row(form.phoneNumber) }}
+{{ form_row(form.useDifferentDeliveryAddress) }}
+
+<div id='hiddenForm'> 
+
+{{ form_row(form.billingAddress) }}
+{{ form_row(form.billingAddressComplement) }}
+{{ form_row(form.billingZipCode) }}
+{{ form_row(form.billingCity) }}
+</div>
+
+
+
+
+<button id="validateUserInfo" class="btn btn-warning mb-2">{{ button_label|default('Enregistrer') }}</button>
+
+<script src="{{ asset('js/customerInfo.js') }}"></script>
+
+{{ form_end(form) }}
+

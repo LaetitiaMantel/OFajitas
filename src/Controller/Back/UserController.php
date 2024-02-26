@@ -3,8 +3,10 @@
 namespace App\Controller\Back;
 
 use App\Entity\User;
+use App\Form\CustomerType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +20,7 @@ class UserController extends AbstractController
     #[Route('/', name: 'back_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        
+
         return $this->render('back/user/index.html.twig', [
             'users' => $userRepository->findByRole(),
         ]);
@@ -32,6 +34,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setIsBanned(false);
             $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
             $entityManager->persist($user);
             $entityManager->flush();
@@ -60,22 +63,44 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'back_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+        if (!in_array('ROLE_ADMIN', $user->getRoles()) || !in_array('ROLE_MANAGER', $user->getRoles())) {
+            $form = $this->createForm(CustomerType::class, $user);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $newPassword = $form->get('password')->getData();
-            if ($newPassword) {
-                $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $newPassword = $form->get('password')->getData();
+                if ($newPassword) {
+                    $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
+                }
+    
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    '<strong>' . $user->getFirstname() . '</strong> a été modifié dans votre base.'
+                );
+
+                return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
             }
-            $entityManager->flush();
-            $this->addFlash(
-                'success',
-                '<strong>' . $user->getFirstname() . '</strong> a été modifié dans votre base.'
-            );
+        } else {
+            $form = $this->createForm(UserType::class, $user);
 
-            return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $newPassword = $form->get('password')->getData();
+                if ($newPassword) {
+                    $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
+                }
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    '<strong>' . $user->getFirstname() . '</strong> a été modifié dans votre base.'
+                );
+
+                return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
+
 
         return $this->render('back/user/edit.html.twig', [
             'user' => $user,
@@ -86,7 +111,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'back_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
             $this->addFlash(
