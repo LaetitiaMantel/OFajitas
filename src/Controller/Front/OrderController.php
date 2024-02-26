@@ -80,16 +80,21 @@ class OrderController extends AbstractController
     }
 
     #[Route('/process', name: 'payment', methods: ['GET', 'POST'])]
-    public function process(CartManager $cartManager,EntityManagerInterface $em,Request $request, 
-    StripeApi $stripeApi,): Response
-    {
+    public function process(
+        CartManager $cartManager,
+        EntityManagerInterface $em,
+        Request $request,
+        StripeApi $stripeApi,
+    ): Response {
+
         $session = $this->getSession();
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $orderRef = $session->get('temporary_order_ref');
         $totalAmount = $cartManager->getCartTotal();
-    
+
         // Stocker le montant total en session pour l'utiliser dans le formulaire
         $session->set('payment_amount', $totalAmount);
-    
+
         // Récupérer la clé API de stripe ( .env)
         $stripePublicKey = $_ENV['STRIPE_PUBLIC_KEY'];
 
@@ -129,11 +134,11 @@ class OrderController extends AbstractController
                 'billingCity' => $billingCity,
             ]);
 
-             
+
             $em->persist($order);
 
 
-          
+
 
             //! enlever flush 
             // $em->flush();
@@ -144,15 +149,14 @@ class OrderController extends AbstractController
             // );
             // Redirigez vers la page de confirmation de paiement générique
             return $this->render('front/payment/payment.html.twig', [
-            'orderRef'          => $orderRef,
-            'totalAmount'       => $totalAmount,
-            'stripePublicKey'   => $stripePublicKey,
-            'order'             => $order,
-            'form'              => $form,
-            'user'              => $user
-        ]);
-
-            }
+                'orderRef'          => $orderRef,
+                'totalAmount'       => $totalAmount,
+                'stripePublicKey'   => $stripePublicKey,
+                'order'             => $order,
+                'form'              => $form,
+                'user'              => $user
+            ]);
+        }
 
 
         // Redirigez vers la page de confirmation de paiement générique
@@ -168,10 +172,13 @@ class OrderController extends AbstractController
 
 
     #[Route('/payment/{orderRef}', name: 'payment_done', methods: ['GET', 'POST'])]
-    public function payment(Request $request, $orderRef, CartManager $cartManager, 
-    StripeApi $stripeApi, EntityManagerInterface $em,
-    ): Response
-    {
+    public function payment(
+        Request $request,
+        $orderRef,
+        CartManager $cartManager,
+        StripeApi $stripeApi,
+        EntityManagerInterface $em,
+    ): Response {
         $user = $this->getUser();
         $session = $this->getSession();
         $temporaryOrder = $session->get('temporary_order');
@@ -188,6 +195,8 @@ class OrderController extends AbstractController
         $billingCity = $temporaryOrderData['billingCity'];
 
 
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         if (!$temporaryOrder || !isset($temporaryOrder['order'], $temporaryOrder['cart'], $temporaryOrderData)) {
             return $this->redirectToRoute('front_order_confirm');
         }
@@ -202,7 +211,7 @@ class OrderController extends AbstractController
             if ($paymentResult) {
                 // Paiement réussi
 
-//!  Ici  j'ai utilisé les variables que j'ai récupérée de la session  ( et les autres champs)
+                //!  Ici  j'ai utilisé les variables que j'ai récupérée de la session  ( et les autres champs)
                 $order = new Order;
                 $order->setUser($user);
                 $order->setRef($orderRef);
@@ -234,7 +243,6 @@ class OrderController extends AbstractController
                         $ligneOrder->setCreatedAt(new \DateTimeImmutable());
 
                         $em->persist($ligneOrder);
-
                     }
                 }
                 //! donc là c'est comme avant mais on perssist que mtn et on flush $order et $ligneorder : 
@@ -242,7 +250,7 @@ class OrderController extends AbstractController
                 $em->flush();
 
                 //! Pour pas que ses données restent en session j'efface la clé  que j'ai créer pour récupérer les data du formulaire : 
-                    $session->remove('temporary_order_data');
+                $session->remove('temporary_order_data');
 
 
                 $ligneOrders = $em->getRepository(LigneOrder::class)->findBy(['order' => $order]);
@@ -272,7 +280,6 @@ class OrderController extends AbstractController
             $this->addFlash('error', 'Une erreur s\'est produite : ' . $e->getMessage());
             return $this->redirectToRoute('front_order_confirm');
         }
-
     }
 
 
