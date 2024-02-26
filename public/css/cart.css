@@ -36,13 +36,14 @@
 }
 
 input[type="number"] {
-    border: none;
+    border: solid 1px #a2d0d6;
     background-color: whitesmoke;
     font-size: 1em;
     max-width: 5em;
     min-width: 4em;
     margin: none ;
-    padding-left: 0;
+    padding-left: 0.25em;
+    text-align: center;
    
 }
 
