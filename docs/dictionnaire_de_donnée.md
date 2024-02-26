@@ -109,14 +109,3 @@
 | content    | LONGTEXT    | NOT NULL              | contenu du message             |
 | created_at | DATETIME    | NOT NULL              | date de création               |
 
-## Table des messenger_messages
-
-| Champ       | Type        | Spécificités          | Description                    |
-| ----------  | ----------- | --------------------- | ------------------------------ |
-| id          | INT(11)     | PRIMARY KEY, NOT NULL | identifiant du message         |
-| body        | LONGTEXT    | NOT NULL              | contenu                        |
-| headers     | LONGTEXT    | NOT NULL              |                                |
-| queue_name  | VARCHAR(190)| NOT NULL              |                                |
-| created_at  | DATETIME    | NOT NULL              | date de création               |
-| available_at| DATETIME    | NOT NULL              | date de disponibilité          |
-| delivered_at| DATETIME    | NULL                  | date d'envoi                   |
