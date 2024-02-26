@@ -120,12 +120,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/supprimer/{email}', name: 'delete', methods: ['POST'])]
-    public function delete(
-        Request $request,
-        string $email,
-        EntityManagerInterface $entityManager,
-        TokenStorageInterface $tokenStorage
-    ): Response {
+    public function delete(Request $request,string $email,EntityManagerInterface $entityManager,TokenStorageInterface $tokenStorage): Response {
         $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
 
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
@@ -187,10 +182,8 @@ class UserController extends AbstractController
         $user = $this->getUser();
 
         if ($user) {
-
-            return new JsonResponse(['success' => $user->getFirstname() . ' utilisateur connécter.'], Response::HTTP_OK);
+            return new JsonResponse(['info' => 'true'], Response::HTTP_OK);
         } else {
-            // Le produit était déjà dans les favoris
             return new JsonResponse(['info' =>  'false'], Response::HTTP_OK);
         }
     }

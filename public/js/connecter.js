@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Attendez que le document soit prêt
+    // Attendre que le document soit prêt
     iconUserColor();
 });
 
@@ -15,7 +15,7 @@ async function iconUserColor() {
         if (response.ok) {
             const data = await response.json();
 
-            // Mettre à jour l'interface utilisateur pour refléter les changements si nécessaire
+            // Mettre à jour l'interface utilisateur pour refléter les changements 
             if (data['info'] === 'false') {
                 iconUser.classList.remove('h2-color');
             } else {
