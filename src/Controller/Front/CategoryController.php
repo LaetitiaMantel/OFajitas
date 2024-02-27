@@ -20,6 +20,9 @@ class CategoryController extends AbstractController
 
         // Récupère les produits correspondant au slug
         $products = $productRepository->findByCategory($slug);
+        if ($category === null) {
+            throw $this->createNotFoundException("La catégorie demandée n'existe pas");
+        }
 
         return $this->render('front/product/productList.html.twig', [
             'products' => $products,
