@@ -18,6 +18,9 @@ class BrandController extends AbstractController
 
         // Récupère les produits par marque
         $products = $productRepository->findByBrand($slug);
+        if ($brand === null) {
+            throw $this->createNotFoundException("La marque demandée n'existe pas");
+        }
 
         return $this->render('front/product/productList.html.twig', [
             'brand' => $brand,
