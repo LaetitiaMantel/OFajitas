@@ -55,7 +55,7 @@ class Order
             maxMessage: "Le numéro de téléphone doit contenir maximum 10 chiffres."
     )]
     #[Assert\Regex(
-        pattern: "/^\d{10}$/",
+        pattern: "/^\d{9}$/",
         message: "Le numéro de téléphone doit contenir exactement 10 chiffres."
     )]
      #[ORM\Column(nullable: true)]
