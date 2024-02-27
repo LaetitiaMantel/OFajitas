@@ -49,19 +49,6 @@
 								{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
 							</div>
 
-							<!-- Product details-->
-							<div class="card-body p-4">
-								<div
-									class="text-center">
-									<!-- Product name-->
-									<h5 class="fw-bolder">{{ product.name }}</h5>
-									<!-- Product price-->
-									{# Affiche le prix / 100 #}
-									{% set price = product.getPrice()/100 %}
-									{# Affiche le prix réel #}
-									{{ price }}
-									€
-								</div>
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div
