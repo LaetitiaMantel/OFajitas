@@ -256,13 +256,25 @@ function updateProductTotals(data) {
 }
 
   // Fonction pour update la quantité Ajax :
-  const quantityInputs = document.querySelectorAll('[id^="quantityInput"]');
+const quantityForms = document.querySelectorAll('[id^="quantityForm"]');
 
-  quantityInputs.forEach((quantityInput) => {
+quantityForms.forEach((quantityForm) => {
+    quantityForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Empêcher la soumission du formulaire
+        updateQuantity(event);
+    });
+
+    const quantityInput = quantityForm.querySelector('.quantity_input');
+
     quantityInput.addEventListener("change", updateQuantity);
     quantityInput.addEventListener("blur", updateQuantity);
-  });
-
+    quantityInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Empêcher la soumission du formulaire
+            updateQuantity(event);
+        }
+    });
+});
   async function updateQuantity(event) {
     const quantityInput = event.target;
     const newQuantity = parseInt(quantityInput.value);
