@@ -130,8 +130,8 @@ function getCartTotal() {
   );
 }
 
-// Gestion de l'événement de déplacement vers les favoris
-document.addEventListener("click", function (event) {
+// Définir la fonction de gestion du déplacement vers les favoris
+function handleMoveToFavorites(event) {
   if (event.target.classList.contains("moveToFavoritesButton")) {
     event.preventDefault();
 
@@ -166,21 +166,16 @@ document.addEventListener("click", function (event) {
               }, 500);
             }
           },
-          (error) =>
-            console.error(
-              "Erreur lors de la requête AJAX pour supprimer du panier :",
-              error
-            )
+          (error) => console.error("Erreur lors de la requête AJAX pour supprimer du panier :", error)
         );
       },
-      (error) =>
-        console.error(
-          "Erreur lors de la requête AJAX pour ajouter aux favoris :",
-          error
-        )
+      (error) => console.error("Erreur lors de la requête AJAX pour ajouter aux favoris :", error)
     );
   }
-});
+}
+
+// Ajouter l'écouteur d'événements
+document.addEventListener("click", handleMoveToFavorites);
 
 // Appeler les fonctions au chargement de la page
 document.addEventListener("DOMContentLoaded", () => {
