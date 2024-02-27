@@ -6,6 +6,7 @@ use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: "`order`")]
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
@@ -29,19 +30,35 @@ class Order
     #[ORM\Column(length: 20)]
     private ?string $Ref = null;
 
+    #[Assert\NotBlank()]
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $addressComplement = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min: 5,
+        max: 10,
+        minMessage: "Le mot de passe doit contenir au moins 5 caractères.",
+    )]
     #[ORM\Column]
     private ?int $zipCode = null;
 
+    #[Assert\NotBlank()]
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
-    #[ORM\Column(nullable: true)]
+    #[Assert\Length(
+            max: 10,
+            maxMessage: "Le numéro de téléphone doit contenir maximum 10 chiffres."
+    )]
+    #[Assert\Regex(
+        pattern: "/^\d{10}$/",
+        message: "Le numéro de téléphone doit contenir exactement 10 chiffres."
+    )]
+     #[ORM\Column(nullable: true)]
     private ?int $phoneNumber = null;
 
     #[ORM\Column(length: 255, nullable: true)]

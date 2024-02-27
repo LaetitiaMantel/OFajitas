@@ -7,16 +7,16 @@
 
 {% block body %}
 	<!-- Section-->
-	<section class="py-5">
+	<section class="">
 		<div class="container px-4 px-lg-5">
 			{% if (app.current_route == 'front_product_index') %}
-				<h2 class="h2-color">Tous les produits</h2>
+				<h2 class="text-center mb-5 favoriteTitle">Tous les produits</h2>
 			{% elseif (app.current_route == 'front_main_search') %}
-				<h2 class="h2-color">Résultats de la recherche</h2>
+				<h2 class="text-center mb-5 favoriteTitle">Résultats de la recherche</h2>
 			{% elseif (app.current_route == 'front_category_show') %}
-				<h2 class="h2-color">{{category.name }}</h2>
+				<h2 class="text-center mb-5 favoriteTitle">{{category.name }}</h2>
 			{% else %}
-				<h2 class="h2-color">{{brand.name }}</h2>
+				<h2 class="text-center mb-5 favoriteTitle">{{brand.name }}</h2>
 			{% endif %}
 			<div class="row gx-4 gx-lg-5 row-cols-md-3 row-cols-xl-4 justify-content-center">
 				{% for product in products %}

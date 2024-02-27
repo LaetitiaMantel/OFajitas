@@ -35,7 +35,7 @@
 					</div>
 				{% endfor %}
 			</div>
-			<h2 class="h2-color">Les nouveautés</h2>
+			<h2 class="text-center mb-5 favoriteTitle">Les nouveautés</h2>
 			<div class="row gx-4 gx-lg-5 row-cols-md-3 row-cols-xl-4 justify-content-center">
 				{% for product in newProducts %}
 					<div class="col-sm-4 mb-5">
@@ -43,11 +43,11 @@
 							class="card h-100">
 							<!-- Product image-->
 							<div class="image-container position-relative">
-								<a href="{{ path('front_product_show', {slug: product.slug}) }}">
+								<a href="{{ path('front_product_show', {slug: product.slug}) }}"> 
 									<img class="card-img-top" src="{{ product.picture }}" alt="...">
-
 									{{ include('front/favoris/_bookmark.html.twig', {key: product.id}) }}
-								</div>
+							</div>
+
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div
