@@ -38,7 +38,6 @@ function handleAddToCartEvent(button, productId) {
 }
 
 // Fonction pour gérer les événements de suppression du panier et mise à jour du compteur
-// Fonction pour gérer les événements de suppression du panier et mise à jour du compteur
 function handleDeleteFromCartEvent(button, productId) {
   const route = button.getAttribute("data-route");
 
@@ -145,8 +144,6 @@ document.addEventListener("click", function (event) {
       addToFavoriteRoute,
       "GET",
       (data) => {
-
-
         sendAjaxRequest(
           deleteFromCartRoute,
           "POST",
@@ -159,6 +156,13 @@ document.addEventListener("click", function (event) {
                 productCard.remove();
                 getCartCount();
                 getCartTotal();
+
+                const cartCountContainer = document.getElementById("cart-count");
+                const cartCount = parseInt(cartCountContainer.innerText);
+                if (cartCount === 0) {
+                  // Recharger la page si le panier est vide
+                  window.location.href = window.location.href;
+                }
               }, 500);
             }
           },
