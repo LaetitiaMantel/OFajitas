@@ -38,7 +38,6 @@ function handleAddToCartEvent(button, productId) {
 }
 
 // Fonction pour gérer les événements de suppression du panier et mise à jour du compteur
-// Fonction pour gérer les événements de suppression du panier et mise à jour du compteur
 function handleDeleteFromCartEvent(button, productId) {
   const route = button.getAttribute("data-route");
 
@@ -131,8 +130,8 @@ function getCartTotal() {
   );
 }
 
-// Gestion de l'événement de déplacement vers les favoris
-document.addEventListener("click", function (event) {
+// Définir la fonction de gestion du déplacement vers les favoris
+function handleMoveToFavorites(event) {
   if (event.target.classList.contains("moveToFavoritesButton")) {
     event.preventDefault();
 
@@ -145,8 +144,6 @@ document.addEventListener("click", function (event) {
       addToFavoriteRoute,
       "GET",
       (data) => {
-
-
         sendAjaxRequest(
           deleteFromCartRoute,
           "POST",
@@ -159,24 +156,26 @@ document.addEventListener("click", function (event) {
                 productCard.remove();
                 getCartCount();
                 getCartTotal();
+
+                const cartCountContainer = document.getElementById("cart-count");
+                const cartCount = parseInt(cartCountContainer.innerText);
+                if (cartCount === 0) {
+                  // Recharger la page si le panier est vide
+                  window.location.href = window.location.href;
+                }
               }, 500);
             }
           },
-          (error) =>
-            console.error(
-              "Erreur lors de la requête AJAX pour supprimer du panier :",
-              error
-            )
+          (error) => console.error("Erreur lors de la requête AJAX pour supprimer du panier :", error)
         );
       },
-      (error) =>
-        console.error(
-          "Erreur lors de la requête AJAX pour ajouter aux favoris :",
-          error
-        )
+      (error) => console.error("Erreur lors de la requête AJAX pour ajouter aux favoris :", error)
     );
   }
-});
+}
+
+// Ajouter l'écouteur d'événements
+document.addEventListener("click", handleMoveToFavorites);
 
 // Appeler les fonctions au chargement de la page
 document.addEventListener("DOMContentLoaded", () => {
@@ -257,13 +256,25 @@ function updateProductTotals(data) {
 }
 
   // Fonction pour update la quantité Ajax :
-  const quantityInputs = document.querySelectorAll('[id^="quantityInput"]');
+const quantityForms = document.querySelectorAll('[id^="quantityForm"]');
 
-  quantityInputs.forEach((quantityInput) => {
+quantityForms.forEach((quantityForm) => {
+    quantityForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Empêcher la soumission du formulaire
+        updateQuantity(event);
+    });
+
+    const quantityInput = quantityForm.querySelector('.quantity_input');
+
     quantityInput.addEventListener("change", updateQuantity);
     quantityInput.addEventListener("blur", updateQuantity);
-  });
-
+    quantityInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Empêcher la soumission du formulaire
+            updateQuantity(event);
+        }
+    });
+});
   async function updateQuantity(event) {
     const quantityInput = event.target;
     const newQuantity = parseInt(quantityInput.value);

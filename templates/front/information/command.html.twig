@@ -9,16 +9,16 @@
 
 		{% if orders is not empty %}
 			{% for order in orders|reverse %}
-				<div class="card mb-4">
+				<div class="card mb-4 command-th" >
 					<div class="card-header">
-						<h5 class="card-title">Commande n°
+						<h5 class="card-title ">Commande n°
 							{{ order.getRef() }}
 							du
 							{{ order.getCreatedAt()|date('d/m/Y') }}</h5>
 					</div>
-					<div class="card-body">
+					<div class="card-body  ">
 						<div class="table-responsive">
-							<table class="table">
+							<table class="table order-table">
 								<thead>
 									<tr>
 										<th>Article</th>
@@ -30,7 +30,7 @@
 									{% set orderTotal = 0 %}
 									{% for orderLine in orderLines[order.getRef()] %}
 										<tr>
-											<td>{{ orderLine.getName() }}</td>
+											<td class="order-title">{{ orderLine.getName() }}</td>
 											<td class="text-center">{{ orderLine.getQuantity() }}</td>
 											<td class="text-center">{{ orderLine.getPrice() / 100 }}
 												€</td>
@@ -38,10 +38,10 @@
 										{% set orderTotal = orderTotal + (orderLine.getQuantity() * orderLine.getPrice()) %}
 									{% endfor %}
 									<tr>
-										<td colspan="2" class="text-end">
+										<td colspan="2" class="text-end ">
 											<strong>Total :</strong>
 										</td>
-										<td class="text-center">
+										<td class="text-center ">
 											<strong>{{ orderTotal / 100 }}
 												€</strong>
 										</td>

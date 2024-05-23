@@ -11043,3 +11043,19 @@ display: none;
   min-height: calc(100vh - 600px);
 }
 
+
+
+.paymentForm{
+  max-width: fit-content;
+}
+
+.PaymentTitle{
+  font-size: 2em;
+}
+
+
+.order-table thead th,
+.order-table tbody td {
+    width: 33%;  
+    
+}
