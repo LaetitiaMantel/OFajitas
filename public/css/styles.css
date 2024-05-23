@@ -11053,3 +11053,9 @@ display: none;
   font-size: 2em;
 }
 
+
+.order-table thead th,
+.order-table tbody td {
+    width: 33%;  
+    
+}
