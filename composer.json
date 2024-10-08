@@ -10,6 +10,7 @@
         "beberlei/doctrineextensions": "dev-master",
         "bluemmb/faker-picsum-photos-provider": "^2.0",
         "cocur/slugify": "^4.5",
+        "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-fixtures-bundle": "^3.6",
         "doctrine/doctrine-migrations-bundle": "^3.3",
